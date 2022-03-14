@@ -46,7 +46,7 @@ The example can also be run directly by referring to the github URL as shown:
 
 [source,sh]
 ----
-$ jbang camel@apache/camel run https://github.com/apache/camel-examples/tree/main/examples/jbang
+$ jbang camel@apache/camel run https://github.com/apache/camel-kamelets-examples/tree/main/jbang/hello-java
 ----
 
 You can even try other examples such as the polyglot example from Camel K:
