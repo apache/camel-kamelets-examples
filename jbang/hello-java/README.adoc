@@ -82,7 +82,7 @@ You can enable the developer console via `--console` flag as show:
 $ camel run Hey.java --console
 ----
 
-Then you can browse: http://localhost:8080/dev to introspect the running Camel applicaton.
+Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.
 
 
 === Help and contributions

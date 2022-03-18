@@ -81,10 +81,10 @@ And you can also run the example by using wildcards, instead of typing every fil
 $ camel run * --health
 ----
 
-Then you can access `http://localhost:8080/health` from a web browser to see the health status.
+Then you can access `http://localhost:8080/q/health` from a web browser to see the health status.
 
-Notice how you can check either the readiness or liveness health by invoking: `http://localhost:8080/health/live` and
-`http://localhost:8080/ready`. When the kafka brokers are not running then the liveness check should still be UP but
+Notice how you can check either the readiness or liveness health by invoking: `http://localhost:8080/q/health/live` and
+`http://localhost:8080/q/health/ready`. When the kafka brokers are not running then the liveness check should still be UP but
 readiness should be DOWN.
 
 
