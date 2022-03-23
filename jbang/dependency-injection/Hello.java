@@ -11,7 +11,7 @@ public class Hello extends RouteBuilder {
       from("timer:java?period=1000")
         .routeId("java")
         .process(e -> {
-           e.getMessage().setBody("SpringBoot");
+           e.getMessage().setBody("Jack");
         })
         .bean("myEcho", "echo")
         .bean("myLogger", "log(${body})");
