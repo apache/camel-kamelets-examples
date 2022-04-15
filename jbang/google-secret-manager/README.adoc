@@ -40,14 +40,14 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ camel run --modeline --properties=gcp-sec-integration.properties timer-gcp-sec-finnhub.yaml
+$ camel run --properties=gcp-sec-integration.properties timer-gcp-sec-finnhub.yaml
 ----
 
 Or run with JBang using the longer command line (without installing camel as app in JBang):
 
 [source,sh]
 ----
-$ jbang camel@apache/camel run --modeline --properties=gcp-sec-integration.properties timer-gcp-sec-finnhub.yaml
+$ jbang camel@apache/camel run --properties=gcp-sec-integration.properties timer-gcp-sec-finnhub.yaml
 ----
 
 You should see
@@ -108,7 +108,7 @@ You can enable the developer console via `--console` flag as show:
 
 [source,sh]
 ----
-$ camel run --modeline --properties=gcp-sec-integration.properties timer-gcp-sec-finnhub.yaml --console
+$ camel run --properties=gcp-sec-integration.properties timer-gcp-sec-finnhub.yaml --console
 ----
 
 Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.
