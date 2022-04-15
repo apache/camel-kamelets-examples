@@ -85,7 +85,7 @@ A new lock file was created, delete the file to stop running:
 2022-04-15 15:06:26.301  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.main.tracing=false
 2022-04-15 15:06:26.301  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.main.modeline=false
 2022-04-15 15:06:26.301  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.main.routesIncludePattern=file:timer-gcp-sec-finnhub.yaml
-2022-04-15 15:06:26.301  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.vault.gcp.serviceAccountKey=file:////home/oscerd/Desktop/gcp-sect-4f3b9dbbf3dd.json
+2022-04-15 15:06:26.301  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.vault.gcp.serviceAccountKey=file:////home/oscerd/Desktop/gcp-sect-4567sadtf.json
 2022-04-15 15:06:26.301  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.vault.gcp.projectId=gcp-sect
 2022-04-15 15:06:26.301  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.component.kamelet.location=classpath:/kamelets,github:apache:camel-kamelets/kamelets
 2022-04-15 15:06:26.301  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.component.rest.consumerComponentName=platform-http
