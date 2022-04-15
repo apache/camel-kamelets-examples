@@ -1,0 +1,125 @@
+== Google Secret Manager Vault Example
+
+In this sample you'll use the Google Secret Manager Vault Properties Source
+
+=== Install JBang
+
+First install JBang according to https://www.jbang.dev
+
+When JBang is installed then you should be able to run from a shell:
+
+[source,sh]
+----
+$ jbang --version
+----
+
+This will output the version of JBang.
+
+To run this example you can either install Camel on JBang via:
+
+[source,sh]
+----
+$ jbang app install camel@apache/camel
+----
+
+Which allows to run CamelJBang with `camel` as shown below.
+
+=== Setup the GCP Secret Manager service
+
+1. From the GCP Console
+2. Create a new project named "gcp-sec"
+3. Enable the Secret Manager API on the project "gcp-sec"
+4. Create a Service Account Key with the Secret Manager Administrator role or at least the ability to get the payload of a secret
+5. Save the Service Account File in Json format locally
+6. Set the correct project Id and service account key file path in the gcp-sec-integration.properties file
+7. In the Secret Manager console, create a secret named "finnhub-token" with a value retrieved from a test token from https://finnhub.io/
+
+=== How to run
+
+Then you can run this example using:
+
+[source,sh]
+----
+$ camel run --modeline --properties=gcp-sec-integration.properties timer-gcp-sec-finnhub.yaml
+----
+
+Or run with JBang using the longer command line (without installing camel as app in JBang):
+
+[source,sh]
+----
+$ jbang camel@apache/camel run --modeline --properties=gcp-sec-integration.properties timer-gcp-sec-finnhub.yaml
+----
+
+You should see
+
+```
+[jbang] Resolving dependencies...
+[jbang] Artifacts used for dependency management:
+         org.apache.camel:camel-bom:pom:3.16.0
+[jbang] org.apache.camel:camel-jbang-core:jar:3.16.0
+         org.apache.camel.kamelets:camel-kamelets:jar:0.7.1
+         org.apache.camel.kamelets:camel-kamelets-utils:jar:0.7.1
+Done
+[jbang] Dependencies resolved
+[jbang] Building jar...
+[jbang] Resolving dependencies...
+[jbang] Artifacts used for dependency management:
+         org.apache.camel:camel-bom:pom:3.16.0
+[jbang] org.apache.camel:camel-jbang-core:jar:3.16.0
+         org.apache.camel.kamelets:camel-kamelets:jar:0.7.1
+         org.apache.camel.kamelets:camel-kamelets-utils:jar:0.7.1
+Done
+[jbang] Dependencies resolved
+A new lock file was created, delete the file to stop running:
+/home/oscerd/workspace/apache-camel/camel-kamelets-examples/jbang/google-secret-manager/./.run8418006173788924608.camel.lock
+2022-04-15 15:06:24.964  INFO 12364 --- [           main] org.apache.camel.main.MainSupport        : Apache Camel (JBang) 3.16.0 is starting
+2022-04-15 15:06:25.166  INFO 12364 --- [           main] component.properties.PropertiesComponent : PropertiesComponent added custom PropertiesSource (factory): camel-dsl-modeline
+2022-04-15 15:06:26.222  INFO 12364 --- [           main] org.apache.camel.main.DownloaderHelper   : Downloaded dependency: org.apache.camel:camel-google-secret-manager:3.16.0 took: 985ms
+2022-04-15 15:06:26.300  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    : Auto-configuration summary
+2022-04-15 15:06:26.300  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.component.properties.location=file:///home/oscerd/workspace/apache-camel/camel-kamelets-examples/jbang/google-secret-manager/gcp-sec-integration.properties,
+2022-04-15 15:06:26.300  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.main.routes-include-pattern=file:timer-gcp-sec-finnhub.yaml
+2022-04-15 15:06:26.300  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.main.name=CamelJBang
+2022-04-15 15:06:26.301  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.main.shutdownTimeout=5
+2022-04-15 15:06:26.301  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.main.routesReloadEnabled=false
+2022-04-15 15:06:26.301  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.main.sourceLocationEnabled=true
+2022-04-15 15:06:26.301  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.main.tracing=false
+2022-04-15 15:06:26.301  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.main.modeline=false
+2022-04-15 15:06:26.301  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.main.routesIncludePattern=file:timer-gcp-sec-finnhub.yaml
+2022-04-15 15:06:26.301  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.vault.gcp.serviceAccountKey=file:////home/oscerd/Desktop/gcp-sect-4f3b9dbbf3dd.json
+2022-04-15 15:06:26.301  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.vault.gcp.projectId=gcp-sect
+2022-04-15 15:06:26.301  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.component.kamelet.location=classpath:/kamelets,github:apache:camel-kamelets/kamelets
+2022-04-15 15:06:26.301  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.component.rest.consumerComponentName=platform-http
+2022-04-15 15:06:26.301  INFO 12364 --- [           main] org.apache.camel.main.BaseMainSupport    :     camel.component.rest.producerComponentName=vertx-http
+2022-04-15 15:06:26.366  INFO 12364 --- [           main] e.camel.management.JmxManagementStrategy : JMX is enabled
+2022-04-15 15:06:28.206  INFO 12364 --- [           main] org.apache.camel.main.DownloaderHelper   : Downloaded dependency: org.apache.camel:camel-http:3.16.0 took: 383ms
+2022-04-15 15:06:28.334  INFO 12364 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 3.16.0 (CamelJBang) is starting
+2022-04-15 15:06:28.522  INFO 12364 --- [           main] e.camel.impl.engine.AbstractCamelContext : Routes startup (total:3 started:3)
+2022-04-15 15:06:28.522  INFO 12364 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started route1 (kamelet://timer-source)
+2022-04-15 15:06:28.522  INFO 12364 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started timer-source-1 (timer://tick)
+2022-04-15 15:06:28.522  INFO 12364 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started log-sink-2 (kamelet://source)
+2022-04-15 15:06:28.523  INFO 12364 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 3.16.0 (CamelJBang) started in 2s280ms (build:102ms init:1s990ms start:188ms)
+2022-04-15 15:06:30.137  INFO 12364 --- [ - timer://tick] info                                     : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.CachedOutputStream.WrappedInputStream, Body: {"c":165.29,"d":-5.11,"dp":-2.9988,"h":171.27,"l":165.05,"o":170.62,"pc":170.4,"t":1649966404}]
+
+```
+
+=== Developer Web Console
+
+You can enable the developer console via `--console` flag as show:
+
+[source,sh]
+----
+$ camel run --modeline --properties=gcp-sec-integration.properties timer-gcp-sec-finnhub.yaml --console
+----
+
+Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.
+
+
+=== Help and contributions
+
+If you hit any problem using Camel or have some feedback, then please
+https://camel.apache.org/community/support/[let us know].
+
+We also love contributors, so
+https://camel.apache.org/community/contributing/[get involved] :-)
+
+The Camel riders!
