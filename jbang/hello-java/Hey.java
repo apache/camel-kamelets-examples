@@ -11,6 +11,6 @@ public class Hey extends org.apache.camel.builder.RouteBuilder {
         .process(e -> {
            e.getMessage().setBody("Hello from Camel");
         })
-        .to("log:info");
+        .log("${body}");
   }
 }
