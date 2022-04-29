@@ -49,14 +49,13 @@ $ jbang camel@apache/camel run *
 
 === Live reload
 
-You can run the example with reload enabled which allows you to edit the example,
+You can run the example in dev mode which allows you to edit the example,
 and hot-reload when the file is saved.
 
 [source,sh]
 ----
-$ camel run * --reload
+$ camel run * --dev
 ----
-
 
 
 === Help and contributions

@@ -65,12 +65,12 @@ $ jbang camel@apache/camel run https://github.com/apache/camel-k/tree/main/examp
 
 === Live reload
 
-You can run the example with reload enabled which allows you to edit the example,
+You can run the example in dev mode which allows you to edit the example,
 and hot-reload when the file is saved.
 
 [source,sh]
 ----
-$ camel run Hey.java --reload
+$ camel run Hey.java --dev
 ----
 
 === Developer Web Console
