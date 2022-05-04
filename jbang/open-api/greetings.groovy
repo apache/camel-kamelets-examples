@@ -16,10 +16,6 @@
  * limitations under the License.
  */
 
-//
-//  kamel run --dev --name greetings --open-api greetings-api.json greetings.groovy
-// 
-
 from('direct:greeting-api')
     .to('log:api?showAll=true&multiline=true') 
     .setBody()
