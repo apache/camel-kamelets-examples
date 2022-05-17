@@ -1,17 +1,11 @@
 == Pipe
 
 This example shows how to use Camel with terminal scripting.
-The script is coded in Java in the `to_csv.java` file.
 
-The script reads from system:in (using the camel stream component)
-which automatic will split the input line by line. Each line
-is aggregated and assembled into a single comma separated output,
-that is routed to system:out.
+There are 2 scripts:
 
-Yes this is overkill to use Camel to transform such kind of task,
-but we wanted to keep this example simple, but use EIPs instead
-of a basic from -> to route.
-
+- upper.yaml - Upper cases the input
+- to_csv.java - Aggregates the input into a single comma separated output
 
 === Install JBang
 
@@ -26,11 +20,12 @@ $ jbang --version
 
 This will output the version of JBang.
 
-To make the example runnable as a script, you must ensure the file
+To make the example runnable as a script, you must ensure the files
 has execution permission:
 
 [source,sh]
 ----
+chmod +x upper.yaml
 chmod +x to_csv.java
 ----
 
@@ -38,7 +33,7 @@ To run this example you can then run the script:
 
 [source,sh]
 ----
-echo "Hello\nWorld" | ./to_csv.java
+echo "Hello\nWorld" | ./upper.yaml
 ----
 
 You can combine this with more pipes and filters scripting such as.
@@ -46,7 +41,7 @@ For example from a file that has a set of words:
 
 [source,sh]
 ----
-cat words.txt | sort | ./to_csv.java
+cat words.txt | ./upper.yaml | sort | ./to_csv.java
 ----
 
 === Help and contributions
