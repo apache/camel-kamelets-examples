@@ -1,3 +1,4 @@
 target/
 .camel-jbang/
+.vscode/
 camel-runner.jar
