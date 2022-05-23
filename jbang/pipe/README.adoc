@@ -4,8 +4,8 @@ This example shows how to use Camel with terminal scripting.
 
 There are 2 scripts:
 
-- upper.yaml - Upper cases the input
-- to_csv.java - Aggregates the input into a single comma separated output
+- `upper.yaml` - Upper cases the input
+- `to_csv.java` - Aggregates the input into a single comma separated output
 
 === Install JBang
 
