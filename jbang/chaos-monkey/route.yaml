@@ -1,0 +1,10 @@
+- route:
+    from:
+      uri: kamelet:timer-source?period=5000&message=hello
+      steps:
+        - to:
+            uri: bean:chaosMonkeyCheck?method=status
+        - to:
+            uri: microprofile-metrics:counter:messages
+        - log:
+            message: ${body}
