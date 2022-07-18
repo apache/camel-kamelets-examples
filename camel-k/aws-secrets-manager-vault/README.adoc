@@ -48,6 +48,8 @@ Now we are able to run the integration.
 
 === Run integration
 
+Before running the command add your AWS Credentials correctly in the command line.
+
 ```
 > kamel run -p camel.vault.aws.secretKey=<aws_secret_key> -p camel.vault.aws.accessKey=<aws_access_key> -p camel.vault.aws.region=<aws_region> --build-property quarkus.camel.service.discovery.include-patterns=META-INF/services/org/apache/camel/properties-function/* timer-finnhub-aws-secrets-manager-vault.yaml
 ```
