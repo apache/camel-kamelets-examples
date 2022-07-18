@@ -1,0 +1,97 @@
+== AWS Secrets Manager Vault usage Example
+
+In this sample you'll use the AWS Secrets Manager Camel Vault Support.
+
+=== Setup an API Key for Finnhub.io
+
+First go to Finnhub.io and get an API Key. Copy the API Key value.
+
+Then run the following command to create a secret on AWS Secrets Manager service.
+
+aws secretsmanager create-secret --name finnhub-token --region eu-west-1 --secret-string <api_key>
+
+=== Run Minikube and install Camel K
+
+Run the following command:
+
+```
+> minikube start --addons registry
+.
+.
+.
+.
+> kamel version
+Camel K Client 1.9.2
+> kamel install
+OLM is not available in the cluster. Fallback to regular installation.
+Camel K installed in namespace default 
+```
+
+Now check the status of Camel K
+
+```
+> kubectl get pods -w
+NAME                                READY   STATUS              RESTARTS   AGE
+camel-k-operator-848fd8785b-sr5nt   0/1     ContainerCreating   0          44s
+.
+.
+.
+.
+.
+.
+camel-k-operator-848fd8785b-sr5nt   1/1     Running             0          63s
+```
+
+Until it will change to running.
+
+Now we are able to run the integration.
+
+=== Run integration
+
+```
+> kamel run -p camel.vault.aws.secretKey=<aws_secret_key> -p camel.vault.aws.accessKey=<aws_access_key> -p camel.vault.aws.region=<aws_region> --build-property quarkus.camel.service.discovery.include-patterns=META-INF/services/org/apache/camel/properties-function/* timer-finnhub-aws-secrets-manager-vault.yaml
+```
+
+Again check for the status of integration:
+
+```
+> kubectl get it
+NAME                                      PHASE          KIT                        REPLICAS
+timer-finnhub-aws-secrets-manager-vault   Building Kit   kit-cbakpnc54eaak6bh1pu0   
+```
+
+until replicas become equal to 1
+
+```
+> kubectl get it
+NAME                                      PHASE          KIT                        REPLICAS
+timer-finnhub-aws-secrets-manager-vault   Building Kit   kit-cbakpnc54eaak6bh1pu0   1
+```
+
+Now check the pod logs
+
+```
+> kubectl get pods
+NAME                                                       READY   STATUS    RESTARTS   AGE
+camel-k-operator-848fd8785b-sr5nt                          1/1     Running   0          5m15s
+timer-finnhub-aws-secrets-manager-vault-69f5cd4cc4-g7gs8   1/1     Running   0          47s
+.
+.
+.
+> kubectl logs timer-finnhub-aws-secrets-manager-vault-69f5cd4cc4-g7gs8
+```
+
+and you should see:
+
+```
+2022-07-18 12:18:03,085 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.16.0 (camel-1) is starting
+2022-07-18 12:18:03,137 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Routes startup (total:3 started:3)
+2022-07-18 12:18:03,137 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main)     Started route1 (kamelet://timer-source)
+2022-07-18 12:18:03,138 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main)     Started timer-source-1 (timer://tick)
+2022-07-18 12:18:03,138 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main)     Started log-sink-2 (kamelet://source)
+2022-07-18 12:18:03,139 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.16.0 (camel-1) started in 1s305ms (build:0ms init:1s251ms start:54ms)
+2022-07-18 12:18:03,149 INFO  [io.quarkus] (main) camel-k-integration 1.9.2 on JVM (powered by Quarkus 2.8.0.Final) started in 4.299s. 
+2022-07-18 12:18:03,150 INFO  [io.quarkus] (main) Profile prod activated. 
+2022-07-18 12:18:03,150 INFO  [io.quarkus] (main) Installed features: [camel-aws-secrets-manager, camel-bean, camel-core, camel-http, camel-k-core, camel-k-runtime, camel-kamelet, camel-log, camel-timer, camel-yaml-dsl, cdi]
+2022-07-18 12:18:04,482 INFO  [info] (Camel (camel-1) thread #1 - timer://tick) Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.CachedOutputStream.WrappedInputStream, Body: {"c":150.17,"d":1.7,"dp":1.145,"h":150.86,"l":148.2,"o":149.78,"pc":148.47,"t":1657915203}]
+```
