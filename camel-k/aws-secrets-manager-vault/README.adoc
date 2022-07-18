@@ -8,7 +8,9 @@ First go to Finnhub.io and get an API Key. Copy the API Key value.
 
 Then run the following command to create a secret on AWS Secrets Manager service.
 
+```
 aws secretsmanager create-secret --name finnhub-token --region eu-west-1 --secret-string <api_key>
+```
 
 === Run Minikube and install Camel K
 
