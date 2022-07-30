@@ -20,7 +20,7 @@ public class ChaosMonkey extends org.apache.camel.impl.health.AbstractHealthChec
     @Override
     public void doCall(org.apache.camel.health.HealthCheckResultBuilder builder, java.util.Map<String, Object> options) {
         if (num < 4) {
-            builder.detail("number-number", num).down();
+            builder.detail("chaos-number", num).down();
         } else {
             builder.detail("chaos-number", num).up();    
         }
