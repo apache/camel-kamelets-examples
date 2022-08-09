@@ -1,0 +1,9 @@
+# camel-k: language=yaml
+
+- from:
+    uri: "stream:http"
+    parameters:
+      httpUrl: "http://localhost:8500"
+      scanStream: true
+    steps:
+      - log: "${body}"
