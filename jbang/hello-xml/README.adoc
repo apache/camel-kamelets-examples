@@ -1,6 +1,6 @@
 == Hello Java
 
-This example is a hello world example to run a Java route with Camel JBang.
+This example is a hello world example to run a XML route with Camel JBang.
 
 === Install JBang
 
@@ -30,14 +30,14 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ camel run Hey.java
+$ camel run hi.xml
 ----
 
 Or run with JBang using the longer command line (without installing camel as app in JBang):
 
 [source,sh]
 ----
-$ jbang camel@apache/camel run Hey.java
+$ jbang camel@apache/camel run hi.xml
 ----
 
 === Live reload
@@ -47,7 +47,7 @@ and hot-reload when the file is saved.
 
 [source,sh]
 ----
-$ camel run Hey.java --dev
+$ camel run hi.xml --dev
 ----
 
 === Run directly from github
@@ -56,7 +56,7 @@ The example can also be run directly by referring to the github URL as shown:
 
 [source,sh]
 ----
-$ jbang camel@apache/camel run https://github.com/apache/camel-kamelets-examples/tree/main/jbang/hello-java
+$ jbang camel@apache/camel run https://github.com/apache/camel-kamelets-examples/tree/main/jbang/hello-xml
 ----
 
 === Developer Web Console
@@ -65,7 +65,7 @@ You can enable the developer console via `--console` flag as show:
 
 [source,sh]
 ----
-$ camel run Hey.java --console
+$ camel run hi.xml --console
 ----
 
 Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.
