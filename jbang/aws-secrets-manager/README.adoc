@@ -1,0 +1,98 @@
+== AWS Secrets Manager Vault Example
+
+In this sample you'll use the AWS Secrets Manager Vault Properties Source
+
+=== Install JBang
+
+First install JBang according to https://www.jbang.dev
+
+When JBang is installed then you should be able to run from a shell:
+
+[source,sh]
+----
+$ jbang --version
+----
+
+This will output the version of JBang.
+
+To run this example you can either install Camel on JBang via:
+
+[source,sh]
+----
+$ jbang app install camel@apache/camel
+----
+
+Which allows to run CamelJBang with `camel` as shown below.
+
+=== Setup the AWS Secret Manager service
+
+Create a secret on AWS
+
+[source,sh]
+----
+aws secretsmanager create-secret --name SecretTest --description "Create a secret" --region eu-west-1 --secret-string secret 
+----
+
+=== Setting up the AWS credentials
+
+This example uses the ProfileCredentialsProvider from AWS SDK v2. So you'll need to have a configuration file, locally to your machine.
+
+In particular you'll need to have a file placed in `~/.aws/credentials`
+
+with a content like the following
+
+[source,sh]
+----
+[default]
+aws_access_key_id = accessKey
+aws_secret_access_key = secretKey
+----
+
+=== How to run
+
+Then you can run this example using:
+
+[source,sh]
+----
+$ camel run --properties=aws-sec-integration.properties timer-aws-secret-reloading.yaml
+----
+
+Or run with JBang using the longer command line (without installing camel as app in JBang):
+
+[source,sh]
+----
+$ jbang camel@apache/camel run --properties=aws-sec-integration.properties timer-aws-secret-reloading.yaml
+----
+
+=== Modify the secret
+
+While the integration is running you could modify the secret and the integration will reload automatically
+
+[source,sh]
+----
+aws secretsmanager put-secret-value --secret-id SecretTest --region eu-west-1 --secret-string secretImproved
+----
+
+Now, get back, to the running Camel application and wait for the reloading.
+
+=== Developer Web Console
+
+You can enable the developer console via `--console` flag as show:
+
+[source,sh]
+----
+$ camel run --properties=aws-sec-integration.properties timer-aws-secret-reloading.yaml --console
+----
+
+Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.
+
+
+=== Help and contributions
+
+If you hit any problem using Camel or have some feedback, then please
+https://camel.apache.org/community/support/[let us know].
+
+We also love contributors, so
+https://camel.apache.org/community/contributing/[get involved] :-)
+
+The Camel riders!
