@@ -57,6 +57,13 @@ Then you can run this example using:
 $ camel run --properties=aws-sec-integration.properties timer-aws-secret-reloading.yaml
 ----
 
+Or run it even shorter:
+
+[source,sh]
+----
+$ camel run *
+----
+
 Or run with JBang using the longer command line (without installing camel as app in JBang):
 
 [source,sh]
@@ -64,7 +71,16 @@ Or run with JBang using the longer command line (without installing camel as app
 $ jbang camel@apache/camel run --properties=aws-sec-integration.properties timer-aws-secret-reloading.yaml
 ----
 
+
+
 === Modify the secret
+
+You can list the secrets in use from the AWS security vault:
+
+[source,sh]
+----
+camel get vault
+----
 
 While the integration is running you could modify the secret and the integration will reload automatically
 
@@ -74,6 +90,13 @@ aws secretsmanager put-secret-value --secret-id SecretTest --region eu-west-1 --
 ----
 
 Now, get back, to the running Camel application and wait for the reloading.
+
+And the secret should also now be listed as updated form the get vault command:
+
+[source,sh]
+----
+camel get vault
+----
 
 === Developer Web Console
 
