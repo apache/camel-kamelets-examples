@@ -23,7 +23,7 @@ Run the following command:
 .
 .
 > kamel version
-Camel K Client 1.9.2
+Camel K Client 1.10
 > kamel install
 OLM is not available in the cluster. Fallback to regular installation.
 Camel K installed in namespace default 
@@ -53,7 +53,7 @@ Now we are able to run the integration.
 Before running the command add your AWS Credentials correctly in the command line.
 
 ```
-> kamel run -p camel.vault.aws.secretKey=<aws_secret_key> -p camel.vault.aws.accessKey=<aws_access_key> -p camel.vault.aws.region=<aws_region> --build-property quarkus.camel.service.discovery.include-patterns=META-INF/services/org/apache/camel/properties-function/* timer-finnhub-aws-secrets-manager-vault.yaml
+> kamel run -p camel.vault.aws.secretKey=<aws_secret_key> -p camel.vault.aws.accessKey=<aws_access_key> -p camel.vault.aws.region=<aws_region> timer-finnhub-aws-secrets-manager-vault.yaml
 ```
 
 Again check for the status of integration:
@@ -88,14 +88,14 @@ timer-finnhub-aws-secrets-manager-vault-69f5cd4cc4-g7gs8   1/1     Running   0  
 and you should see:
 
 ```
-2022-07-18 12:18:03,085 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.16.0 (camel-1) is starting
-2022-07-18 12:18:03,137 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Routes startup (total:3 started:3)
-2022-07-18 12:18:03,137 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main)     Started route1 (kamelet://timer-source)
-2022-07-18 12:18:03,138 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main)     Started timer-source-1 (timer://tick)
-2022-07-18 12:18:03,138 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main)     Started log-sink-2 (kamelet://source)
-2022-07-18 12:18:03,139 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.16.0 (camel-1) started in 1s305ms (build:0ms init:1s251ms start:54ms)
-2022-07-18 12:18:03,149 INFO  [io.quarkus] (main) camel-k-integration 1.9.2 on JVM (powered by Quarkus 2.8.0.Final) started in 4.299s. 
-2022-07-18 12:18:03,150 INFO  [io.quarkus] (main) Profile prod activated. 
-2022-07-18 12:18:03,150 INFO  [io.quarkus] (main) Installed features: [camel-aws-secrets-manager, camel-bean, camel-core, camel-http, camel-k-core, camel-k-runtime, camel-kamelet, camel-log, camel-timer, camel-yaml-dsl, cdi]
-2022-07-18 12:18:04,482 INFO  [info] (Camel (camel-1) thread #1 - timer://tick) Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.CachedOutputStream.WrappedInputStream, Body: {"c":150.17,"d":1.7,"dp":1.145,"h":150.86,"l":148.2,"o":149.78,"pc":148.47,"t":1657915203}]
+2022-09-14 13:17:42,322 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.18.0 (camel-1) is starting
+2022-09-14 13:17:42,340 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Routes startup (started:3)
+2022-09-14 13:17:42,340 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main)     Started route1 (kamelet://timer-source)
+2022-09-14 13:17:42,340 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main)     Started timer-source-1 (timer://tick)
+2022-09-14 13:17:42,341 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main)     Started log-sink-2 (kamelet://source)
+2022-09-14 13:17:42,341 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.18.0 (camel-1) started in 1s63ms (build:0ms init:1s44ms start:19ms)
+2022-09-14 13:17:42,344 INFO  [io.quarkus] (main) camel-k-integration 1.10.0 on JVM (powered by Quarkus 2.11.3.Final) started in 4.015s. 
+2022-09-14 13:17:42,345 INFO  [io.quarkus] (main) Profile prod activated. 
+2022-09-14 13:17:42,345 INFO  [io.quarkus] (main) Installed features: [camel-aws-secrets-manager, camel-bean, camel-core, camel-http, camel-k-core, camel-k-runtime, camel-kamelet, camel-kubernetes, camel-log, camel-timer, camel-yaml-dsl, cdi, kubernetes-client, security]
+2022-09-14 13:17:43,706 INFO  [info] (Camel (camel-1) thread #1 - timer://tick) Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"c":153.84,"d":-9.59,"dp":-5.868,"h":160.54,"l":153.381,"o":159.9,"pc":163.43,"t":1663099204}]
 ```
