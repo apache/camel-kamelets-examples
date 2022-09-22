@@ -32,7 +32,7 @@ Then you'll need to create an event grid subscription to Eventhubs with a Blob A
 
 It's not totally easy to do through the az cli, but everything could be done through the Azure UI. We're planning to improve this example by having all the instructions exposed as Azure CLI commands.
 
-Set all the credentials in the application.properties file correctly
+Set all the credentials in the application.properties file correctly.
 
 Create a secret on Azure
 
