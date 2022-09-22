@@ -1,0 +1,132 @@
+== Azure Key Vault Example
+
+In this sample you'll use the Azure Key Vault Properties Source
+
+=== Install JBang
+
+First install JBang according to https://www.jbang.dev
+
+When JBang is installed then you should be able to run from a shell:
+
+[source,sh]
+----
+$ jbang --version
+----
+
+This will output the version of JBang.
+
+To run this example you can either install Camel on JBang via:
+
+[source,sh]
+----
+$ jbang app install camel@apache/camel
+----
+
+Which allows to run CamelJBang with `camel` as shown below.
+
+=== Setup the Azure Key Vault service
+
+You'll need to have a key vault as first step.
+
+Then you'll need to create an event grid subscription to Eventhubs with a Blob Account and container for storing the checkpoint.
+
+It's not totally easy to do through the az cli, but everything could be done through the Azure UI. We're planning to improve this example by having all the instructions exposed as Azure CLI commands.
+
+Set all the credentials in the application.properties file correctly
+
+Create a secret on Azure
+
+[source,sh]
+----
+az keyvault secret set --name hello --vault-name <vault_name> --value 'Camel Rocks!'
+----
+
+=== Setting up the Azure Key Vault credentials
+
+You should have a file like this in the end:
+
+[source,sh]
+----
+camel.vault.azure.tenantId = <tenant_id>
+camel.vault.azure.clientId = <client_id>
+camel.vault.azure.clientSecret = <client_secret>
+camel.vault.azure.vaultName = <vault_name>
+camel.vault.azure.refreshEnabled=true
+camel.vault.azure.refreshPeriod=15000
+camel.vault.azure.secrets=hello*
+camel.vault.azure.eventhubConnectionString=<eventhub_conn_string>
+camel.vault.azure.blobAccountName=<blob_account_name>
+camel.vault.azure.blobContainerName=<blob_container_name>
+camel.vault.azure.blobAccessKey=<blob_access_key>
+camel.main.context-reload-enabled = true
+----
+
+=== How to run
+
+Then you can run this example using:
+
+[source,sh]
+----
+$ camel run --properties=azure-sec-integration.properties timer-azure-key-vault-reloading.yaml
+----
+
+Or run it even shorter:
+
+[source,sh]
+----
+$ camel run *
+----
+
+Or run with JBang using the longer command line (without installing camel as app in JBang):
+
+[source,sh]
+----
+$ jbang camel@apache/camel run --properties=azure-sec-integration.properties timer-azure-key-vault-reloading.yaml
+----
+
+=== Modify the secret
+
+You can list the secrets in use from the Azure security vault:
+
+[source,sh]
+----
+camel get vault
+----
+
+While the integration is running you could modify the secret and the integration will reload automatically
+
+[source,sh]
+----
+az keyvault secret set --name hello --vault-name <vault_name> --value 'Camel Rocks reloaded!'
+----
+
+Now, get back, to the running Camel application and wait for the reloading.
+
+And the secret should also now be listed as updated form the get vault command:
+
+[source,sh]
+----
+camel get vault
+----
+
+=== Developer Web Console
+
+You can enable the developer console via `--console` flag as show:
+
+[source,sh]
+----
+$ camel run --properties=azure-sec-integration.properties timer-azure-key-vault-reloading.yaml --console
+----
+
+Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.
+
+
+=== Help and contributions
+
+If you hit any problem using Camel or have some feedback, then please
+https://camel.apache.org/community/support/[let us know].
+
+We also love contributors, so
+https://camel.apache.org/community/contributing/[get involved] :-)
+
+The Camel riders!
