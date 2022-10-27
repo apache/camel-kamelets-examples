@@ -1,0 +1,26 @@
+apiVersion: camel.apache.org/v1
+kind: Integration
+metadata:
+  name: echo
+spec:
+  sources:
+    - content: |
+       // using package names is not supported so the class is in root package
+       @org.apache.camel.BindToRegistry("echo")
+       public class MyEchoBean {
+         public String echo(String body) {
+             return body + body;
+         }
+       }
+      name: MyEchoBean.java
+  flows:
+    - from:
+        uri: "timer:yaml"
+        parameters:
+          period: "1000"
+        steps:
+          - setBody:
+              constant: "HelloWorld"
+          - setBody:
+              simple: "${bean:echo}"
+          - log: "${body}"
