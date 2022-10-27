@@ -9,7 +9,7 @@ spec:
        @org.apache.camel.BindToRegistry("echo")
        public class MyEchoBean {
          public String echo(String body) {
-             return body + body;
+             return body + " " + body + "!";
          }
        }
       name: MyEchoBean.java
@@ -20,7 +20,7 @@ spec:
           period: "1000"
         steps:
           - setBody:
-              constant: "HelloWorld"
-          - setBody:
-              simple: "${bean:echo}"
+              constant: "Hello World"
+          - bean:
+              ref: "echo"
           - log: "${body}"
