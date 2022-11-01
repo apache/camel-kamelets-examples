@@ -1,0 +1,26 @@
+- route:
+    from:
+      uri: timer:yaml
+      steps:
+        - setBody:
+            expression:
+              constant:
+                expression: Hello Camel from yaml
+        - circuitBreaker:
+            steps:
+              - filter:
+                  expression:
+                    simple:
+                      expression: ${random(10)} > 2
+                  steps:
+                    - throwException:
+                        message: Forced error
+                        exceptionType: java.lang.IllegalArgumentException
+            resilience4jConfiguration:
+              minimumNumberOfCalls: 10
+              failureRateThreshold: 50
+              waitDurationInOpenState: 20
+        - log:
+            message: "${body} (CircuitBreaker is open: ${exchangeProperty.CamelCircuitBreakerResponseShortCircuited})"
+      parameters:
+        period: '1000'
