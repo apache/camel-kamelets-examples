@@ -1,0 +1,153 @@
+== AWS S3 CDC Example
+
+In this sample you'll use the AWS S3 CDC Source Kamelet.
+
+Through the usage of Eventbridge and SQS Services you'll be able to consume events from specific bucket.
+
+=== Install JBang
+
+First install JBang according to https://www.jbang.dev
+
+When JBang is installed then you should be able to run from a shell:
+
+[source,sh]
+----
+$ jbang --version
+----
+
+This will output the version of JBang.
+
+To run this example you can either install Camel on JBang via:
+
+[source,sh]
+----
+$ jbang app install camel@apache/camel
+----
+
+Which allows to run CamelJBang with `camel` as shown below.
+
+=== Setup the AWS S3 bucket, SQS Queue and Eventbrige Rule
+
+You'll need a fully working AWS CLI locally.
+
+Create a bucket on AWS on a particular region
+
+[source,sh]
+----
+aws s3api create-bucket --bucket cdc-s3-bucket --region eu-west-1 --create-bucket-configuration LocationConstraint=eu-west-1
+----
+
+Enable Eventbridge notification on the bucket
+
+[source,sh]
+----
+aws s3api put-bucket-notification-configuration --bucket cdc-s3-bucket --region eu-west-1 --notification-configuration '{ "EventBridgeConfiguration": {} }'
+----
+
+Add an Eventbridge rule on the bucket
+
+[source,sh]
+----
+aws events put-rule --name "s3-events-cdc" --event-pattern "{\"source\":[\"aws.s3\"],  \"detail\": {\"bucket\": { \"name\": [\"cdc-s3-bucket\"]}}}" --region=eu-west-1
+----
+
+Create an SQS Queue where we're going to receive the notification
+
+[source,sh]
+----
+aws sqs create-queue --queue-name test-queue-3 --region eu-west-1
+----
+
+Modify Access Policy for the queue just created. Don't forget to edit the policy-queue.json file (by adding the correct rule_arn and queue_arn), before submitting the command.
+
+[source,sh]
+----
+aws sqs set-queue-attributes --queue-url <just_created_queue_arn> --attributes file://policy-queue.json
+----
+
+Add a target for Eventbridge Rule which will be the SQS Queue just created
+
+[source,sh]
+----
+aws events put-targets --rule s3-events-cdc --targets "Id"="sqs-sub","Arn"="<just_created_queue_arn>" --region eu-west-1
+----
+
+=== How to run
+
+Then you can run this example using:
+
+[source,sh]
+----
+$ camel run aws-s3-cdc-log.yaml
+----
+
+Or run it even shorter:
+
+[source,sh]
+----
+$ camel run *
+----
+
+Or run with JBang using the longer command line (without installing camel as app in JBang):
+
+[source,sh]
+----
+$ jbang camel@apache/camel run aws-s3-cdc-log.yaml
+----
+
+=== Developer Web Console
+
+You can enable the developer console via `--console` flag as show:
+
+[source,sh]
+----
+$ camel run aws-s3-cdc-log.yaml --console
+----
+
+Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.
+
+=== Create and delete an object
+
+While the integration is running you can run the following commands:
+
+[source,sh]
+----
+aws s3api put-object --bucket cdc-s3-bucket --key example-file-uploaded.txt --body example-file.txt --region eu-west-1
+{
+    "ETag": "\"2b6153cbc11ea06a6d0b502a64b77e3c\""
+}
+aws s3api delete-object --bucket cdc-s3-bucket --key example-file.txt
+----
+
+[source,sh]
+----
+022-11-02 15:13:03.747  INFO 120300 --- [           main] he.camel.cli.connector.LocalCliConnector : Camel CLI enabled (local)
+2022-11-02 15:13:08.570  INFO 120300 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 3.20.0-SNAPSHOT (aws-s3-cdc-log) is starting
+2022-11-02 15:13:08.726  INFO 120300 --- [           main] org.apache.camel.main.BaseMainSupport    : Property-placeholders summary
+2022-11-02 15:13:08.727  INFO 120300 --- [           main] org.apache.camel.main.BaseMainSupport    :     [s-s3-cdc-source.kamelet.yaml] queueNameOrArn=test-queue-3
+2022-11-02 15:13:08.727  INFO 120300 --- [           main] org.apache.camel.main.BaseMainSupport    :     [s-s3-cdc-source.kamelet.yaml] accessKey=xxxxxx
+2022-11-02 15:13:08.727  INFO 120300 --- [           main] org.apache.camel.main.BaseMainSupport    :     [s-s3-cdc-source.kamelet.yaml] region=eu-west-1
+2022-11-02 15:13:08.727  INFO 120300 --- [           main] org.apache.camel.main.BaseMainSupport    :     [s-s3-cdc-source.kamelet.yaml] secretKey=xxxxxx
+2022-11-02 15:13:08.727  INFO 120300 --- [           main] org.apache.camel.main.BaseMainSupport    :     [s-s3-cdc-source.kamelet.yaml] getObject=true
+2022-11-02 15:13:08.727  INFO 120300 --- [           main] org.apache.camel.main.BaseMainSupport    :     [log-sink.kamelet.yaml]        showStreams=true
+2022-11-02 15:13:08.741  INFO 120300 --- [           main] e.camel.impl.engine.AbstractCamelContext : Routes startup (started:3)
+2022-11-02 15:13:08.741  INFO 120300 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started route1 (kamelet://aws-s3-cdc-source)
+2022-11-02 15:13:08.741  INFO 120300 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started aws-s3-cdc-source-1 (aws2-sqs://test-queue-3)
+2022-11-02 15:13:08.741  INFO 120300 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started log-sink-2 (kamelet://source)
+2022-11-02 15:13:08.742  INFO 120300 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 3.20.0-SNAPSHOT (aws-s3-cdc-log) started in 4s272ms (build:106ms init:3s995ms start:171ms JVM-uptime:6s)
+
+
+2022-11-02 15:13:30.977  INFO 120300 --- [://test-queue-3] info                                     : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: Text example]
+2022-11-02 15:13:41.250  INFO 120300 --- [://test-queue-3] info                                     : Exchange[ExchangePattern: InOnly, BodyType: com.fasterxml.jackson.databind.node.ObjectNode, Body: {  "version" : "0",  "id" : "d54290df-2ad9-31ff-308b-8331fee7344a",  "detail-type" : "Object Deleted",  "source" : "aws.s3",  "account" : "xxxx",  "time" : "2022-11-02T14:13:37Z",  "region" : "eu-west-1",  "resources" : [ "arn:aws:s3:::cdc-s3-bucket" ],  "detail" : {    "version" : "0",    "bucket" : {      "name" : "cdc-s3-bucket"    },    "object" : {      "key" : "example-file.txt",      "sequencer" : "0063627B110D43CE5E"    },    "request-id" : "xxxx",    "requester" : "xxxx",    "source-ip-address" : "xxxx",    "reason" : "DeleteObject",    "deletion-type" : "Permanently Deleted"  }}]
+----
+
+
+=== Help and contributions
+
+If you hit any problem using Camel or have some feedback, then please
+https://camel.apache.org/community/support/[let us know].
+
+We also love contributors, so
+https://camel.apache.org/community/contributing/[get involved] :-)
+
+The Camel riders!
