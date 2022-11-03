@@ -72,6 +72,35 @@ Add a target for Eventbridge Rule which will be the SQS Queue just created
 aws events put-targets --rule s3-events-cdc --targets "Id"="sqs-sub","Arn"="<just_created_queue_arn>" --region eu-west-1
 ----
 
+=== Setup the AWS S3 bucket, SQS Queue and Eventbrige Rule through Terraform
+
+If you are in a hurry you can also try this example by running the terraform configuration provided in terraform folder.
+
+[source,sh]
+----
+cd terraform/
+----
+
+and then run
+
+[source,sh]
+----
+terraform init
+----
+
+At this point you should be to run the configuration
+
+[source,sh]
+----
+terraform apply -var="s3_bucket_name=s3-eventbridge-test" -var="sqs_queue_name=sqs-eventbridge-test"
+----
+
+You can specify whatever bucket name or SQS name you want.
+
+At the end the AWS enviroment on your account will be completed, and you could go ahead with the example.
+
+Don't forget to specify the correct sqs queue name in the yaml file and adding correct credentials for AWS.
+
 === How to run
 
 Then you can run this example using:
@@ -141,6 +170,27 @@ aws s3api delete-object --bucket cdc-s3-bucket --key example-file.txt
 2022-11-02 15:13:41.250  INFO 120300 --- [://test-queue-3] info                                     : Exchange[ExchangePattern: InOnly, BodyType: com.fasterxml.jackson.databind.node.ObjectNode, Body: {  "version" : "0",  "id" : "d54290df-2ad9-31ff-308b-8331fee7344a",  "detail-type" : "Object Deleted",  "source" : "aws.s3",  "account" : "xxxx",  "time" : "2022-11-02T14:13:37Z",  "region" : "eu-west-1",  "resources" : [ "arn:aws:s3:::cdc-s3-bucket" ],  "detail" : {    "version" : "0",    "bucket" : {      "name" : "cdc-s3-bucket"    },    "object" : {      "key" : "example-file.txt",      "sequencer" : "0063627B110D43CE5E"    },    "request-id" : "xxxx",    "requester" : "xxxx",    "source-ip-address" : "xxxx",    "reason" : "DeleteObject",    "deletion-type" : "Permanently Deleted"  }}]
 ----
 
+=== Cleanup AWS S3 bucket, SQS Queue and Eventbrige Rule through Terraform
+
+You'll need to cleanup everything from AWS console or CLI.
+
+If you used terraform it will be enough to run terraform destroy
+
+[source,sh]
+----
+cd terraform/
+----
+
+At this point you should be to run the destroy
+
+[source,sh]
+----
+terraform destroy -var="s3_bucket_name=s3-eventbridge-test" -var="sqs_queue_name=sqs-eventbridge-test"
+----
+
+You'll need to specify the same var used for terraform apply.
+
+At the end the AWS enviroment on your account will be clean.
 
 === Help and contributions
 
