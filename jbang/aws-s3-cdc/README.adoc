@@ -92,7 +92,7 @@ At this point you should be to run the configuration
 
 [source,sh]
 ----
-terraform apply -var="s3_bucket_name=s3-eventbridge-test" -var="sqs_queue_name=sqs-eventbridge-test"
+terraform apply -var="s3_bucket_name=s3-eventbridge-test-123" -var="sqs_queue_name=sqs-eventbridge-test-123"
 ----
 
 You can specify whatever bucket name or SQS name you want.

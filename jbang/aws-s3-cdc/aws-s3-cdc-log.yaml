@@ -19,11 +19,11 @@
     from:
       uri: "kamelet:aws-s3-cdc-source"
       parameters:
-        queueNameOrArn: "test-queue-3"
+        queueNameOrArn: "sqs-eventbridge-test-123"
         accessKey: <access_key>
         secretKey: <secret_key>
         region: "eu-west-1"
-        getObject: "true"
+        getBody: true
       steps:
       - to: 
           uri: "kamelet:log-sink"

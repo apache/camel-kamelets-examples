@@ -45,6 +45,7 @@ data "aws_caller_identity" "current" {}
 # Create a new S3 bucket
 resource "aws_s3_bucket" "MyS3Bucket" {
   bucket = var.s3_bucket_name
+  force_destroy = true
 }
 
 # Send notifications to EventBridge for all events in the bucket
