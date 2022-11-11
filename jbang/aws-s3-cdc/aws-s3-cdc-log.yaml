@@ -23,7 +23,7 @@
         accessKey: <access_key>
         secretKey: <secret_key>
         region: "eu-west-1"
-        getBody: true
+        getObject: true
       steps:
       - to: 
           uri: "kamelet:log-sink"
