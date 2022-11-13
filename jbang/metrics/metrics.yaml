@@ -3,6 +3,6 @@
       uri: kamelet:timer-source?message=hello
       steps:
         - to:
-            uri: microprofile-metrics:counter:messages
+            uri: micrometer:counter:messages
         - log:
             message: ${body}

@@ -1,6 +1,6 @@
 == Metrics
 
-This example shows MicroProfile Metrics with Camel JBang.
+This example shows using Micrometer metrics with Camel JBang.
 
 === Install JBang
 
@@ -59,22 +59,30 @@ $ camel run metrics.yaml --console
 ----
 
 Then you can browse: http://localhost:8080/q/dev to introspect the running Camel application,
-such as browsing the microprofile-metrics, where you can see the captured statistics.
+such as browsing the micrometer, where you can see the captured statistics.
 
 The web console outputs data in text/html by default when using a web browser.
-However you can obtain the data in JSon format such as the microprofile-metrics with the following curl command:
+However you can obtain the data in JSon format such as the micrometer with the following curl command:
 
 [source,bash]
 ----
-curl -s -H "Accept: application/json" http://localhost:8080/q/dev/microprofile-metrics
+curl -s -H "Accept: application/json" http://localhost:8080/q/dev/micrometer
 ----
 
 And if you have `jq` installed to nicely format and output JSon in color then run:
 
 [source,bash]
 ----
-curl -s -H "Accept: application/json" http://localhost:8080/q/dev/microprofile-metrics | jq
+curl -s -H "Accept: application/json" http://localhost:8080/q/dev/micrometer | jq
 ----
+
+The metrics can also be displayed from the shell via:
+
+[source,sh]
+----
+$ camel get micrometer
+----
+
 
 
 === Help and contributions
