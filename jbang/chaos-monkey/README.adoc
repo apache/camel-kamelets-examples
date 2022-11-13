@@ -65,6 +65,12 @@ $ camel run * --health
 Then you can browse: http://localhost:8080/q/health to introspect the health check
 of the running application. When the chaos moneky is causing problems then the check is DOWN otherwise its UP.
 
+You can also inspect the health-check from CLI via:
+
+[source,sh]
+----
+$ camel get health
+----
 
 === Help and contributions
 
