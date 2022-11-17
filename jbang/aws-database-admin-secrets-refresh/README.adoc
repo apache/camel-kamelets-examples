@@ -1,0 +1,218 @@
+== AWS Secrets Manager Vault Example with Database password
+
+In this sample you'll use the AWS Secrets Manager Vault Properties Source and refresh
+
+=== Install JBang
+
+First install JBang according to https://www.jbang.dev
+
+When JBang is installed then you should be able to run from a shell:
+
+[source,sh]
+----
+$ jbang --version
+----
+
+This will output the version of JBang.
+
+To run this example you can either install Camel on JBang via:
+
+[source,sh]
+----
+$ jbang app install camel@apache/camel
+----
+
+Which allows to run CamelJBang with `camel` as shown below.
+
+=== Setup the AWS Secret Manager service
+
+Create a secret on AWS
+
+[source,sh]
+----
+aws secretsmanager create-secret --name psql --description "Create a secret" --region eu-west-1 --secret-string file://database-cred.json
+----
+
+=== Setting up the AWS credentials
+
+This example uses the ProfileCredentialsProvider from AWS SDK v2. So you'll need to have a configuration file, locally to your machine.
+
+In particular you'll need to have a file placed in `~/.aws/credentials`
+
+with a content like the following
+
+[source,sh]
+----
+[default]
+aws_access_key_id = accessKey
+aws_secret_access_key = secretKey
+----
+
+=== Setup and populate the Postgresql Database
+
+We create a PostgreSQL instance in a docker container
+
+[source,sh]
+----
+docker run -d --name psql -e POSTGRES_PASSWORD=psql123 -e PGDATA=/var/lib/postgresql/data/pgdata -v /custom/mount:/var/lib/postgresql/data postgres
+----
+
+Then we populate it
+
+[source,sh]
+----
+docker exec -i psql psql -U postgres < table.sql
+docker exec -i psql psql -U postgres < populate.sql
+----
+
+=== How to run
+
+Then you can run this example using:
+
+[source,sh]
+----
+$ camel run --properties=aws-sec-integration.properties sql-query.yaml
+----
+
+Or run it even shorter:
+
+[source,sh]
+----
+$ camel run *
+----
+
+Or run with JBang using the longer command line (without installing camel as app in JBang):
+
+[source,sh]
+----
+$ jbang camel@apache/camel run --properties=aws-sec-integration.properties sql-query.yaml
+----
+
+The application will run and consume immediately, then it will wait 120 seconds to query the database again.
+
+[source,sh]
+----
+2022-11-17 07:46:04.515  INFO 10684 --- [           main] org.apache.camel.main.MainSupport        : Apache Camel (JBang) 3.19.0 is starting
+2022-11-17 07:46:04.580  INFO 10684 --- [           main] org.apache.camel.main.MainSupport        : Using Java 11.0.16.1 with PID 10684. Started by oscerd in /home/oscerd/workspace/apache-camel/camel-kamelets-examples/jbang/aws-database-admin-secrets-refresh
+2022-11-17 07:46:04.592  INFO 10684 --- [           main] he.camel.cli.connector.LocalCliConnector : Camel CLI enabled (local)
+2022-11-17 07:46:05.704  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    : Auto-configuration summary
+2022-11-17 07:46:05.704  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    :     [s-sec-integration.properties] camel.main.name=AWSExample
+2022-11-17 07:46:05.704  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    :     [s-sec-integration.properties] camel.vault.aws.defaultCredentialsProvider=true
+2022-11-17 07:46:05.704  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    :     [s-sec-integration.properties] camel.vault.aws.region=eu-west-1
+2022-11-17 07:46:05.704  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    :     [s-sec-integration.properties] camel.vault.aws.refreshEnabled=true
+2022-11-17 07:46:05.704  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    :     [s-sec-integration.properties] camel.vault.aws.refreshPeriod=1000
+2022-11-17 07:46:05.705  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    :     [s-sec-integration.properties] camel.vault.aws.secrets=psql
+2022-11-17 07:46:06.370  INFO 10684 --- [           main] pl.engine.DefaultRuntimeEndpointRegistry : Runtime endpoint registry is in extended mode gathering usage statistics of all incoming and outgoing endpoints (cache limit: 1000)
+2022-11-17 07:46:07.495  INFO 10684 --- [           main] amel.main.MainAutowiredLifecycleStrategy : Autowired property: dataSource on component: sql as exactly one instance of type: javax.sql.DataSource (org.apache.commons.dbcp2.BasicDataSource) found in the registry
+2022-11-17 07:46:07.544  INFO 10684 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 3.19.0 (AWSExample) is starting
+2022-11-17 07:46:07.681  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    : Property-placeholders summary
+2022-11-17 07:46:07.681  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    :     [stgresql-source.kamelet.yaml] query=SELECT * FROM accounts
+2022-11-17 07:46:07.681  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    :     [stgresql-source.kamelet.yaml] dsBean=dsBean-1
+2022-11-17 07:46:07.681  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    :     [stgresql-source.kamelet.yaml] delay=120000
+2022-11-17 07:46:07.682  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    :     [stgresql-source.kamelet.yaml] password=xxxxxx
+2022-11-17 07:46:07.682  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    :     [stgresql-source.kamelet.yaml] serverName=172.17.0.2
+2022-11-17 07:46:07.682  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    :     [stgresql-source.kamelet.yaml] serverPort=5432
+2022-11-17 07:46:07.682  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    :     [stgresql-source.kamelet.yaml] databaseName=postgres
+2022-11-17 07:46:07.682  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    :     [stgresql-source.kamelet.yaml] username=xxxxxx
+2022-11-17 07:46:07.682  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    :     [log-sink.kamelet.yaml]        templateId=log-sink
+2022-11-17 07:46:07.682  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    :     [log-sink.kamelet.yaml]        level=INFO
+2022-11-17 07:46:07.682  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    :     [log-sink.kamelet.yaml]        showHeaders=false
+2022-11-17 07:46:07.682  INFO 10684 --- [           main] org.apache.camel.main.BaseMainSupport    :     [log-sink.kamelet.yaml]        showStreams=true
+2022-11-17 07:46:07.696  INFO 10684 --- [           main] e.camel.impl.engine.AbstractCamelContext : Routes startup (started:3)
+2022-11-17 07:46:07.696  INFO 10684 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started route1 (kamelet://postgresql-source)
+2022-11-17 07:46:07.696  INFO 10684 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started postgresql-source-1 (sql://SELECT%20*%20FROM%20accounts)
+2022-11-17 07:46:07.697  INFO 10684 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started log-sink-2 (kamelet://source)
+2022-11-17 07:46:07.697  INFO 10684 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 3.19.0 (AWSExample) started in 1s506ms (build:115ms init:1s239ms start:152ms JVM-uptime:4s)
+2022-11-17 07:46:08.918  INFO 10684 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":1,"username":"John","city":"New York"}]
+2022-11-17 07:46:08.921  INFO 10684 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":2,"username":"John","city":"New York"}]
+2022-11-17 07:46:08.921  INFO 10684 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":3,"username":"John","city":"New York"}]
+2022-11-17 07:46:08.922  INFO 10684 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":4,"username":"John","city":"New York"}]
+2022-11-17 07:46:08.922  INFO 10684 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":5,"username":"John","city":"New York"}]
+2022-11-17 07:46:08.923  INFO 10684 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":6,"username":"John","city":"New York"}]
+2022-11-17 07:46:08.924  INFO 10684 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":7,"username":"John","city":"New York"}]
+2022-11-17 07:46:08.924  INFO 10684 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":8,"username":"John","city":"New York"}]
+2022-11-17 07:46:08.925  INFO 10684 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":9,"username":"John","city":"New York"}]
+2022-11-17 07:46:08.925  INFO 10684 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":10,"username":"John","city":"New York"}]
+
+----
+
+=== Modify postgres user database password and update the secret
+
+You can list the secrets in use from the AWS security vault:
+
+[source,sh]
+----
+camel get vault
+----
+
+While the integration is running you could modify the database password for postgres user
+
+[source,sh]
+----
+docker exec -it psql psql -U postgres
+\password postgres
+insert psql1234
+----
+
+and update the secret accordingly
+
+[source,sh]
+----
+aws secretsmanager put-secret-value --secret-id postgresqlsecret --secret-string file://database-cred-updated.json --region eu-west-1
+----
+
+and restart the docker container since modifying the postgres user password requires a restart
+
+[source,sh]
+----
+docker restart psql
+----
+
+Now, get back, to the running Camel application and wait for the reloading.
+
+[source,sh]
+----
+2022-11-17 07:49:24.183  INFO 10929 --- [agementLoadTask] anager.vault.CloudTrailReloadTriggerTask : Update for AWS secret: psql detected, triggering CamelContext reload
+2022-11-17 07:49:24.184  INFO 10929 --- [agementLoadTask] mel.support.DefaultContextReloadStrategy : Reloading CamelContext (AWSExample) triggered by: AWS Secrets Refresh Task
+2022-11-17 07:49:25.635  INFO 10929 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":1,"username":"John","city":"New York"}]
+2022-11-17 07:49:25.635  INFO 10929 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":2,"username":"John","city":"New York"}]
+2022-11-17 07:49:25.636  INFO 10929 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":3,"username":"John","city":"New York"}]
+2022-11-17 07:49:25.636  INFO 10929 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":4,"username":"John","city":"New York"}]
+2022-11-17 07:49:25.637  INFO 10929 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":5,"username":"John","city":"New York"}]
+2022-11-17 07:49:25.637  INFO 10929 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":6,"username":"John","city":"New York"}]
+2022-11-17 07:49:25.638  INFO 10929 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":7,"username":"John","city":"New York"}]
+2022-11-17 07:49:25.638  INFO 10929 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":8,"username":"John","city":"New York"}]
+2022-11-17 07:49:25.638  INFO 10929 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":9,"username":"John","city":"New York"}]
+2022-11-17 07:49:25.639  INFO 10929 --- [FROM%20accounts] log-sink                                 : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":10,"username":"John","city":"New York"}]
+----
+
+We changed the password and the Camel route was able to align itself without downtime.
+
+And the secret should also now be listed as updated form the get vault command:
+
+[source,sh]
+----
+camel get vault
+----
+
+=== Developer Web Console
+
+You can enable the developer console via `--console` flag as show:
+
+[source,sh]
+----
+$ camel run --properties=aws-sec-integration.properties sql-query.yaml --console
+----
+
+Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.
+
+
+=== Help and contributions
+
+If you hit any problem using Camel or have some feedback, then please
+https://camel.apache.org/community/support/[let us know].
+
+We also love contributors, so
+https://camel.apache.org/community/contributing/[get involved] :-)
+
+The Camel riders!
