@@ -72,6 +72,14 @@ You can also inspect the health-check from CLI via:
 $ camel get health
 ----
 
+And see metrics captured by micrometer:
+
+[source,sh]
+----
+$ camel get micrometer
+----
+
+
 === Help and contributions
 
 If you hit any problem using Camel or have some feedback, then please

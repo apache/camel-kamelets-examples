@@ -5,6 +5,6 @@
         - to:
             uri: bean:chaosMonkeyCheck?method=status
         - to:
-            uri: microprofile-metrics:counter:messages
+            uri: micrometer:counter:messages
         - log:
             message: ${body}
