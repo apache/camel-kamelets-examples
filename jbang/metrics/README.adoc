@@ -80,7 +80,7 @@ The metrics can also be displayed from the shell via:
 
 [source,sh]
 ----
-$ camel get micrometer
+$ camel get metric
 ----
 
 
