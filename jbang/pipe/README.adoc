@@ -36,8 +36,11 @@ To run this example you can then run the script:
 echo "Hello\nWorld" | ./upper.yaml
 ----
 
-You can combine this with more pipes and filters scripting such as.
-For example from a file that has a set of words:
+You can combine this with more pipes and filters scripting.
+
+In the example below the file words.txt contains a set of names, which is then piped
+into the Camel script to be upper cased, then piped to the sort command from the terminal,
+and then back into Camel to be converted into CSV.
 
 [source,sh]
 ----
