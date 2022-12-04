@@ -2,6 +2,9 @@
 
 This example is using a custom Kamelet that fetches random user data.
 
+The custom kamelets can be located locally or shared on github.
+This example demonstrates how to run this in both situations.
+
 
 === Install JBang
 
@@ -31,25 +34,16 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ camel run user.java
+$ camel run user.java --local-kamelet-dir=../../custom-kamelets
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run user.java
-----
-
-=== Live reload
-
-You can run the example in dev mode which allows you to edit the example,
-and hot-reload when the file is saved.
+And to refer to the custom kamelets with link to github:
 
 [source,sh]
 ----
-$ camel run user.java --dev
+$ camel run user.java --local-kamelet-dir=https://github.com/apache/camel-kamelets-examples/tree/main/custom-kamelets
 ----
+
 
 === Run directly from github
 
@@ -57,19 +51,8 @@ The example can also be run directly by referring to the github URL as shown:
 
 [source,sh]
 ----
-$ jbang camel@apache/camel run https://github.com/apache/camel-kamelets-examples/tree/main/jbang/user
+$ jbang camel@apache/camel run https://github.com/apache/camel-kamelets-examples/tree/main/jbang/user --local-kamelet-dir=https://github.com/apache/camel-kamelets-examples/tree/main/custom-kamelets
 ----
-
-=== Developer Web Console
-
-You can enable the developer console via `--console` flag as show:
-
-[source,sh]
-----
-$ camel run user.java --console
-----
-
-Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.
 
 
 === Help and contributions
