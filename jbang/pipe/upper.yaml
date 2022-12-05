@@ -1,4 +1,5 @@
 ///usr/bin/env jbang --quiet camel@apache/camel pipe "$0" "$@" ; exit $?
+---
 # camel-k: language=yaml
 
 # Will upper-case the input
