@@ -169,7 +169,7 @@ You should see at first the content of the uploaded file and in the second messa
 
 === Cleanup Servicebus, Azure Storage Blob and Eventgrid through Terraform
 
-You'll need to cleanup everything from AWS console or CLI.
+You'll need to cleanup everything from Azure console or CLI.
 
 If you used terraform it will be enough to run terraform destroy
 
