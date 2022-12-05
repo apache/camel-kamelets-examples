@@ -95,6 +95,20 @@ While the integration is running you can run the following commands:
 [source,sh]
 ----
 az storage blob upload --account-name kameletsaccount --container-name kamelets --file nominatim-geocode-action.kamelet.yaml --account-key <accountKey>
+Finished[#############################################################]  100.0000%
+{
+  "client_request_id": "f9f842e6-748a-11ed-9435-f8e43bee8a96",
+  "content_md5": "Hi/BpuxczazRxdIBPPSxdA==",
+  "date": "2022-12-05T10:52:56+00:00",
+  "encryption_key_sha256": null,
+  "encryption_scope": null,
+  "etag": "\"0x8DAD6AEDE731F9C\"",
+  "lastModified": "2022-12-05T10:52:57+00:00",
+  "request_id": "ad50afc0-e01e-0053-1b97-084308000000",
+  "request_server_encrypted": true,
+  "version": "2021-06-08",
+  "version_id": null
+}
 az storage blob delete --account-name kameletsaccount --container-name kamelets --name nominatim-geocode-action.kamelet.yaml --account-key <accountKey>
 ----
 
