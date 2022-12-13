@@ -1,6 +1,12 @@
 # camel-k: language=yaml
 
-# Write your routes here, for example:
+- error-handler:
+    dead-letter-channel:
+      deadLetterUri: "log:dead"
+      redeliveryPolicy: 
+        maximumRedeliveries: 5
+        retryAttemptedLogLevel: WARN
+
 - from:
     uri: "timer:yaml"
     parameters:
