@@ -1,0 +1,206 @@
+== Google Storage Blob CDC Example
+
+In this sample you'll use the Google Storage Blob CDC Source Kamelet.
+
+Through the usage of Google Pubsub and Google Storage Services you'll be able to consume events from specific bucket.
+
+=== Install JBang
+
+First install JBang according to https://www.jbang.dev
+
+When JBang is installed then you should be able to run from a shell:
+
+[source,sh]
+----
+$ jbang --version
+----
+
+This will output the version of JBang.
+
+To run this example you can either install Camel on JBang via:
+
+[source,sh]
+----
+$ jbang app install camel@apache/camel
+----
+
+Which allows to run CamelJBang with `camel` as shown below.
+
+=== Setup the Google Services and infrastructure through gcloud CLI
+
+First we need to create a project
+
+[source,sh]
+----
+gcloud projects create gs-storage-cdc-test
+----
+
+We need to associate the project with a billing account
+
+[source,sh]
+----
+gcloud alpha billing accounts projects link gs-storage-cdc-test --billing-account=XXXXXX-XXXXXX-XXXXXX
+----
+
+Now we could set the project as default, so we won't have to specify it in each command.
+
+[source,sh]
+----
+gcloud config set project gs-storage-cdc-test
+----
+
+Let's create the Google Storage Bucket named gs-storage-cdc-test
+
+[source,sh]
+----
+gcloud storage buckets create gs://gs-storage-cdc-test
+----
+
+Let's create the Google Pubsub Topic named gs-storage-cdc-test
+
+[source,sh]
+----
+gcloud pubsub topics create gs-storage-cdc-test
+----
+
+Let's subscribe the pubsub topic to the event coming from the Google Storage bucket
+
+[source,sh]
+----
+gcloud storage buckets notifications create gs://gs-storage-cdc-test --topic=gs-storage-cdc-test
+----
+
+Let's create a subscription to consume from the Google Pubsub topic
+
+[source,sh]
+----
+gcloud pubsub subscriptions create gs-storage-cdc-test-sub --topic=gs-storage-cdc-test
+----
+
+Now it's time to create the Service Account to be used:
+
+[source,sh]
+----
+gcloud iam service-accounts create gs-storage-cdc-test-sa --description="GCP Storage CDC Test"
+----
+
+Let's give to the SA a owner role
+
+[source,sh]
+----
+gcloud projects add-iam-policy-binding gs-storage-cdc-test --member="serviceAccount:gs-storage-cdc-test-sa@gs-storage-cdc-test.iam.gserviceaccount.com" --role="roles/owner"
+----
+
+We need to create a service account key and then transform it to a base64 encoded string.
+
+[source,sh]
+----
+gcloud iam service-accounts keys create gs-storage-cdc-test-sa.json --iam-account=gs-storage-cdc-test-sa@gs-storage-cdc-test.iam.gserviceaccount.com
+----
+
+Now we need to encode the value as base64
+
+[source,sh]
+----
+cat gs-storage-cdc-test-sa.json | base64 -w 0
+----
+
+Place the value in the google-storage-cdc.yaml file as serviceAccountKey parameter.
+
+=== How to run
+
+Then you can run this example using:
+
+[source,sh]
+----
+$ camel run --local-kamelet-dir=<local-kamelets-dir> google-storage-cdc.yaml
+----
+
+Replace the local kamelet dir with your local directory.
+
+Or run with JBang using the longer command line (without installing camel as app in JBang):
+
+[source,sh]
+----
+$ jbang run camel@apache/camel run --local-kamelet-dir=<local-kamelets-dir> google-storage-cdc.yaml
+----
+
+Replace the local kamelet dir with your local directory.
+
+=== Developer Web Console
+
+You can enable the developer console via `--console` flag as show:
+
+[source,sh]
+----
+$ camel run --local-kamelet-dir=<local-kamelets-dir> google-storage-cdc.yaml --console
+----
+
+Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.
+
+=== Create and delete an object
+
+While the integration is running you can run the following commands:
+
+[source,sh]
+----
+gcloud storage cp timer-mongodb.yaml gs://gs-storage-cdc-test
+Copying file://timer-mongodb.yaml to gs://gs-storage-cdc-test/timer-mongodb.yaml
+  Completed files 1/1 | 1.4kiB/1.4kiB  
+gcloud storage rm gs://gs-storage-cdc-test/timer-mongodb.yaml
+Removing objects:
+Removing gs://gs-storage-cdc-test/timer-mongodb.yaml...                                                                                                                     
+  Completed 1/1 
+----
+
+You should see at first the content of the uploaded file and in the second message the deletion of the blob from the container.
+
+[source,sh]
+----
+2022-12-14 12:04:52.347  INFO 91156 --- [           main] org.apache.camel.main.MainSupport        : Apache Camel (JBang) 3.20.0-SNAPSHOT is starting
+2022-12-14 12:04:52.542  INFO 91156 --- [           main] org.apache.camel.main.MainSupport        : Using Java 11.0.16.1 with PID 91156. Started by oscerd in /home/oscerd/workspace/apache-camel/camel-kamelets-examples/jbang
+2022-12-14 12:04:52.559  INFO 91156 --- [           main] he.camel.cli.connector.LocalCliConnector : Camel CLI enabled (local)
+2022-12-14 12:04:55.173  INFO 91156 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 3.20.0-SNAPSHOT (pubsub-test) is starting
+2022-12-14 12:04:55.339  INFO 91156 --- [           main] onent.google.pubsub.GooglePubsubConsumer : Starting Google PubSub consumer for gs-storage-cdc-test/gs-storage-cdc-test-sub
+2022-12-14 12:04:55.378  INFO 91156 --- [           main] org.apache.camel.main.BaseMainSupport    : Property-placeholders summary
+2022-12-14 12:04:55.378  INFO 91156 --- [           main] org.apache.camel.main.BaseMainSupport    :     [rage-cdc-source.kamelet.yaml] projectId=gs-storage-cdc-test
+2022-12-14 12:04:55.379  INFO 91156 --- [           main] org.apache.camel.main.BaseMainSupport    :     [rage-cdc-source.kamelet.yaml] subscriptionName=gs-storage-cdc-test-sub
+2022-12-14 12:04:55.379  INFO 91156 --- [           main] org.apache.camel.main.BaseMainSupport    :     [rage-cdc-source.kamelet.yaml] serviceAccountKey=xxxxx
+2022-12-14 12:04:55.379  INFO 91156 --- [           main] org.apache.camel.main.BaseMainSupport    :     [rage-cdc-source.kamelet.yaml] getObject=true
+2022-12-14 12:04:55.379  INFO 91156 --- [           main] org.apache.camel.main.BaseMainSupport    :     [rage-cdc-source.kamelet.yaml] bucketNameOrArn=gs-storage-cdc-test
+2022-12-14 12:04:55.379  INFO 91156 --- [           main] org.apache.camel.main.BaseMainSupport    :     [log-sink.kamelet.yaml]        showHeaders=true
+2022-12-14 12:04:55.379  INFO 91156 --- [           main] org.apache.camel.main.BaseMainSupport    :     [log-sink.kamelet.yaml]        showStreams=true
+2022-12-14 12:04:55.400  INFO 91156 --- [           main] e.camel.impl.engine.AbstractCamelContext : Routes startup (started:3)
+2022-12-14 12:04:55.400  INFO 91156 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started route1 (kamelet://google-storage-cdc-source)
+2022-12-14 12:04:55.400  INFO 91156 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started google-storage-cdc-source-1 (google-pubsub://gs-storage-cdc-test:gs-storage-cdc-test-sub)
+2022-12-14 12:04:55.400  INFO 91156 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started log-sink-2 (kamelet://source)
+2022-12-14 12:04:55.400  INFO 91156 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 3.20.0-SNAPSHOT (pubsub-test) started in 1s799ms (build:98ms init:1s474ms start:227ms JVM-uptime:3s)
+2022-12-14 12:06:04.398  INFO 91156 --- [          Gax-1] log-sink                                 : Exchange[ExchangePattern: InOnly, Headers: {CamelGoogleCloudStorageBlobId=BlobId{bucket=gs-storage-cdc-test, name=timer-mongodb.yaml, generation=1671015960548591}, CamelGoogleCloudStorageCacheControl=null, CamelGoogleCloudStorageComponentCount=null, CamelGoogleCloudStorageContentDisposition=null, CamelGoogleCloudStorageContentEncoding=null, CamelGoogleCloudStorageContentLanguage=null, CamelGoogleCloudStorageContentLength=1435, CamelGoogleCloudStorageContentMd5=ef1e5a33a1132a74766e520c13ac0164, CamelGoogleCloudStorageContentType=application/octet-stream, CamelGoogleCloudStorageCrc32cHex=7f5ab366, CamelGoogleCloudStorageCreateTime=1671015960635, CamelGoogleCloudStorageCustomTime=null, CamelGoogleCloudStorageETag=CO+p+MX7+PsCEAE=, CamelGoogleCloudStorageGeneration=1671015960548591, CamelGoogleCloudStorageKmsKeyName=null, CamelGoogleCloudStorageLastUpdate=Wed Dec 14 12:06:00 CET 2022, CamelGoogleCloudStorageMediaLink=https://storage.googleapis.com/download/storage/v1/b/gs-storage-cdc-test/o/timer-mongodb.yaml?generation=1671015960548591&alt=media, CamelGoogleCloudStorageMetageneration=1, CamelGoogleCloudStorageObjectName=timer-mongodb.yaml, CamelGoogleCloudStorageStorageClass=STANDARD, CamelGooglePubsubAttributes={objectId=timer-mongodb.yaml, payloadFormat=JSON_API_V1, bucketId=gs-storage-cdc-test, eventType=OBJECT_FINALIZE, objectGeneration=1671015960548591, notificationConfig=projects/_/buckets/gs-storage-cdc-test/notificationConfigs/1, eventTime=2022-12-14T11:06:00.635765Z}, CamelGooglePubsubMessageId=6438925689605147, CamelGooglePubsubPublishTime=seconds: 1671015960
+nanos: 788000000
+}, BodyType: byte[], Body: ## ---------------------------------------------------------------------------## Licensed to the Apache Software Foundation (ASF) under one or more## contributor license agreements.  See the NOTICE file distributed with## this work for additional information regarding copyright ownership.## The ASF licenses this file to You under the Apache License, Version 2.0## (the "License"); you may not use this file except in compliance with## the License.  You may obtain a copy of the License at####      http://www.apache.org/licenses/LICENSE-2.0#### Unless required by applicable law or agreed to in writing, software## distributed under the License is distributed on an "AS IS" BASIS,## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.## See the License for the specific language governing permissions and## limitations under the License.## ---------------------------------------------------------------------------# camel-k: dependency=camel:aws-secrets-manager- route:    from:      uri: "kamelet:timer-source"      parameters:        message: '{"name": "Ada Lovelace", "age": 205}'        period: 60000        contentType: "application/json"      steps:      - to:           uri: "kamelet:mongodb-sink"          parameters:            collection: "log"            database: "test"            hosts: "127.0.0.1"            username: "mongoadmin"            password: "secret"]
+2022-12-14 12:07:24.102  INFO 91156 --- [          Gax-1] log-sink                                 : Exchange[ExchangePattern: InOnly, Headers: {CamelGooglePubsubAttributes={objectId=timer-mongodb.yaml, notificationConfig=projects/_/buckets/gs-storage-cdc-test/notificationConfigs/1, payloadFormat=JSON_API_V1, objectGeneration=1671015960548591, eventTime=2022-12-14T11:07:21.431184Z, bucketId=gs-storage-cdc-test, eventType=OBJECT_DELETE}, CamelGooglePubsubMessageId=6438927518282147, CamelGooglePubsubPublishTime=seconds: 1671016041
+nanos: 554000000
+}, BodyType: byte[], Body: {  "kind": "storage#object",  "id": "gs-storage-cdc-test/timer-mongodb.yaml/1671015960548591",  "selfLink": "https://www.googleapis.com/storage/v1/b/gs-storage-cdc-test/o/timer-mongodb.yaml",  "name": "timer-mongodb.yaml",  "bucket": "gs-storage-cdc-test",  "generation": "1671015960548591",  "metageneration": "1",  "contentType": "application/octet-stream",  "timeCreated": "2022-12-14T11:06:00.635Z",  "updated": "2022-12-14T11:06:00.635Z",  "storageClass": "STANDARD",  "timeStorageClassUpdated": "2022-12-14T11:06:00.635Z",  "size": "1435",  "md5Hash": "7x5aM6ETKnR2blIME6wBZA==",  "mediaLink": "https://storage.googleapis.com/download/storage/v1/b/gs-storage-cdc-test/o/timer-mongodb.yaml?generation=1671015960548591&alt=media",  "crc32c": "f1qzZg==",  "etag": "CO+p+MX7+PsCEAE="}]
+
+----
+
+=== Cleanup Google Services
+
+You'll need to cleanup everything from Gcloud CLI.
+
+[source,sh]
+----
+gcloud projects delete gs-storage-cdc-test
+----
+
+and answer yes.
+
+=== Help and contributions
+
+If you hit any problem using Camel or have some feedback, then please
+https://camel.apache.org/community/support/[let us know].
+
+We also love contributors, so
+https://camel.apache.org/community/contributing/[get involved] :-)
+
+The Camel riders!
