@@ -5,11 +5,13 @@ metadata:
 spec:
   sources:
     - content: |
-       // using package names is not supported so the class is in root package
+       // package name is optional, but include in this example
+       package com.foo;
+
        @org.apache.camel.BindToRegistry("echo")
        public class MyEchoBean {
          public String echo(String body) {
-             return body + " " + body + "!";
+             return body + " " + body + "! from " + this.getClass().getName();
          }
        }
       name: MyEchoBean.java
