@@ -28,10 +28,10 @@
         <version>3.20.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>slack-source</artifactId>
+    <artifactId>custom</artifactId>
     <packaging>jar</packaging>
-    <name>Camel :: Kamelet Main Example :: Slack Source</name>
-    <description>Kamelet Main Slack Source</description>
+    <name>Camel :: Kamelet Main Example :: Custom JAR</name>
+    <description>Kamelet Main Custom JAR</description>
 
     <dependencyManagement>
         <dependencies>
@@ -48,11 +48,9 @@
 
     <dependencies>
 
-        <!-- easy way to boostrap and run Kamelet in standalone mode -->
-        <!-- the kamelet will be downloaded from the internet and 3rd party JAR dependencies -->
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-kamelet-main</artifactId>
+            <artifactId>camel-jq</artifactId>
         </dependency>
 
         <!-- logging -->
@@ -73,48 +71,5 @@
             <version>${logback-version}</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <finalName>${project.artifactId}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-maven-plugin</artifactId>
-                <version>${camel.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <!-- to be able to make a fat-jar via the maven-assembly-plugin -->
-                            <goal>prepare-fatjar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <!-- build a fat-jar -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <mainClass>org.apache.camel.main.KameletMain</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

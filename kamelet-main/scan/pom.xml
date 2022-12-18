@@ -28,10 +28,10 @@
         <version>3.20.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>slack-source</artifactId>
+    <artifactId>scan</artifactId>
     <packaging>jar</packaging>
-    <name>Camel :: Kamelet Main Example :: Slack Source</name>
-    <description>Kamelet Main Slack Source</description>
+    <name>Camel :: Kamelet Main Example :: Scan</name>
+    <description>Kamelet Main Scan</description>
 
     <dependencyManagement>
         <dependencies>
@@ -47,6 +47,13 @@
     </dependencyManagement>
 
     <dependencies>
+
+        <!-- custom JAR -->
+        <dependency>
+            <groupId>org.apache.camel.examples</groupId>
+            <artifactId>custom</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- easy way to boostrap and run Kamelet in standalone mode -->
         <!-- the kamelet will be downloaded from the internet and 3rd party JAR dependencies -->
@@ -100,7 +107,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>org.apache.camel.main.KameletMain</mainClass>
+                            <mainClass>org.apache.camel.example.scan.ScanDownloadApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
