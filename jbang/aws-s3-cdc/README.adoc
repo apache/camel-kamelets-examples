@@ -151,7 +151,7 @@ aws s3api delete-object --bucket cdc-s3-bucket --key example-file.txt
 [source,sh]
 ----
 022-11-02 15:13:03.747  INFO 120300 --- [           main] he.camel.cli.connector.LocalCliConnector : Camel CLI enabled (local)
-2022-11-02 15:13:08.570  INFO 120300 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 3.20.0-SNAPSHOT (aws-s3-cdc-log) is starting
+2022-11-02 15:13:08.570  INFO 120300 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 3.21.0-SNAPSHOT (aws-s3-cdc-log) is starting
 2022-11-02 15:13:08.726  INFO 120300 --- [           main] org.apache.camel.main.BaseMainSupport    : Property-placeholders summary
 2022-11-02 15:13:08.727  INFO 120300 --- [           main] org.apache.camel.main.BaseMainSupport    :     [s-s3-cdc-source.kamelet.yaml] queueNameOrArn=test-queue-3
 2022-11-02 15:13:08.727  INFO 120300 --- [           main] org.apache.camel.main.BaseMainSupport    :     [s-s3-cdc-source.kamelet.yaml] accessKey=xxxxxx
@@ -163,7 +163,7 @@ aws s3api delete-object --bucket cdc-s3-bucket --key example-file.txt
 2022-11-02 15:13:08.741  INFO 120300 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started route1 (kamelet://aws-s3-cdc-source)
 2022-11-02 15:13:08.741  INFO 120300 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started aws-s3-cdc-source-1 (aws2-sqs://test-queue-3)
 2022-11-02 15:13:08.741  INFO 120300 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started log-sink-2 (kamelet://source)
-2022-11-02 15:13:08.742  INFO 120300 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 3.20.0-SNAPSHOT (aws-s3-cdc-log) started in 4s272ms (build:106ms init:3s995ms start:171ms JVM-uptime:6s)
+2022-11-02 15:13:08.742  INFO 120300 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 3.21.0-SNAPSHOT (aws-s3-cdc-log) started in 4s272ms (build:106ms init:3s995ms start:171ms JVM-uptime:6s)
 
 
 2022-11-02 15:13:30.977  INFO 120300 --- [://test-queue-3] info                                     : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: Text example]
