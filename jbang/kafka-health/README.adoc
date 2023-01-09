@@ -67,13 +67,6 @@ Then you can run this example using:
 $ camel run consumer.yaml producer.yaml --health
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run consumer.yaml producer.yaml --health
-----
-
 And you can also run the example by using wildcards, instead of typing every file name:
 
 [source,sh]
@@ -81,11 +74,31 @@ And you can also run the example by using wildcards, instead of typing every fil
 $ camel run * --health
 ----
 
+You can also run consumer and producer in two seperate integrations:
+
+[source,sh]
+----
+$ camel run consumer.yaml --health
+----
+
+[source,sh]
+----
+$ camel run producer.yaml --health
+----
+
 Then you can access `http://localhost:8080/q/health` from a web browser to see the health status.
 
 Notice how you can check either the readiness or liveness health by invoking: `http://localhost:8080/q/health/live` and
 `http://localhost:8080/q/health/ready`. When the kafka brokers are not running then the liveness check should still be UP but
 readiness should be DOWN.
+
+You can also quickly see the health check status when the Camel integration is running.
+From another terminal execute:
+
+[source,sh]
+----
+$ camel get health
+----
 
 
 === Help and contributions
