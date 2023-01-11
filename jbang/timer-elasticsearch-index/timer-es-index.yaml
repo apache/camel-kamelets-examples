@@ -1,0 +1,34 @@
+## ---------------------------------------------------------------------------
+## Licensed to the Apache Software Foundation (ASF) under one or more
+## contributor license agreements.  See the NOTICE file distributed with
+## this work for additional information regarding copyright ownership.
+## The ASF licenses this file to You under the Apache License, Version 2.0
+## (the "License"); you may not use this file except in compliance with
+## the License.  You may obtain a copy of the License at
+##
+##      http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+## ---------------------------------------------------------------------------
+
+- route:
+    from:
+      uri: "kamelet:timer-source"
+      parameters:
+        message: '{"id":"1","message":"Camel Rocks"}'
+        contentType: "application/json"
+        repeatCount: 1
+      steps:
+      - to: 
+          uri: "kamelet:elasticsearch-index-sink"
+          parameters:
+            hostAddresses: "localhost"
+            clusterName: "docker-cluster"
+            indexName: "test_index"
+            user: "elastic"
+            password: "OFw9jGbaJlnF7tRwJPAG"
+            certificate: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZXVENDQTBHZ0F3SUJBZ0lVSEdoMmdJSFVFSkxJUlZyT0NpSHNEMWdad1lRd0RRWUpLb1pJaHZjTkFRRUwKQlFBd1BERTZNRGdHQTFVRUF4TXhSV3hoYzNScFkzTmxZWEpqYUNCelpXTjFjbWwwZVNCaGRYUnZMV052Ym1acApaM1Z5WVhScGIyNGdTRlJVVUNCRFFUQWVGdzB5TXpBeE1URXdPVE00TWpsYUZ3MHlOakF4TVRBd09UTTRNamxhCk1Ed3hPakE0QmdOVkJBTVRNVVZzWVhOMGFXTnpaV0Z5WTJnZ2MyVmpkWEpwZEhrZ1lYVjBieTFqYjI1bWFXZDEKY21GMGFXOXVJRWhVVkZBZ1EwRXdnZ0lpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElDRHdBd2dnSUtBb0lDQVFDaQpaQzZENlRrZldFLzZMVWptY2IrbmhXMys3amJvVlBkM2haTlRjc3RsM3VFV0ZTd3BHNW5YUWttMmpIZTc0cFc5Cnd3VFZJeUFPZGpaMFlTRG1Mbmt3UlZqUVlKNDY3Sm5wbnpXd2hvUXpYMjUzRlc4RmVGZDVNdTdpeTZzdGErTUwKN2dzYi9PZ0ZVQnpEYTNhb3BFK3lkN2tNOWpHbXVkZEJQMEtBeHpTZ0FTSUNOR2dqY3NqZ2Y2cTFDUms5Y2ZQQwp5S0tJUjl1TUtVWit3ZHRDNFczc2RqNWgrMWo2QitYaDFoWndCVjlZTytXWU5uYmJnNFlGSHdVR3k5disxZUN4CmxVVjBVUmhwa2dUN3J5UlZCNWpkTlJaYWVLeVQ3c2VlVWI1a25TTXR0WCtuTHIyemU3cnExd3JVQ0k2ZHYvcjAKVWZGUXQyMCtRcUF3TWVGa2NmdGtpWlRYanhWMlN4TmIrNFlxeDlkS3VWaWZaZVVWWGtyaUs0V3NmbE9NNmlObgp6L3oySVBGMmdDR3JPdHZWdTJnc1VReFd0YkJ0aDBBQU5LWUQ5NXN0MTBJbnU3VUVldTlmMUVFbktVQU5oTmNZClY3a3Rka2F6VGdZVEI0dWhKc3hqNm5XTGlBUUwxTDNqNzhuS1pERVV5aHlSY3VUUjJFcTFlNnlpR1BBbmFmUHIKOVhaMTJwMVY0cUE0NVRQc1BqdnFzM2NkSWxiNDRMUTdHUnRqalkxdnVXMkJGanlodW1mMi83N1lGeHpHZUVHbgowcG9xZDZENHQwS1Y4Q3RLVXllM3orcEhIWHpkaXZ2dGNwWnh1RTRybldpSHRQaURpcm5UUWttTEpydWlnWGZHCkVHQnRPZnFRUEtpMWV3TkVpTWlKYnBYOVZUU3JCc3JLK2ZJWXh0V3VUd0lEQVFBQm8xTXdVVEFkQmdOVkhRNEUKRmdRVWpKNTFydGZSNnV6RnpSWVRLUUltNUdRcHI1VXdId1lEVlIwakJCZ3dGb0FVako1MXJ0ZlI2dXpGelJZVApLUUltNUdRcHI1VXdEd1lEVlIwVEFRSC9CQVV3QXdFQi96QU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FnRUFBb1JnCm4ybU5KRUQxZWQwbTdBMDBHeFJQMzVWYzBXS2o1M0hoZXRlVHBKeDJDSmZ4THBlNy9tUFlIcC9oSkdnbmIxUDMKWUZJS1ZmV1ZKTG1lV0hVSWlMTjJFVG5VeTFFNTNuSGZiWGY2UWhkK3o4YSsrd1V0aHVxUHBaWTIyOVdCMXVTVwpTT0tUT3BQdEtaRTVIMHkva25XdlhLNzdOb2lpSlhOYmphbXptSU1TRzRmSWxFY1lJKzEyZ3ZmeVpzdjhWNHViCnpEckhmRVV1dUg3QmtBaXN4dWlqcWhRVzZCMjZJdlFrTEJUTEtxOHkzSk5Jbm1OMkxhdlhOc3Q2TWFoSW9xNXUKdUtoWW1zUnVCMHE1QmQ1b1poZVVOeEJKaUc5aUlya0NOMjlCRmtkdHVqc0tkMFd0bkErTUdGSzNyMkFTcGhaeQpIbldZMFV3RXVSR2doMzdDQ3ViYVdIUzJYbTluTldlSEs2NVpDZHNsVGgxcjR4c1JFUjNDRk1IV1lEb1U2UXJWCjNmUkk1eXdkVjlxakVtd1d0NktKaEJnelBQeXQwRGx2U0xkcEcxNmZDMmZ3ZGdERi9ONDJLMmtqSDBFQ2k1bUQKWkdkakxUMk9POFczeVp1WTVENmNOZTNyZitBS09wTFQ4YVQrSXJvcWwxb081b2tLYU9QRkRIQ0dZT20yNlVMawp0YjJSelovWUJrbWpwVGlSNVdRSXA3d1M3SldmNFByRjdmR2NOVWtRN1FqdFg3Sk5Qc29HSThoSmg3R3BsbzFxCmtIbTh6LzRhRnVsdTJJK3BLVksybEFMb0xPc0FuYit2Z0FDV3dNTHlGY1FGVE5uQXpwdUJGZnFEREdVTWY2T0MKWlBPa1pBdHBZRmI2QktMVVR0Y0krTTkwaWtoS0Z0eWhIa3hsbTE0PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
