@@ -1,5 +1,13 @@
-@org.apache.camel.BindToRegistry("chaosMonkeyCheck")
-public class ChaosMonkey extends org.apache.camel.impl.health.AbstractHealthCheck {
+package chaos;
+
+import java.util.Map;
+import java.util.Random;
+import org.apache.camel.BindToRegistry;
+import org.apache.camel.impl.health.AbstractHealthCheck;
+import org.apache.camel.health.HealthCheckResultBuilder;
+
+@BindToRegistry("chaosMonkeyCheck")
+public class ChaosMonkey extends AbstractHealthCheck {
 
     private int num;
 
@@ -9,7 +17,7 @@ public class ChaosMonkey extends org.apache.camel.impl.health.AbstractHealthChec
     }
 
     public String status(String body) {
-        num = new java.util.Random().nextInt(10);
+        num = new Random().nextInt(10);
          if (num < 4) {
             return "Chaos Moneky is here";
         } else {
@@ -18,7 +26,7 @@ public class ChaosMonkey extends org.apache.camel.impl.health.AbstractHealthChec
     }
 
     @Override
-    public void doCall(org.apache.camel.health.HealthCheckResultBuilder builder, java.util.Map<String, Object> options) {
+    public void doCall(HealthCheckResultBuilder builder, Map<String, Object> options) {
         if (num < 4) {
             builder.detail("chaos-number", num).message("Chaos is here!!!").down();
         } else {
