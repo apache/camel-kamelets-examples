@@ -1,0 +1,22 @@
+# camel-k: dependency=mvn:com.ibm.mq:com.ibm.mq.allclient:9.2.5.0
+# camel-k: dependency=mvn:org.apache.camel.kamelets:camel-kamelets-utils:3.20.1.1
+
+- route:
+    from:
+      uri: "kamelet:kafka-not-secured-source"
+      parameters:
+        bootstrapServers: "localhost:9092"
+        topic: test-1
+        deserializeHeaders: true
+      steps:
+      - to: 
+          uri: "kamelet:jms-ibm-mq-sink"
+          parameters:
+            channel: DEV.APP.SVRCONN
+            destinationName: DEV.QUEUE.1
+            password: "passw0rd" 
+            queueManager: QM1 
+            serverName: 172.17.0.2
+            serverPort: 1414
+            username: app
+
