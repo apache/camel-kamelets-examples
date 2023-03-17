@@ -34,3 +34,4 @@
           parameters:
             showStreams: true
             showHeaders: true
+            multiline: true
