@@ -39,7 +39,7 @@ Then you can run the Camel integration using:
 
 [source,sh]
 ----
-$ camel run mqtt.yaml
+$ camel run mqtt.camel.yaml
 ----
 
 And then from another terminal (or run the integraiton with `--background` option),

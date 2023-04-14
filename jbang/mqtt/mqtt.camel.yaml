@@ -1,13 +1,18 @@
 - route:
+    id: route-c5e2
     from:
       uri: kamelet:mqtt5-source
+      id: from-b3d6
       parameters:
         topic: temperature
         brokerUrl: tcp://localhost:1883
       steps:
         - transform:
+            id: transform-a607
             expression:
               jq:
                 expression: .value
+                id: jq-d9d0
         - log:
             message: The temperature is ${body}
+            id: log-ac74
