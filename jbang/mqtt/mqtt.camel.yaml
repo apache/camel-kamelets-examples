@@ -13,6 +13,24 @@
               jq:
                 expression: .value
                 id: jq-d9d0
-        - log:
-            message: The temperature is ${body}
-            id: log-ac74
+        - convertBodyTo:
+            type: String
+            id: convertBodyTo-c5ee
+        - choice:
+            when:
+              - id: when-1bdb
+                expression:
+                  simple:
+                    expression: ${body} > 20
+                    id: simple-5f3c
+                steps:
+                  - log:
+                      message: Warm temperature at ${body}
+                      id: log-04f5
+            id: choice-0565
+            otherwise:
+              id: otherwise-2305
+              steps:
+                - log:
+                    message: Cold temperator at ${body}
+                    id: log-dcb6

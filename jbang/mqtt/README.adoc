@@ -60,7 +60,7 @@ The Camel integration will then consume the payload and output in the console.
 
 [source,text]
 ----
-2023-04-14 08:58:58.676  INFO 62348 --- [calCliConnector] mqtt.yaml:13                        : The temperature is 21
+2023-04-14 08:58:58.676  INFO 62348 --- [calCliConnector] mqtt.camel.yaml:27                  : Warm temperature at 21
 ----
 
 ==== Stopping
