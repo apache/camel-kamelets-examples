@@ -13,9 +13,7 @@
               jq:
                 expression: .value
                 id: jq-d9d0
-        - convertBodyTo:
-            type: String
-            id: convertBodyTo-c5ee
+                resultType: String
         - choice:
             when:
               - id: when-1bdb
