@@ -28,15 +28,14 @@ Which allows to run CamelJBang with `camel` as shown below.
 
 You need to run a MQTT broker such as via Docker, or download and run Apache ActiveMQ Artemis.
 
-To use docker, run the following command
+To use docker (docker compose), run the following command:
 
 [source,sh]
 ----
-docker run -it -p 1883:1883 -p 9001:9001 eclipse-mosquitto
+/start.sh
 ----
 
-
-Then you can run this example using:
+Then you can run the Camel integration using:
 
 [source,sh]
 ----
@@ -62,6 +61,22 @@ The Camel integration will then consume the payload and output in the console.
 [source,text]
 ----
 2023-04-14 08:58:58.676  INFO 62348 --- [calCliConnector] mqtt.yaml:13                        : The temperature is 21
+----
+
+==== Stopping
+
+To stop Docker, you can run
+
+[source,sh]
+----
+$ docker-compose down
+----
+
+And you can stop Camel with
+
+[source,sh]
+----
+$ camel stop mqtt
 ----
 
 
