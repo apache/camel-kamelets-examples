@@ -31,11 +31,18 @@ Which allows to run CamelJBang with `camel` as shown below.
 
 You need to run a MQTT broker such as via Docker, or download and run Apache ActiveMQ Artemis.
 
-To use docker (docker compose), run the following command:
+To use docker (docker compose), you can run the following command:
 
 [source,sh]
 ----
-/start.sh
+$ start.sh
+----
+
+Or use
+
+[source,sh]
+----
+$ docker-compose up
 ----
 
 Then you can run the Camel integration using:
