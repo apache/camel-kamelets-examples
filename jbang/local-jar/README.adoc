@@ -1,0 +1,81 @@
+== Local JAR
+
+This example shows how you can copy JAR files to this folder,
+and use them in your Camel routes.
+
+=== Install JBang
+
+First install JBang according to https://www.jbang.dev
+
+When JBang is installed then you should be able to run from a shell:
+
+[source,sh]
+----
+$ jbang --version
+----
+
+This will output the version of JBang.
+
+To run this example you can either install Camel on JBang via:
+
+[source,sh]
+----
+$ jbang app install camel@apache/camel
+----
+
+Which allows to run CamelJBang with `camel` as shown below.
+
+=== How to run
+
+Then you can run this example using:
+
+[source,sh]
+----
+$ camel run foo.java commons-lang3-3.12.0.jar
+----
+
+Or run with wildcard:
+
+[source,sh]
+----
+$ camel run *
+----
+
+
+Or run with JBang using the longer command line (without installing camel as app in JBang):
+
+[source,sh]
+----
+$ jbang camel@apache/camel run foo.java commons-lang3-3.12.0.jar
+----
+
+=== Exporting to Spring Boot or Quarkus
+
+You can export the example to a vanilla Camel Spring Boot / Camel Quarkus project, and the local JARs
+will be included as well.
+
+[source,sh]
+----
+$ camel export --gav=com.foo:acme:1.0 --runtime=spring-boot --directory=code
+----
+
+Which will export to a Maven based Spring Boot project in the `code` folder.
+You can then run the example with Spring Boot:
+
+[source,sh]
+----
+$ cd code
+$ ./mvnw spring-boot:run
+--
+
+
+
+=== Help and contributions
+
+If you hit any problem using Camel or have some feedback, then please
+https://camel.apache.org/community/support/[let us know].
+
+We also love contributors, so
+https://camel.apache.org/community/contributing/[get involved] :-)
+
+The Camel riders!
