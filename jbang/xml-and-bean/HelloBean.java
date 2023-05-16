@@ -1,3 +1,5 @@
+package com.mycompany.foo;
+
 import org.apache.camel.BindToRegistry;
 
 @BindToRegistry("myBean")
