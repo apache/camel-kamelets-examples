@@ -1,0 +1,142 @@
+== Azure Event Hubs Kafka Enabled to IBM MQ
+
+In this sample you'll use the Kafka Source to IBM MQ with Kafka enabled feature
+
+=== Install JBang
+
+First install JBang according to https://www.jbang.dev
+
+When JBang is installed then you should be able to run from a shell:
+
+[source,sh]
+----
+$ jbang --version
+----
+
+This will output the version of JBang.
+
+To run this example you can either install Camel on JBang via:
+
+[source,sh]
+----
+$ jbang app install camel@apache/camel
+----
+
+Which allows to run CamelJBang with `camel` as shown below.
+
+=== Setup the Azure Event hubs with Kafka enabled
+
+Running the terraform configuration provided in terraform folder.
+
+[source,sh]
+----
+cd terraform/
+----
+
+and then run
+
+[source,sh]
+----
+terraform init
+----
+
+At this point you should be to run the configuration
+
+[source,sh]
+----
+terraform apply
+----
+
+Enter yes and wait for the terraform configuration to end.
+
+Once the configuration end you'll need to obtain the connection string for accessing the Azure Event Hubs
+
+[source,sh]
+----
+az eventhubs eventhub authorization-rule keys list --resource-group example-resources --namespace-name test12345678910 --eventhub-name camel-test --name navi
+----
+
+Open the file `azure.properties` and copy the primary connection string in both `camel.kamelet.kafka-sink.password` and `camel.kamelet.kafka-source.password`.
+
+=== Set up IBM MQ
+
+We could do this through running the following docker container:
+
+```bash
+docker volume create qm1data
+```
+
+and then run
+
+```bash
+docker run --env LICENSE=accept --env MQ_QMGR_NAME=QM1 --volume qm1data:/mnt/mqm --publish 1414:1414 --publish 9443:9443 --detach --env MQ_APP_PASSWORD=passw0rd --name QM1 icr.io/ibm-messaging/mq:latest
+```
+
+To check everything is fine:
+
+```bash
+docker exec -ti QM1 bash
+dspmq
+```
+
+This should give a RUNNING state.
+
+=== How to run
+
+=== Kafka to MQ
+
+Then you can run this example using:
+
+[source,sh]
+----
+$ camel run --properties=azure.properties --local-kamelet-dir=<your-local-kamelets-path> kafka-mq.yaml
+----
+
+Or run with JBang using the longer command line (without installing camel as app in JBang):
+
+[source,sh]
+----
+$ jbang camel@apache/camel run --properties=azure.properties --local-kamelet-dir=<your-local-kamelets-path> kafka-mq.yaml
+----
+
+=== MQ to log
+
+Then you can run this example using:
+
+[source,sh]
+----
+$ camel run mq-log.yaml
+----
+
+Or run with JBang using the longer command line (without installing camel as app in JBang):
+
+[source,sh]
+----
+$ jbang camel@apache/camel run mq-log.yaml
+----
+
+=== Send data to Kafka on Eventhubs
+
+You can run the timer to kafka route.
+
+[source,sh]
+----
+$ camel run --properties=azure.properties --local-kamelet-dir=<your-local-kamelets-path> timer-kafka.yaml
+----
+
+Or run with JBang using the longer command line (without installing camel as app in JBang):
+
+[source,sh]
+----
+$ jbang camel@apache/camel run --properties=azure.properties --local-kamelet-dir=<your-local-kamelets-path> timer-kafka.yaml
+----
+
+=== Help and contributions
+
+If you hit any problem using Camel or have some feedback, then please
+https://camel.apache.org/community/support/[let us know].
+
+We also love contributors, so
+https://camel.apache.org/community/contributing/[get involved] :-)
+
+The Camel riders!
