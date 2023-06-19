@@ -1,0 +1,12 @@
+# camel-k: language=yaml
+
+# Write your routes here, for example:
+- route:
+    from:
+      uri: timer:tick
+      steps:
+        - setBody:
+            simple: ${random(100)}
+        - to:
+            uri: jms:cheese
+
