@@ -47,12 +47,12 @@ While the Camel integration is running, then from another terminal type:
 $ camel get circuit-breaker
 ----
 
-Which then output the state of the circuit breaker. You can run this command with `watch` and see
+Which then output the state of the circuit breaker. You can run this command with `--watch` and see
 how the state of the circuit breaker changes from closed to open due to many failures.
 
 [source,sh]
 ----
-$ watch camel get circuit-breaker
+$ camel get circuit-breaker --watch
 ----
 
 
