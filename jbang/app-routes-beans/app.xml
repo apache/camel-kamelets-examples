@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<camel>
+
+    <bean name="greeter2" type="camel.example.StandaloneGreeter">
+        <properties>
+            <property key="message" value="Hello"/>
+        </properties>
+    </bean>
+
+    <route id="r1">
+        <from uri="timer:xml?period={{time:1100}}"/>
+        <setBody>
+            <simple>I'm Route ${routeId}</simple>
+        </setBody>
+        <bean ref="greeter1" />
+        <log message="${body}"/>
+    </route>
+
+    <route id="r2">
+        <from uri="timer:xml?period={{time:1200}}"/>
+        <setBody>
+            <simple>I'm Route ${routeId}</simple>
+        </setBody>
+        <bean ref="greeter2" />
+        <log message="${body}"/>
+    </route>
+
+</camel>

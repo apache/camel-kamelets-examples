@@ -1,0 +1,5 @@
+- beans:
+  - name: greeter1
+    type: camel.example.StandaloneGreeter
+    properties:
+      message: 'Howdy'
