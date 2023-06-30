@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<camel>
+
+    <!-- Using <beans> element we can declare beans in Spring XML way without actually using Spring's application context -->
+    <beans xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util">
+
+        <!-- Spring beans and util namespaces can be used -->
+        <util:constant id="max" static-field="java.lang.Integer.MAX_VALUE" />
+
+        <!-- beans with identifiers can be referenced from routes. Spring-style dependency injection can be used. -->
+        <bean id="messageString" class="java.lang.String">
+            <constructor-arg index="0" value="Hello!"/>
+        </bean>
+
+        <bean id="greeter" class="camel.example.StandaloneGreeter">
+            <property name="message" ref="messageString"/>
+        </bean>
+
+        <!-- We can also define beans that will be used to alter the configuration of Camel context itself -->
+        <!-- <bean class="org.apache.camel.support.SimpleUuidGenerator"/> -->
+        <bean class="org.apache.camel.support.ClassicUuidGenerator"/>
+    </beans>
+
+    <route id="r1">
+        <from uri="timer:xml?period={{time:1000}}"/>
+        <setBody>
+            <simple>I'm Route ${routeId}</simple>
+        </setBody>
+        <bean ref="greeter" />
+        <log message="${body} (exchange id: ${exchangeId})"/>
+    </route>
+
+</camel>
