@@ -1,0 +1,327 @@
+== GCP Secrets Manager Vault Example with PostgreSQL
+
+In this sample you'll use the GCP Secrets Manager Vault Properties Source
+
+=== Install JBang
+
+First install JBang according to https://www.jbang.dev
+
+When JBang is installed then you should be able to run from a shell:
+
+[source,sh]
+----
+$ jbang --version
+----
+
+This will output the version of JBang.
+
+To run this example you can either install Camel on JBang via:
+
+[source,sh]
+----
+$ jbang app install camel@apache/camel
+----
+
+Which allows to run CamelJBang with `camel` as shown below.
+
+=== Setup the GCP Secret Manager
+
+First of all you'll need to install the gcloud cli from https://cloud.google.com/sdk/docs/install
+
+Once the Cli has been installed we can proceed to login and to setup the project with the following commands:
+
+[source,sh]
+----
+gcloud auth login
+----
+
+and
+
+[source,sh]
+----
+gcloud projects create gcp-sec-refresh --name="GCP Secret Manager Refresh"
+----
+
+The project will need a service identity for using secret manager service and we'll be able to have that through the command:
+
+[source,sh]
+----
+gcloud beta services identity create --service "secretmanager.googleapis.com" --project "gcp-sec-refresh"
+----
+
+The latter command will provide a service account name that we need to export
+
+[source,sh]
+----
+export SM_SERVICE_ACCOUNT="service-...."
+----
+
+Since we want to have notifications about event related to a specific secret through a Google Pubsub topic we'll need to create a topic for this purpose with the following command:
+
+[source,sh]
+----
+gcloud pubsub topics create "projects/gcp-sec-refresh/topics/pubsub-gcp-sec-refresh"
+----
+
+The service account will need Secret Manager authorization to publish messages on the topic just created, so we'll need to add an iam policy binding with the following command:
+
+[source,sh]
+----
+gcloud pubsub topics add-iam-policy-binding pubsub-gcp-sec-refresh --member "serviceAccount:${SM_SERVICE_ACCOUNT}" --role "roles/pubsub.publisher" --project gcp-sec-refresh
+----
+
+We now need to create a subscription to the pubsub-gcp-sec-refresh just created and we're going to call it sub-gcp-sec-refresh with the following command:
+
+[source,sh]
+----
+gcloud pubsub subscriptions create "projects/gcp-sec-refresh/subscriptions/sub-gcp-sec-refresh" --topic "projects/gcp-sec-refresh/topics/pubsub-gcp-sec-refresh"
+----
+
+Now we need to create a service account for running our application:
+
+[source,sh]
+----
+gcloud iam service-accounts create gcp-sec-refresh-sa --description="GCP Sec Refresh SA" --project gcp-sec-refresh
+----
+
+Let's give the SA an owner role:
+
+[source,sh]
+----
+gcloud projects add-iam-policy-binding gcp-sec-refresh --member="serviceAccount:gcp-sec-refresh-sa@gcp-sec-refresh.iam.gserviceaccount.com" --role="roles/owner"
+----
+
+Now we should create a Service account key file for the just create SA:
+
+[source,sh]
+----
+gcloud iam service-accounts keys create gcp-sec-refresh.json --iam-account=gcp-sec-refresh-sa@gcp-sec-refresh.iam.gserviceaccount.com
+----
+
+Modify the application.properties file to point to serviceAccountKey property to the just create gcp-sec-refresh.json file.
+
+Let's enable the Secret Manager API for our project
+
+[source,sh]
+----
+gcloud services enable secretmanager.googleapis.com --project gcp-sec-refresh
+----
+
+If needed enable also the Billing API.
+
+Now it's time to create our hello secret, with topic notification:
+
+[source,sh]
+----
+gcloud secrets create database --topics=projects/gcp-sec-refresh/topics/pubsub-gcp-sec-refresh --project=gcp-sec-refresh
+----
+
+Let's add a value to the secret:
+
+[source,sh]
+----
+echo -n '{"username":"postgres","password":"mysecretpassword"}' | gcloud secrets versions add database --data-file=- --project=gcp-sec-refresh
+----
+
+=== Setup the PostgreSQL container
+
+First of all let's run the container
+
+[source,sh]
+----
+docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+----
+
+Now look at the container IP address:
+
+[source,sh]
+----
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' some-postgres
+> 172.17.0.2
+----
+
+Use this address into the postgresql-log.yaml file as serverName
+
+Now let's connect to the database and populate it with a table and 3 columns:
+
+[source]
+----
+CREATE TABLE accounts (
+	user_id serial PRIMARY KEY,
+	username VARCHAR ( 50 ) UNIQUE NOT NULL,
+	city VARCHAR ( 50 ) NOT NULL
+);
+----
+
+[source,sh]
+----
+docker exec -it some-postgres psql -h some-postgres -U postgres 
+psql (15.1 (Debian 15.1-1.pgdg110+1))
+Type "help" for help.
+
+postgres=# CREATE TABLE accounts (
+        user_id serial PRIMARY KEY,
+        username VARCHAR ( 50 ) UNIQUE NOT NULL,
+        city VARCHAR ( 50 ) NOT NULL
+);
+CREATE TABLE
+postgres=# postgres=# INSERT into accounts (username,city) VALUES ('andrea', 'Roma');
+INSERT 0 1
+postgres=# INSERT into accounts (username,city) VALUES ('John', 'New York');
+INSERT 0 1
+postgres=# select * from accounts;
+ user_id | username |   city   
+---------+----------+----------
+       1 | andrea   | Roma
+       2 | John     | New York
+(2 rows)
+----
+
+
+=== Setting up the GCP Service account key
+
+In the gcp-sec-integration.propertie you'll need to provide all the needed bits and the path to the just created service account key file. So you should have something like this:
+
+[source,sh]
+----
+camel.vault.gcp.projectId=gcp-sec-refresh
+camel.vault.gcp.serviceAccountKey = file:////gcp-sec-refresh.json
+camel.vault.gcp.refreshEnabled=true
+camel.vault.gcp.refreshPeriod=60000
+camel.vault.gcp.secrets=database*
+camel.vault.gcp.subscriptionName=sub-gcp-sec-refresh
+camel.main.context-reload-enabled = true
+----
+
+=== How to run
+
+Then you can run this example using:
+
+[source,sh]
+----
+$ camel run --properties=gcp-sec-refresh.properties postgresql-log.yaml
+----
+
+Or run it even shorter:
+
+[source,sh]
+----
+$ camel run *
+----
+
+Or run with JBang using the longer command line (without installing camel as app in JBang):
+
+[source,sh]
+----
+$ jbang camel@apache/camel run --properties=gcp-sec-refresh.properties postgresql-log.yaml
+----
+
+This will give the following log:
+
+[source,sh]
+----
+2023-07-06 13:51:47.793  INFO 24893 --- [           main] org.apache.camel.main.MainSupport   : Apache Camel (JBang) 3.21.0 is starting
+2023-07-06 13:51:48.024  INFO 24893 --- [           main] org.apache.camel.main.MainSupport   : Using Java 11.0.16.1 with PID 24893. Started by oscerd in /home/oscerd/workspace/apache-camel/camel-kamelets-examples/jbang/postgresql-gcp-secret-refresh
+2023-07-06 13:51:48.036  INFO 24893 --- [           main] mel.cli.connector.LocalCliConnector : Camel CLI enabled (local)
+2023-07-06 13:51:49.189  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport : Auto-configuration summary
+2023-07-06 13:51:49.189  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [gcp-sec-refresh.properties]   camel.main.name=GCPExample
+2023-07-06 13:51:49.190  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [gcp-sec-refresh.properties]   camel.vault.gcp.projectId=gcp-sec-refresh
+2023-07-06 13:51:49.190  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [gcp-sec-refresh.properties]   camel.vault.gcp.serviceAccountKey=*****
+2023-07-06 13:51:49.190  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [gcp-sec-refresh.properties]   camel.vault.gcp.refreshEnabled=true
+2023-07-06 13:51:49.190  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [gcp-sec-refresh.properties]   camel.vault.gcp.refreshPeriod=60000
+2023-07-06 13:51:49.190  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [gcp-sec-refresh.properties]   camel.vault.gcp.secrets=database*
+2023-07-06 13:51:49.190  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [gcp-sec-refresh.properties]   camel.vault.gcp.subscriptionName=sub-gcp-sec-refresh
+2023-07-06 13:51:51.418  INFO 24893 --- [           main] main.MainAutowiredLifecycleStrategy : Autowired property: dataSource on component: sql as exactly one instance of type: javax.sql.DataSource (org.apache.commons.dbcp2.BasicDataSource) found in the registry
+2023-07-06 13:51:51.500  INFO 24893 --- [           main] el.impl.engine.AbstractCamelContext : Apache Camel 3.21.0 (GCPExample) is starting
+2023-07-06 13:51:51.724  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport : Property-placeholders summary
+2023-07-06 13:51:51.725  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [stgresql-source.kamelet.yaml] query=select * from accounts;
+2023-07-06 13:51:51.725  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [stgresql-source.kamelet.yaml] dsBean=dsBean-1
+2023-07-06 13:51:51.725  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [stgresql-source.kamelet.yaml] delay=90000
+2023-07-06 13:51:51.725  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [stgresql-source.kamelet.yaml] password=xxxxxx
+2023-07-06 13:51:51.725  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [stgresql-source.kamelet.yaml] serverName=172.17.0.2
+2023-07-06 13:51:51.725  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [stgresql-source.kamelet.yaml] databaseName=postgres
+2023-07-06 13:51:51.725  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [stgresql-source.kamelet.yaml] username=xxxxxx
+2023-07-06 13:51:51.726  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [log-sink.kamelet.yaml]        showStreams=true
+2023-07-06 13:51:51.742  INFO 24893 --- [           main] el.impl.engine.AbstractCamelContext : Routes startup (started:3)
+2023-07-06 13:51:51.742  INFO 24893 --- [           main] el.impl.engine.AbstractCamelContext :     Started route1 (kamelet://postgresql-source)
+2023-07-06 13:51:51.742  INFO 24893 --- [           main] el.impl.engine.AbstractCamelContext :     Started postgresql-source-1 (sql://select%20*%20from%20accounts;)
+2023-07-06 13:51:51.743  INFO 24893 --- [           main] el.impl.engine.AbstractCamelContext :     Started log-sink-2 (kamelet://source)
+2023-07-06 13:51:51.743  INFO 24893 --- [           main] el.impl.engine.AbstractCamelContext : Apache Camel 3.21.0 (GCPExample) started in 1s992ms (build:119ms init:1s631ms start:242ms JVM-uptime:4s)
+2023-07-06 13:51:52.950  INFO 24893 --- [rom%20accounts;] log-sink                            : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":1,"username":"andrea","city":"Roma"}]
+2023-07-06 13:51:52.955  INFO 24893 --- [rom%20accounts;] log-sink                            : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":2,"username":"John","city":"New York"}]
+----
+
+
+=== Modify the secret
+
+You can list the secrets in use from the GCP secret manager service:
+
+[source,sh]
+----
+camel get vault
+----
+
+While the integration is running you could modify the secret and the integration will reload automatically
+
+In our example we want to change the password for postgres user and to do that we can do:
+
+[source,sh]
+----
+cat alter-user.sql | docker exec -i some-postgres psql -U postgres
+----
+
+and at the same time modify the secret in GCP:
+
+[source,sh]
+----
+echo -n '{"username":"postgres","password":"password123"}' | gcloud secrets versions add database --data-file=- --project=gcp-sec-refresh
+----
+
+Now, get back, to the running Camel application and wait for the reloading.
+
+You should see something like:
+
+[source,sh]
+----
+.
+.
+.
+.
+2023-07-06 14:01:05.185  INFO 25531 --- [          Gax-8] nager.vault.PubsubReloadTriggerTask : Update for GCP secret: projects/119110008178/secrets/database detected, triggering CamelContext reload
+2023-07-06 14:01:05.185  INFO 25531 --- [          Gax-8] upport.DefaultContextReloadStrategy : Reloading CamelContext (GCPExample) triggered by: org.apache.camel.component.google.secret.manager.vault.PubsubReloadTriggerTask$FilteringEventMessageReceiver@46d2a059
+2023-07-06 14:01:06.549  INFO 25531 --- [rom%20accounts;] log-sink                            : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":1,"username":"andrea","city":"Roma"}]
+2023-07-06 14:01:06.550  INFO 25531 --- [rom%20accounts;] log-sink                            : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"user_id":2,"username":"John","city":"New York"}]
+.
+.
+.
+.
+----
+
+And the secret should also now be listed as updated from the get vault command:
+
+[source,sh]
+----
+camel get vault
+----
+
+=== Developer Web Console
+
+You can enable the developer console via `--console` flag as show:
+
+[source,sh]
+----
+$ camel run --properties=gcp-sec-refresh.properties postgresql-log.yaml --console
+----
+
+Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.
+
+
+=== Help and contributions
+
+If you hit any problem using Camel or have some feedback, then please
+https://camel.apache.org/community/support/[let us know].
+
+We also love contributors, so
+https://camel.apache.org/community/contributing/[get involved] :-)
+
+The Camel riders!
