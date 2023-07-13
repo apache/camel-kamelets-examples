@@ -165,7 +165,7 @@ postgres=# CREATE TABLE accounts (
         city VARCHAR ( 50 ) NOT NULL
 );
 CREATE TABLE
-postgres=# postgres=# INSERT into accounts (username,city) VALUES ('andrea', 'Roma');
+postgres=# INSERT into accounts (username,city) VALUES ('andrea', 'Roma');
 INSERT 0 1
 postgres=# INSERT into accounts (username,city) VALUES ('John', 'New York');
 INSERT 0 1
