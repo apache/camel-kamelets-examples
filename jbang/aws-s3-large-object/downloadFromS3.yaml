@@ -1,0 +1,20 @@
+# camel-k: language=yaml
+
+- from:
+    uri: "aws2-s3://{{env:BUCKET_NAME}}"
+    parameters:
+      accessKey: "{{env:AWS_ACCESS_KEY_ID}}"
+      secretKey: "{{env:AWS_SECRET_ACCESS_KEY}}"
+      prefix: "{{env:FILE_NAME}}"
+      forcePathStyle: true
+      includeBody: false
+      autocloseBody: true
+      region: "noobaa"           # Doesn't matter, can be anything but must have
+      deleteAfterRead: false
+      repeatCount: 1
+      overrideEndpoint: true
+      uriEndpointOverride: "{{env:BUCKET_ENDPOINT}}"
+    steps:
+      - to:
+          uri: "file:./inbox"
+      - log: "Done"

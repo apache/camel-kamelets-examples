@@ -1,0 +1,20 @@
+# camel-k: language=yaml
+
+- from:
+    uri: "file:./outbox"
+    parameters:
+      fileName: "{{env:FILE_NAME}}"
+      noop: true
+    steps:
+      - to:
+         uri: "aws2-s3://{{env:BUCKET_NAME}}"
+         parameters:
+           accessKey: "{{env:AWS_ACCESS_KEY_ID}}"
+           secretKey: "{{env:AWS_SECRET_ACCESS_KEY}}"
+           forcePathStyle: true
+           region: "noobaa"           # Doesn't matter, can be anything but must have
+           repeatCount: 1
+           overrideEndpoint: true
+           uriEndpointOverride: "{{env:BUCKET_ENDPOINT}}"
+           keyName: "{{env:FILE_NAME}}"
+      - log: "Done"
