@@ -1,0 +1,24 @@
+<camel>
+
+    <!-- embedded spring-xml beans -->
+    <beans xmlns="http://www.springframework.org/schema/beans">
+        <bean id="office" class="com.foo.Address">
+           <property name="zip" value="1234"/>
+           <property name="street" value="Gardenstreet 444"/>
+       </bean>        
+       <bean id="orderService" class="com.foo.OrderService">
+           <property name="customer" value="Acme"/>
+           <property name="address" ref="office"/>
+       </bean> 
+    </beans>
+
+    <route>
+        <from uri="timer:xml?period={{time:1000}}"/>
+        <setBody>
+            <simple>${random(1000)}</simple>
+        </setBody>
+        <bean ref="orderService"/>
+        <log message="${body}"/>
+    </route>
+
+</camel>
