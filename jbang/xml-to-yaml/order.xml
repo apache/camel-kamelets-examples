@@ -1,0 +1,18 @@
+<camel>
+
+    <bean name="orderService" type="com.foo.OrderService">
+        <properties>
+            <property key="customer" value="Acme"/>
+        </properties>
+    </bean>
+
+    <route>
+        <from uri="timer:xml?period={{time:1000}}"/>
+        <setBody>
+            <simple>${random(1000)}</simple>
+        </setBody>
+        <bean ref="orderService"/>
+        <log message="${body}"/>
+    </route>
+
+</camel>
