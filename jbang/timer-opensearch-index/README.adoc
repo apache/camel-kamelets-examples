@@ -1,0 +1,136 @@
+== Timer to Opensearch Index Sink
+
+In this sample you'll use the Opensearch Index Sink Kamelet based on camel-opensearch component.
+
+=== Install JBang
+
+First install JBang according to https://www.jbang.dev
+
+When JBang is installed then you should be able to run from a shell:
+
+[source,sh]
+----
+$ jbang --version
+----
+
+This will output the version of JBang.
+
+To run this example you can either install Camel on JBang via:
+
+[source,sh]
+----
+$ jbang app install camel@apache/camel
+----
+
+Which allows to run CamelJBang with `camel` as shown below.
+
+=== Setup Opensearch
+
+We are going to use the official Docker image for Opensearch.
+
+We can run the following:
+
+[source,sh]
+----
+docker run -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" --name opensearch-node -e "DISABLE_SECURITY_PLUGIN=true" -d opensearchproject/opensearch:2.9.0
+----
+
+To verify the connection is fine run the following command:
+
+[source,sh]
+----
+[oscerd@ghost timer-opensearch-index]$ curl -X GET "http://localhost:9200/"
+{
+  "name" : "0f14d266d0bb",
+  "cluster_name" : "docker-cluster",
+  "cluster_uuid" : "w_Qoavz0SKuYcj4onSoWdw",
+  "version" : {
+    "distribution" : "opensearch",
+    "number" : "2.9.0",
+    "build_type" : "tar",
+    "build_hash" : "1164221ee2b8ba3560f0ff492309867beea28433",
+    "build_date" : "2023-07-18T21:23:29.367080729Z",
+    "build_snapshot" : false,
+    "lucene_version" : "9.7.0",
+    "minimum_wire_compatibility_version" : "7.10.0",
+    "minimum_index_compatibility_version" : "7.0.0"
+  },
+  "tagline" : "The OpenSearch Project: https://opensearch.org/"
+}
+
+----
+
+=== How to run
+
+Then you can run this example using:
+
+[source,sh]
+----
+$ jbang run --fresh camel@apache/camel run --local-kamelet-dir=<path_to_local_kamelet_dir> timer-os-index.yaml
+----
+
+=== Developer Web Console
+
+You can enable the developer console via `--console` flag as show:
+
+[source,sh]
+----
+$ jbang run --fresh camel@apache/camel run --local-kamelet-dir=<path_to_local_kamelet_dir> timer-os-index.yaml --console
+----
+
+Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.
+
+=== Running integration
+
+We are going to insert just one record into the index.
+
+[source,sh]
+----
+[jbang] Resolving dependencies...
+[jbang]    org.apache.camel:camel-bom:4.0.0@pom
+[jbang]    org.apache.camel:camel-jbang-core:4.0.0
+[jbang]    org.apache.camel.kamelets:camel-kamelets:4.0.0-RC1
+[jbang] Dependencies resolved
+[jbang] Building jar...
+2023-08-25 17:09:13.246  INFO 87439 --- [           main] org.apache.camel.main.MainSupport   : Apache Camel (JBang) 4.0.0 is starting
+2023-08-25 17:09:13.445  INFO 87439 --- [           main] org.apache.camel.main.MainSupport   : Using Java 17.0.8 with PID 87439. Started by oscerd in /home/oscerd/workspace/apache-camel/camel-kamelets-examples/jbang/timer-opensearch-index
+2023-08-25 17:09:14.158  INFO 87439 --- [           main] mel.cli.connector.LocalCliConnector : Camel CLI enabled (local)
+2023-08-25 17:09:15.532  INFO 87439 --- [           main] el.impl.engine.AbstractCamelContext : Apache Camel 4.0.0 (timer-os-index) is starting
+2023-08-25 17:09:15.747  INFO 87439 --- [           main] .core.spi.resolver.ResolverProvider : Using the default address resolver as the dns resolver could not be loaded
+2023-08-25 17:09:15.870  INFO 87439 --- [ntloop-thread-0] .http.vertx.VertxPlatformHttpServer : Vert.x HttpServer started on 0.0.0.0:8080
+2023-08-25 17:09:16.068  INFO 87439 --- [           main] onent.opensearch.OpensearchProducer : Connecting to the OpenSearch cluster: opensearch-cluster
+2023-08-25 17:09:16.305  INFO 87439 --- [           main] g.apache.camel.main.BaseMainSupport : Property-placeholders summary
+2023-08-25 17:09:16.307  INFO 87439 --- [           main] g.apache.camel.main.BaseMainSupport :     [timer-source.kamelet.yaml]    repeatCount=1
+2023-08-25 17:09:16.307  INFO 87439 --- [           main] g.apache.camel.main.BaseMainSupport :     [timer-source.kamelet.yaml]    message={"id":"2","message":"Camel Rocks"}
+2023-08-25 17:09:16.307  INFO 87439 --- [           main] g.apache.camel.main.BaseMainSupport :     [timer-source.kamelet.yaml]    contentType=application/json
+2023-08-25 17:09:16.307  INFO 87439 --- [           main] g.apache.camel.main.BaseMainSupport :     [arch-index-sink.kamelet.yaml] local-opensearch=local-opensearch-1
+2023-08-25 17:09:16.307  INFO 87439 --- [           main] g.apache.camel.main.BaseMainSupport :     [arch-index-sink.kamelet.yaml] clusterName=opensearch-cluster
+2023-08-25 17:09:16.308  INFO 87439 --- [           main] g.apache.camel.main.BaseMainSupport :     [arch-index-sink.kamelet.yaml] indexName=test_index
+2023-08-25 17:09:16.308  INFO 87439 --- [           main] g.apache.camel.main.BaseMainSupport :     [arch-index-sink.kamelet.yaml] hostAddresses=localhost
+2023-08-25 17:09:16.308  INFO 87439 --- [           main] g.apache.camel.main.BaseMainSupport :     [OS Environment Variable]      user=xxxxxx
+2023-08-25 17:09:16.329  INFO 87439 --- [           main] el.impl.engine.AbstractCamelContext : Routes startup (started:3)
+2023-08-25 17:09:16.330  INFO 87439 --- [           main] el.impl.engine.AbstractCamelContext :     Started route1 (kamelet://timer-source)
+2023-08-25 17:09:16.331  INFO 87439 --- [           main] el.impl.engine.AbstractCamelContext :     Started timer-source-1 (timer://tick)
+2023-08-25 17:09:16.331  INFO 87439 --- [           main] el.impl.engine.AbstractCamelContext :     Started opensearch-index-sink-2 (kamelet://source)
+2023-08-25 17:09:16.331  INFO 87439 --- [           main] el.impl.engine.AbstractCamelContext : Apache Camel 4.0.0 (timer-os-index) started in 798ms (build:0ms init:0ms start:798ms)
+----
+
+=== Verify the sink worked
+
+To verify everything is fine we should run the following command
+
+[source,sh]
+----
+$ curl http://localhost:9200/test_index/_search
+{"took":1,"timed_out":false,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0},"hits":{"total":{"value":1,"relation":"eq"},"max_score":1.0,"hits":[{"_index":"test_index","_id":"sUM-LYoBQGW75SJUE41U","_score":1.0,"_source":{"id":"1","message":"Camel Rocks"}}]}}
+----
+
+=== Help and contributions
+
+If you hit any problem using Camel or have some feedback, then please
+https://camel.apache.org/community/support/[let us know].
+
+We also love contributors, so
+https://camel.apache.org/community/contributing/[get involved] :-)
+
+The Camel riders!
