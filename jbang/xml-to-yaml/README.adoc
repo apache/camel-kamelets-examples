@@ -44,7 +44,7 @@ This can also be done explicit from CLI, by executing:
 
 [source,sh]
 ----
-$ camel transform * --format=yaml --directory=my-dump
+$ camel transform * --format=yaml --output=my-dump
 ----
 
 This will transform the Camel XML DSL into YAML and store the output in the my-dump directory.
