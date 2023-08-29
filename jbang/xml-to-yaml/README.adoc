@@ -1,6 +1,6 @@
 == XML to YAML
 
-This example shows XML DSL with both bean and routes using the new <camel> root tag.
+This example shows classic Spring XML file with <bean> and <camelContext> with embedded <route>.
 
 The XML can be migrated to YAML DSL using Camel JBang.
 
@@ -47,7 +47,7 @@ This can also be done explicit from CLI, by executing:
 $ camel transform * --format=yaml --output=my-dump
 ----
 
-This will transform the Camel XML DSL into YAML and store the output in the my-dump directory.
+This will transform the XML DSL into YAML DSL and store the output in the my-dump directory.
 
 
 === Help and contributions

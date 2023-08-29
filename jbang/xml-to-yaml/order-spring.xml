@@ -1,16 +1,23 @@
-<camel>
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-    <!-- embedded spring-xml beans -->
-    <beans xmlns="http://www.springframework.org/schema/beans">
-       <bean id="orderService" class="com.foo.OrderService">
-           <property name="customer" value="Acme"/>
-           <property name="address" ref="office"/>
-       </bean> 
-       <bean id="office" class="com.foo.Address">
-           <property name="zip" value="1234"/>
-           <property name="street" value="Gardenstreet 444"/>
-       </bean>
-    </beans>
+   <!-- spring beans -->
+   <bean id="orderService" class="com.foo.OrderService">
+       <constructor-arg index="0" value="true"/>
+       <constructor-arg index="1" ref="office"/>
+   </bean> 
+   <!-- uses spring property placeholder ${xxx} syntax -->
+   <bean id="office" class="com.foo.Address">
+       <property name="zip" value="${zipCode}"/>
+       <property name="street" value="${streetName}"/>
+   </bean>
+
+  <!-- embed Camel with routes -->
+  <camelContext xmlns="http://camel.apache.org/schema/spring">
 
     <route>
         <from uri="timer:xml?period={{time:1000}}"/>
@@ -21,4 +28,6 @@
         <log message="${body}"/>
     </route>
 
-</camel>
+  </camelContext>
+
+</beans>

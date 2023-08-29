@@ -7,6 +7,11 @@ public class OrderService {
    private String customer;
    private Address address;
 
+   public OrderService(boolean customer, Address address) {
+       this.customer = customer ? "Acme" : "None";
+       this.address = address;
+   }
+
    public void setCustomer(String customer) {
        this.customer = customer;
    }
@@ -24,7 +29,7 @@ public class OrderService {
    }   
 
    public String processorOrder(String id) {
-       return "Order " + id + " ordered by " + customer + " to " + address.getStreet();
+       return "Order2 " + id + " ordered by " + customer + " to " + address.getStreet();
    }
 
 }
