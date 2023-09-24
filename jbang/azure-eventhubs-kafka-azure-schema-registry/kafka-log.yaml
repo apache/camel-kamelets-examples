@@ -1,0 +1,40 @@
+# camel-k: dependency=mvn:org.apache.camel.kamelets:camel-kamelets-utils:3.20.1.1
+# camel-k: dependency=mvn:org.apache.camel.kamelets:azure-identity:0.1
+# camel-k: dependency=mvn:com.microsoft.azure:azure-schemaregistry-kafka-avro:1.1.1
+# camel-k: dependency=mvn:com.azure:azure-data-schemaregistry-apacheavro:1.1.4
+# camel-k: dependency=mvn:com.azure:azure-identity:1.9.0
+# camle-k: dependency=mvn:org.apache.camel:camel-kafka:3.20.6
+
+- beans:
+  # - name: kafkaHeaderDeserializer
+  #   type: "#class:kolka.camel.eventhubs.StringKafkaHeaderDeserializer"
+  - name: defaultAzureCredential
+    type: "#class:org.apache.camel.kamelets.azure.DefaultAzureCredentialWrapper"
+
+- route:
+    id: "kafka-to-log"
+    from:
+      uri: "kafka:{{kafka.my-topic}}"
+      parameters:
+        autoOffsetReset: earliest
+        brokers: "{{kafka.bootstrapServers}}"
+        saslJaasConfig: 'org.apache.kafka.common.security.plain.PlainLoginModule required username={{kafka.username}} password={{kafka.password}};'
+        saslMechanism: PLAIN
+        securityProtocol: SASL_SSL
+        # headerDeserializer: '#kafkaHeaderDeserializer'
+        valueDeserializer: 'com.microsoft.azure.schemaregistry.kafka.avro.KafkaAvroDeserializer'
+        groupId: 'my-consumer-group'
+        additionalProperties.schema.registry.url: '{{kafka.schema-registry-url}}'
+        additionalProperties.schema.group: avro
+        additionalProperties.schema.registry.credential: '#bean:defaultAzureCredential'
+        additionalProperties.specific.avro.value.type: '#valueAs(java.lang.Class):org.apache.camel.kamelets.eventhubs.models.Order'
+        additionalProperties.specific.avro.reader: '#valueAs(boolean):true'
+      steps:
+        # - log:
+        #     message: "body: ${body}"
+        - to:
+            uri: "kamelet:log-sink"
+            parameters:
+              showStreams: true
+              showHeaders: true
+              multiline: true
