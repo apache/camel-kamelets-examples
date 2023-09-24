@@ -6,8 +6,6 @@
 # camle-k: dependency=mvn:org.apache.camel:camel-kafka:3.20.6
 
 - beans:
-  # - name: kafkaHeaderDeserializer
-  #   type: "#class:kolka.camel.eventhubs.StringKafkaHeaderDeserializer"
   - name: defaultAzureCredential
     type: "#class:org.apache.camel.kamelets.azure.DefaultAzureCredentialWrapper"
 
@@ -21,7 +19,6 @@
         saslJaasConfig: 'org.apache.kafka.common.security.plain.PlainLoginModule required username={{kafka.username}} password={{kafka.password}};'
         saslMechanism: PLAIN
         securityProtocol: SASL_SSL
-        # headerDeserializer: '#kafkaHeaderDeserializer'
         valueDeserializer: 'com.microsoft.azure.schemaregistry.kafka.avro.KafkaAvroDeserializer'
         groupId: 'my-consumer-group'
         additionalProperties.schema.registry.url: '{{kafka.schema-registry-url}}'
@@ -30,8 +27,6 @@
         additionalProperties.specific.avro.value.type: '#valueAs(java.lang.Class):org.apache.camel.kamelets.eventhubs.models.Order'
         additionalProperties.specific.avro.reader: '#valueAs(boolean):true'
       steps:
-        # - log:
-        #     message: "body: ${body}"
         - to:
             uri: "kamelet:log-sink"
             parameters:
