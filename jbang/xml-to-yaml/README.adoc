@@ -38,7 +38,7 @@ $ camel run *
 === Transforming to YAML
 
 The example will on startup transform the source from XML to YAML and save
-this into dump sub directory.
+this into dump sub directory (or print to console).
 
 This can also be done explicit from CLI, by executing:
 
@@ -48,6 +48,20 @@ $ camel transform * --format=yaml --output=my-dump
 ----
 
 This will transform the XML DSL into YAML DSL and store the output in the my-dump directory.
+
+If you want to print the dump to console, you can do:
+
+[source,sh]
+----
+$ camel transform * --format=yaml
+----
+
+And since yaml is default format, it can be shorter:
+
+[source,sh]
+----
+$ camel transform *
+----
 
 
 === Help and contributions
