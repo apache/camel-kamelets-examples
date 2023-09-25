@@ -1,10 +1,10 @@
-package org.apache.camel.kamelets.eventhubs;
+package com.acme.example.eventhubs;
 
+import com.acme.example.azure.DefaultAzureCredentialWrapper;
+import com.acme.example.eventhubs.models.Order;
 import com.azure.core.credential.TokenCredential;
 import com.microsoft.azure.schemaregistry.kafka.avro.KafkaAvroSerializer;
 import com.microsoft.azure.schemaregistry.kafka.avro.KafkaAvroSerializerConfig;
-import org.apache.camel.kamelets.azure.DefaultAzureCredentialWrapper;
-import org.apache.camel.kamelets.eventhubs.models.Order;
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;

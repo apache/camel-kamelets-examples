@@ -23,6 +23,6 @@
     }
   ],
   "name": "Order",
-  "namespace": "org.apache.camel.kamelets.eventhubs.models",
+  "namespace": "com.acme.example.eventhubs.models",
   "type": "record"
 }

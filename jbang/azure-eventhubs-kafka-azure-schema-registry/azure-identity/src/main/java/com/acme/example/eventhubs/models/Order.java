@@ -3,7 +3,7 @@
  *
  * DO NOT EDIT DIRECTLY
  */
-package org.apache.camel.kamelets.eventhubs.models;
+package com.acme.example.eventhubs.models;
 
 import org.apache.avro.specific.SpecificData;
 import org.apache.avro.message.BinaryMessageEncoder;
@@ -14,8 +14,8 @@ import org.apache.avro.message.SchemaStore;
 /** Fact schema of an order */
 @org.apache.avro.specific.AvroGenerated
 public class Order extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 5320411579412574685L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Order\",\"namespace\":\"org.apache.camel.kamelets.eventhubs.models\",\"doc\":\"Fact schema of an order\",\"fields\":[{\"name\":\"orderId\",\"type\":\"int\",\"doc\":\"Unique id of the order.\"},{\"name\":\"itemId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Id of the ordered item.\"},{\"name\":\"userId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Id of the user who ordered the item.\"},{\"name\":\"quantity\",\"type\":\"double\",\"doc\":\"How much was ordered.\"}]}");
+  private static final long serialVersionUID = -6339119225573548571L;
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Order\",\"namespace\":\"com.acme.example.eventhubs.models\",\"doc\":\"Fact schema of an order\",\"fields\":[{\"name\":\"orderId\",\"type\":\"int\",\"doc\":\"Unique id of the order.\"},{\"name\":\"itemId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Id of the ordered item.\"},{\"name\":\"userId\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Id of the user who ordered the item.\"},{\"name\":\"quantity\",\"type\":\"double\",\"doc\":\"How much was ordered.\"}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
@@ -178,8 +178,8 @@ public class Order extends org.apache.avro.specific.SpecificRecordBase implement
    * Creates a new Order RecordBuilder.
    * @return A new Order RecordBuilder
    */
-  public static org.apache.camel.kamelets.eventhubs.models.Order.Builder newBuilder() {
-    return new org.apache.camel.kamelets.eventhubs.models.Order.Builder();
+  public static com.acme.example.eventhubs.models.Order.Builder newBuilder() {
+    return new com.acme.example.eventhubs.models.Order.Builder();
   }
 
   /**
@@ -187,8 +187,8 @@ public class Order extends org.apache.avro.specific.SpecificRecordBase implement
    * @param other The existing builder to copy.
    * @return A new Order RecordBuilder
    */
-  public static org.apache.camel.kamelets.eventhubs.models.Order.Builder newBuilder(org.apache.camel.kamelets.eventhubs.models.Order.Builder other) {
-    return new org.apache.camel.kamelets.eventhubs.models.Order.Builder(other);
+  public static com.acme.example.eventhubs.models.Order.Builder newBuilder(com.acme.example.eventhubs.models.Order.Builder other) {
+    return new com.acme.example.eventhubs.models.Order.Builder(other);
   }
 
   /**
@@ -196,8 +196,8 @@ public class Order extends org.apache.avro.specific.SpecificRecordBase implement
    * @param other The existing instance to copy.
    * @return A new Order RecordBuilder
    */
-  public static org.apache.camel.kamelets.eventhubs.models.Order.Builder newBuilder(org.apache.camel.kamelets.eventhubs.models.Order other) {
-    return new org.apache.camel.kamelets.eventhubs.models.Order.Builder(other);
+  public static com.acme.example.eventhubs.models.Order.Builder newBuilder(com.acme.example.eventhubs.models.Order other) {
+    return new com.acme.example.eventhubs.models.Order.Builder(other);
   }
 
   /**
@@ -224,7 +224,7 @@ public class Order extends org.apache.avro.specific.SpecificRecordBase implement
      * Creates a Builder by copying an existing Builder.
      * @param other The existing Builder to copy.
      */
-    private Builder(org.apache.camel.kamelets.eventhubs.models.Order.Builder other) {
+    private Builder(com.acme.example.eventhubs.models.Order.Builder other) {
       super(other);
       if (isValidValue(fields()[0], other.orderId)) {
         this.orderId = data().deepCopy(fields()[0].schema(), other.orderId);
@@ -248,7 +248,7 @@ public class Order extends org.apache.avro.specific.SpecificRecordBase implement
      * Creates a Builder by copying an existing Order instance
      * @param other The existing instance to copy.
      */
-    private Builder(org.apache.camel.kamelets.eventhubs.models.Order other) {
+    private Builder(com.acme.example.eventhubs.models.Order other) {
             super(SCHEMA$);
       if (isValidValue(fields()[0], other.orderId)) {
         this.orderId = data().deepCopy(fields()[0].schema(), other.orderId);
@@ -283,7 +283,7 @@ public class Order extends org.apache.avro.specific.SpecificRecordBase implement
       * @param value The value of 'orderId'.
       * @return This builder.
       */
-    public org.apache.camel.kamelets.eventhubs.models.Order.Builder setOrderId(int value) {
+    public com.acme.example.eventhubs.models.Order.Builder setOrderId(int value) {
       validate(fields()[0], value);
       this.orderId = value;
       fieldSetFlags()[0] = true;
@@ -305,7 +305,7 @@ public class Order extends org.apache.avro.specific.SpecificRecordBase implement
       * Unique id of the order.
       * @return This builder.
       */
-    public org.apache.camel.kamelets.eventhubs.models.Order.Builder clearOrderId() {
+    public com.acme.example.eventhubs.models.Order.Builder clearOrderId() {
       fieldSetFlags()[0] = false;
       return this;
     }
@@ -325,7 +325,7 @@ public class Order extends org.apache.avro.specific.SpecificRecordBase implement
       * @param value The value of 'itemId'.
       * @return This builder.
       */
-    public org.apache.camel.kamelets.eventhubs.models.Order.Builder setItemId(java.lang.String value) {
+    public com.acme.example.eventhubs.models.Order.Builder setItemId(java.lang.String value) {
       validate(fields()[1], value);
       this.itemId = value;
       fieldSetFlags()[1] = true;
@@ -347,7 +347,7 @@ public class Order extends org.apache.avro.specific.SpecificRecordBase implement
       * Id of the ordered item.
       * @return This builder.
       */
-    public org.apache.camel.kamelets.eventhubs.models.Order.Builder clearItemId() {
+    public com.acme.example.eventhubs.models.Order.Builder clearItemId() {
       itemId = null;
       fieldSetFlags()[1] = false;
       return this;
@@ -368,7 +368,7 @@ public class Order extends org.apache.avro.specific.SpecificRecordBase implement
       * @param value The value of 'userId'.
       * @return This builder.
       */
-    public org.apache.camel.kamelets.eventhubs.models.Order.Builder setUserId(java.lang.String value) {
+    public com.acme.example.eventhubs.models.Order.Builder setUserId(java.lang.String value) {
       validate(fields()[2], value);
       this.userId = value;
       fieldSetFlags()[2] = true;
@@ -390,7 +390,7 @@ public class Order extends org.apache.avro.specific.SpecificRecordBase implement
       * Id of the user who ordered the item.
       * @return This builder.
       */
-    public org.apache.camel.kamelets.eventhubs.models.Order.Builder clearUserId() {
+    public com.acme.example.eventhubs.models.Order.Builder clearUserId() {
       userId = null;
       fieldSetFlags()[2] = false;
       return this;
@@ -411,7 +411,7 @@ public class Order extends org.apache.avro.specific.SpecificRecordBase implement
       * @param value The value of 'quantity'.
       * @return This builder.
       */
-    public org.apache.camel.kamelets.eventhubs.models.Order.Builder setQuantity(double value) {
+    public com.acme.example.eventhubs.models.Order.Builder setQuantity(double value) {
       validate(fields()[3], value);
       this.quantity = value;
       fieldSetFlags()[3] = true;
@@ -433,7 +433,7 @@ public class Order extends org.apache.avro.specific.SpecificRecordBase implement
       * How much was ordered.
       * @return This builder.
       */
-    public org.apache.camel.kamelets.eventhubs.models.Order.Builder clearQuantity() {
+    public com.acme.example.eventhubs.models.Order.Builder clearQuantity() {
       fieldSetFlags()[3] = false;
       return this;
     }

@@ -1,4 +1,4 @@
-package org.apache.camel.kamelets.azure;
+package com.acme.example.azure;
 
 import com.azure.core.credential.AccessToken;
 import com.azure.core.credential.TokenCredential;

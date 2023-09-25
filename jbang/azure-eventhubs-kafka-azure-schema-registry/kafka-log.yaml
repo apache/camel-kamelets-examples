@@ -1,13 +1,14 @@
 # camel-k: dependency=mvn:org.apache.camel.kamelets:camel-kamelets-utils:3.20.1.1
-# camel-k: dependency=mvn:org.apache.camel.kamelets:azure-identity:0.1
+# camel-k: dependency=mvn:com.acme.example:azure-identity:0.1
 # camel-k: dependency=mvn:com.microsoft.azure:azure-schemaregistry-kafka-avro:1.1.1
 # camel-k: dependency=mvn:com.azure:azure-data-schemaregistry-apacheavro:1.1.4
 # camel-k: dependency=mvn:com.azure:azure-identity:1.9.0
-# camle-k: dependency=mvn:org.apache.camel:camel-kafka:3.20.6
 
 - beans:
   - name: defaultAzureCredential
-    type: "#class:org.apache.camel.kamelets.azure.DefaultAzureCredentialWrapper"
+    type: "#class:com.acme.example.azure.DefaultAzureCredentialWrapper"
+  - name: order
+    type: "#class:com.acme.example.eventhubs.models.Order"
 
 - route:
     id: "kafka-to-log"
@@ -24,7 +25,7 @@
         additionalProperties.schema.registry.url: '{{kafka.schema-registry-url}}'
         additionalProperties.schema.group: avro
         additionalProperties.schema.registry.credential: '#bean:defaultAzureCredential'
-        additionalProperties.specific.avro.value.type: '#valueAs(java.lang.Class):org.apache.camel.kamelets.eventhubs.models.Order'
+        additionalProperties.specific.avro.value.type: '#valueAs(java.lang.Class):com.acme.example.eventhubs.models.Order'
         additionalProperties.specific.avro.reader: '#valueAs(boolean):true'
       steps:
         - to:
