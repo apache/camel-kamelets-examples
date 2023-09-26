@@ -7,11 +7,6 @@ public class OrderService {
    private String customer;
    private Address address;
 
-   public OrderService(boolean customer, Address address) {
-       this.customer = customer ? "Acme" : "None";
-       this.address = address;
-   }
-
    public void setCustomer(String customer) {
        this.customer = customer;
    }
