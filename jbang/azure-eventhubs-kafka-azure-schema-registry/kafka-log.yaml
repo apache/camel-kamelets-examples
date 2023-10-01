@@ -13,16 +13,16 @@
 - route:
     id: "kafka-to-log"
     from:
-      uri: "kafka:{{kafka.my-topic}}"
+      uri: "kafka:{{topic}}"
       parameters:
         autoOffsetReset: earliest
-        brokers: "{{kafka.bootstrapServers}}"
-        saslJaasConfig: 'org.apache.kafka.common.security.plain.PlainLoginModule required username={{kafka.username}} password={{kafka.password}};'
+        brokers: "{{bootstrap.servers}}"
+        saslJaasConfig: 'org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password={{connectionstring}};'
         saslMechanism: PLAIN
         securityProtocol: SASL_SSL
         valueDeserializer: 'com.microsoft.azure.schemaregistry.kafka.avro.KafkaAvroDeserializer'
         groupId: 'my-consumer-group'
-        additionalProperties.schema.registry.url: '{{kafka.schema-registry-url}}'
+        additionalProperties.schema.registry.url: '{{schema.registry.url}}'
         additionalProperties.schema.group: avro
         additionalProperties.schema.registry.credential: '#bean:defaultAzureCredential'
         additionalProperties.specific.avro.value.type: '#valueAs(java.lang.Class):com.acme.example.eventhubs.models.Order'
