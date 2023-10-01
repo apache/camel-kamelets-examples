@@ -1,5 +1,4 @@
-kafka.bootstrapServers=<EVENTHUBS_NAMESPACE>.servicebus.windows.net:9093
-kafka.schema-registry-url=https://<EVENTHUBS_NAMESPACE>.servicebus.windows.net
-kafka.my-topic=my-topic
-kafka.username="$ConnectionString"
-kafka.password="<ACTUAL_CONNECTION_STRING>"
+bootstrap.servers=<EVENTHUBS_NAMESPACE>.servicebus.windows.net:9093
+schema.registry.url=https://<EVENTHUBS_NAMESPACE>.servicebus.windows.net
+topic=my-topic
+connectionstring="<ACTUAL_CONNECTION_STRING>"
