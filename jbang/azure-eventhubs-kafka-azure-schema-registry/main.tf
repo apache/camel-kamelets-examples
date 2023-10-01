@@ -21,7 +21,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=3.0.0"
+      version = "=3.75.0"
     }
   }
 }
@@ -31,29 +31,22 @@ provider "azurerm" {
   features {}
 }
 
+# Resource group.
 resource "azurerm_resource_group" "example" {
-  name     = "labscamel-azuresr-dev"
+  name     = "example-rg"
   location = "West Europe"
-
-  tags = {
-    env = "dev"
-    team = "labscamel"
-  }
 }
 
+# Eventhubs Namepsace.
 resource "azurerm_eventhub_namespace" "example" {
-  name                = "labscamel-eventhubs-dev"
+  name                = "example-namespace"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
   sku                 = "Standard"
   capacity            = 1
-
-  tags = {
-    env = "dev"
-    team = "labscamel"
-  }
 }
 
+# Eventhub (topic)
 resource "azurerm_eventhub" "example" {
   name                = "my-topic"
   namespace_name      = azurerm_eventhub_namespace.example.name
@@ -62,6 +55,7 @@ resource "azurerm_eventhub" "example" {
   message_retention   = 1
 }
 
+# Read-Write policy to create a connection string.
 resource "azurerm_eventhub_authorization_rule" "example" {
   name                = "rw_policy"
   namespace_name      = azurerm_eventhub_namespace.example.name
@@ -72,6 +66,7 @@ resource "azurerm_eventhub_authorization_rule" "example" {
   manage              = false
 }
 
+# Schema group to utilize Azure Schema Registry.
 resource "azurerm_eventhub_namespace_schema_group" "example" {
   name                 = "avro"
   namespace_id         = azurerm_eventhub_namespace.example.id
