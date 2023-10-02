@@ -39,8 +39,6 @@ public class DatabaseInitializationBean {
     }
 
     public void create() throws Exception {
-        System.out.println(">>>>>>>>>>>>>>>>");
-        
         LOG.info("Creating database tables ...");
         if (connection == null) {
             EmbeddedDriver driver = new EmbeddedDriver();
