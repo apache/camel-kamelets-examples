@@ -1,0 +1,4 @@
+bootstrap.servers=<EVENTHUBS_NAMESPACE>.servicebus.windows.net:9093
+schema.registry.url=https://<EVENTHUBS_NAMESPACE>.servicebus.windows.net
+topic=my-topic
+connectionstring="<ACTUAL_CONNECTION_STRING>"
