@@ -1,4 +1,4 @@
-# Example for consuming from EventHubs in Avro format, using Azure Schema Registry
+# Example for consuming from Azure EventHubs in Avro format, using Azure Schema Registry
 
 This example shows a YAML DSL route for consuming Avro messages from Eventhubs using Azure Schema Registry.
 The exmaple also includes a producer for convenience, as well as a wrapper around [DefaultAzureCredentials](https://learn.microsoft.com/en-us/java/api/com.azure.identity.defaultazurecredential?view=azure-java-stable)
@@ -11,7 +11,7 @@ Then, create the services using the script.
 
 ## Configure the applications
 
-Use [application.properties.template](application.properties.template) to create `application.properties` and define YOur eventhubs namespace in there.
+Use [application.properties.template](application.properties.template) to create `application.properties` and define your eventhubs namespace in there.
 After the services have been created, the connection string for the eventhub can be found on the Azure Console,
 or by running:
 ```bash
