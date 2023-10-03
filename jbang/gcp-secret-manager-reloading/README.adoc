@@ -125,7 +125,7 @@ echo -n "Camel rocks! " | gcloud secrets versions add hello --data-file=- --proj
 
 === Setting up the GCP Service account key
 
-In the gcp-sec-integration.propertie you'll need to provide all the needed bits and the path to the just created service account key file. So you should have something like this:
+In the application.properties you'll need to provide all the needed bits and the path to the just created service account key file. So you should have something like this:
 
 [source,sh]
 ----
@@ -144,7 +144,7 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ camel run --properties=gcp-sec-integration.properties timer-gcp-secret-reloading.yaml
+$ camel run timer-gcp-secret-reloading.yaml
 ----
 
 Or run it even shorter:
@@ -158,7 +158,7 @@ Or run with JBang using the longer command line (without installing camel as app
 
 [source,sh]
 ----
-$ jbang camel@apache/camel run --properties=gcp-sec-integration.properties timer-gcp-secret-reloading.yaml
+$ jbang camel@apache/camel run timer-gcp-secret-reloading.yaml
 ----
 
 
@@ -195,7 +195,7 @@ You can enable the developer console via `--console` flag as show:
 
 [source,sh]
 ----
-$ camel run --properties=gcp-sec-integration.properties timer-gcp-secret-reloading.yaml --console
+$ camel run timer-gcp-secret-reloading.yaml --console
 ----
 
 Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.
