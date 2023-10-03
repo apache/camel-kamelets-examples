@@ -31,7 +31,7 @@ Which allows to run CamelJBang with `camel` as shown below.
 3. Enable the Secret Manager API on the project "gcp-sec"
 4. Create a Service Account Key with the Secret Manager Administrator role or at least the ability to get the payload of a secret
 5. Save the Service Account File in Json format locally
-6. Set the correct project Id and service account key file path in the gcp-sec-integration.properties file
+6. Set the correct project Id and service account key file path in the application.properties file
 7. In the Secret Manager console, create a secret named "finnhub-token" with a value retrieved from a test token from https://finnhub.io/
 
 === How to run
@@ -40,14 +40,14 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ camel run --properties=gcp-sec-integration.properties timer-gcp-sec-finnhub.yaml
+$ camel run timer-gcp-sec-finnhub.yaml
 ----
 
 Or run with JBang using the longer command line (without installing camel as app in JBang):
 
 [source,sh]
 ----
-$ jbang camel@apache/camel run --properties=gcp-sec-integration.properties timer-gcp-sec-finnhub.yaml
+$ jbang camel@apache/camel run timer-gcp-sec-finnhub.yaml
 ----
 
 You should see
@@ -108,7 +108,7 @@ You can enable the developer console via `--console` flag as show:
 
 [source,sh]
 ----
-$ camel run --properties=gcp-sec-integration.properties timer-gcp-sec-finnhub.yaml --console
+$ camel run timer-gcp-sec-finnhub.yaml --console
 ----
 
 Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.
