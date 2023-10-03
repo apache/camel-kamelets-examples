@@ -67,7 +67,7 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ camel run --properties=azure-sec-integration.properties timer-azure-key-vault-reloading.yaml
+$ camel run timer-azure-key-vault-reloading.yaml
 ----
 
 Or run it even shorter:
@@ -81,7 +81,7 @@ Or run with JBang using the longer command line (without installing camel as app
 
 [source,sh]
 ----
-$ jbang camel@apache/camel run --properties=azure-sec-integration.properties timer-azure-key-vault-reloading.yaml
+$ jbang camel@apache/camel run timer-azure-key-vault-reloading.yaml
 ----
 
 === Modify the secret
