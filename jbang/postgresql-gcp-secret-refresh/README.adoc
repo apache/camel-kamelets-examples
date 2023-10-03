@@ -180,7 +180,7 @@ postgres=# select * from accounts;
 
 === Setting up the GCP Service account key
 
-In the gcp-sec-integration.propertie you'll need to provide all the needed bits and the path to the just created service account key file. So you should have something like this:
+In the application.properties you'll need to provide all the needed bits and the path to the just created service account key file. So you should have something like this:
 
 [source,sh]
 ----
@@ -199,7 +199,7 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ camel run --properties=gcp-sec-refresh.properties postgresql-log.yaml
+$ camel run postgresql-log.yaml
 ----
 
 Or run it even shorter:
@@ -213,7 +213,7 @@ Or run with JBang using the longer command line (without installing camel as app
 
 [source,sh]
 ----
-$ jbang camel@apache/camel run --properties=gcp-sec-refresh.properties postgresql-log.yaml
+$ jbang camel@apache/camel run postgresql-log.yaml
 ----
 
 This will give the following log:
@@ -223,14 +223,6 @@ This will give the following log:
 2023-07-06 13:51:47.793  INFO 24893 --- [           main] org.apache.camel.main.MainSupport   : Apache Camel (JBang) 3.21.0 is starting
 2023-07-06 13:51:48.024  INFO 24893 --- [           main] org.apache.camel.main.MainSupport   : Using Java 11.0.16.1 with PID 24893. Started by oscerd in /home/oscerd/workspace/apache-camel/camel-kamelets-examples/jbang/postgresql-gcp-secret-refresh
 2023-07-06 13:51:48.036  INFO 24893 --- [           main] mel.cli.connector.LocalCliConnector : Camel CLI enabled (local)
-2023-07-06 13:51:49.189  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport : Auto-configuration summary
-2023-07-06 13:51:49.189  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [gcp-sec-refresh.properties]   camel.main.name=GCPExample
-2023-07-06 13:51:49.190  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [gcp-sec-refresh.properties]   camel.vault.gcp.projectId=gcp-sec-refresh
-2023-07-06 13:51:49.190  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [gcp-sec-refresh.properties]   camel.vault.gcp.serviceAccountKey=*****
-2023-07-06 13:51:49.190  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [gcp-sec-refresh.properties]   camel.vault.gcp.refreshEnabled=true
-2023-07-06 13:51:49.190  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [gcp-sec-refresh.properties]   camel.vault.gcp.refreshPeriod=60000
-2023-07-06 13:51:49.190  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [gcp-sec-refresh.properties]   camel.vault.gcp.secrets=database*
-2023-07-06 13:51:49.190  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport :     [gcp-sec-refresh.properties]   camel.vault.gcp.subscriptionName=sub-gcp-sec-refresh
 2023-07-06 13:51:51.418  INFO 24893 --- [           main] main.MainAutowiredLifecycleStrategy : Autowired property: dataSource on component: sql as exactly one instance of type: javax.sql.DataSource (org.apache.commons.dbcp2.BasicDataSource) found in the registry
 2023-07-06 13:51:51.500  INFO 24893 --- [           main] el.impl.engine.AbstractCamelContext : Apache Camel 3.21.0 (GCPExample) is starting
 2023-07-06 13:51:51.724  INFO 24893 --- [           main] g.apache.camel.main.BaseMainSupport : Property-placeholders summary
@@ -310,7 +302,7 @@ You can enable the developer console via `--console` flag as show:
 
 [source,sh]
 ----
-$ camel run --properties=gcp-sec-refresh.properties postgresql-log.yaml --console
+$ camel run postgresql-log.yaml --console
 ----
 
 Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.
