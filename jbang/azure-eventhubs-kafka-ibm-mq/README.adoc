@@ -56,7 +56,7 @@ Once the configuration end you'll need to obtain the connection string for acces
 az eventhubs eventhub authorization-rule keys list --resource-group example-resources --namespace-name test12345678910 --eventhub-name camel-test --name navi
 ----
 
-Open the file `azure.properties` and copy the primary connection string in both `camel.kamelet.kafka-sink.password` and `camel.kamelet.kafka-source.password`.
+Open the file `application.properties` and copy the primary connection string in both `camel.kamelet.kafka-sink.password` and `camel.kamelet.kafka-source.password`.
 
 === Set up IBM MQ
 
@@ -89,14 +89,14 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ camel run --properties=azure.properties --local-kamelet-dir=<your-local-kamelets-path> kafka-mq.yaml
+$ camel run --local-kamelet-dir=<your-local-kamelets-path> kafka-mq.yaml
 ----
 
 Or run with JBang using the longer command line (without installing camel as app in JBang):
 
 [source,sh]
 ----
-$ jbang camel@apache/camel run --properties=azure.properties --local-kamelet-dir=<your-local-kamelets-path> kafka-mq.yaml
+$ jbang camel@apache/camel run --local-kamelet-dir=<your-local-kamelets-path> kafka-mq.yaml
 ----
 
 === MQ to log
@@ -121,14 +121,14 @@ You can run the timer to kafka route.
 
 [source,sh]
 ----
-$ camel run --properties=azure.properties --local-kamelet-dir=<your-local-kamelets-path> timer-kafka.yaml
+$ camel run --local-kamelet-dir=<your-local-kamelets-path> timer-kafka.yaml
 ----
 
 Or run with JBang using the longer command line (without installing camel as app in JBang):
 
 [source,sh]
 ----
-$ jbang camel@apache/camel run --properties=azure.properties --local-kamelet-dir=<your-local-kamelets-path> timer-kafka.yaml
+$ jbang camel@apache/camel run --local-kamelet-dir=<your-local-kamelets-path> timer-kafka.yaml
 ----
 
 === Help and contributions
