@@ -31,7 +31,7 @@
         brokers: "{{bootstrap.servers}}"
         groupId: 'my-consumer-group'
         valueDeserializer: 'io.apicurio.registry.serde.avro.AvroKafkaDeserializer'
-        additionalProperties.apicurio.registry.url: 'http://localhost:8080/apis/registry/v2'
+        additionalProperties.apicurio.registry.url: '{{schema.registry.url}}'
         additionalProperties.apicurio.registry.avro-datum-provider: 'io.apicurio.registry.serde.avro.ReflectAvroDatumProvider'
       steps:
         - to:
