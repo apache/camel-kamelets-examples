@@ -28,7 +28,7 @@ mvn compile exec:java -Dexec.mainClass="com.acme.example.kafka.Produce"
 
 ## Consume from Kafka.
 
-To consume messages using a Camel route, first install the azure identity maven project:
+To consume messages using a Camel route, first install the kafka-producer maven project:
 ```bash
 cd kafka-producer
 mvn clean install
