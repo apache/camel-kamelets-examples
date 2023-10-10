@@ -26,7 +26,7 @@ Run [`Produce.java`](./kafka-producer/src/main/java/com/acme/example/kafka/Produ
 mvn compile exec:java -Dexec.mainClass="com.acme.example.kafka.Produce"
 ```
 
-## Consume from Kafka.
+## Consume from Kafka without Kamelets
 
 To consume messages using a Camel route, first install the kafka-producer maven project:
 ```bash
@@ -78,4 +78,14 @@ and after a message has been produced to Kafka you should see
 ]
 ```
 
+## Consume from Kafka with Kamelets
+
+You might also want to try out the specialized Kamelet for Apicurio Registry
+
+Follow the same approach but run
+
+then run:
+```bash
+jbang run camel@apache/camel run --local-kamelet-dir=<local_path_to_camel_kamelets> --kamelets-version=4.1.0-SNAPSHOT kafka-apicurio-kamelet.yaml
+```
 
