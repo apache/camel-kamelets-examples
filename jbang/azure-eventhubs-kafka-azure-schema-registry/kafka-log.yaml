@@ -15,7 +15,6 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-# camel-k: dependency=mvn:org.apache.camel.kamelets:camel-kamelets-utils:3.20.1.1
 # camel-k: dependency=mvn:com.acme.example:azure-identity:0.1
 # camel-k: dependency=mvn:com.microsoft.azure:azure-schemaregistry-kafka-avro:1.1.1
 # camel-k: dependency=mvn:com.azure:azure-data-schemaregistry-apacheavro:1.1.4
@@ -23,9 +22,9 @@
 
 - beans:
   - name: defaultAzureCredential
-    type: "#class:com.acme.example.azure.DefaultAzureCredentialWrapper"
+    type: "com.acme.example.azure.DefaultAzureCredentialWrapper"
   - name: order
-    type: "#class:com.acme.example.eventhubs.models.Order"
+    type: "com.acme.example.eventhubs.models.Order"
 
 - route:
     id: "kafka-to-log"
