@@ -9,6 +9,28 @@ to solve the instantiation problem, as the class uses a builder for instantiatin
 Choose a globally unique name for the eventhubs namespace and edit it in the terraform [script](main.tf).
 Then, create the services using the script.
 
+For having a working example you will need to add a role assignment of type "Schema Registry Contributor (Preview)"
+
+This could be done through the following Terraform configuration
+
+```bash
+data "azurerm_subscription" "primary" {
+}
+
+data "azurerm_client_config" "example" {
+}
+
+resource "azurerm_role_assignment" "example" {
+  scope                = data.azurerm_subscription.primary.id
+  role_definition_name = "Schema Registry Contributor (Preview)"
+  principal_id         = data.azurerm_client_config.example.object_id
+}
+```
+
+This will grant the correct role. You could do that even from the Azure CLI or Azure console.
+
+This step is important to fully run the example.
+
 ## Configure the applications
 
 Use [application.properties.template](application.properties.template) to create `application.properties` and define your eventhubs namespace in there.
