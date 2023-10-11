@@ -54,13 +54,11 @@ mvn clean install
 ```
 then run:
 ```bash
-camel run kafka-log.yaml camel-kafka-3.22.0.jar --properties application.properties
+camel run kafka-log.yaml 
 ```
-> At the time of writing, there was a [problem](https://github.com/apache/camel-kamelets-examples/issues/21#issuecomment-1732603257) running this example with camel-kafka-4.0.0 so the example was developed using version 3.22.0, which can be found [here](https://repository.apache.org/content/groups/snapshots/org/apache/camel/camel-kafka/3.22.0-SNAPSHOT/)
 
 To run the example without JBang, but e.g. Spring Boot, You can export the route:
 ```bash
 camel export application.properties kafka-log.yaml --runtime=spring-boot --directory=code --gav com.acme.example:azure-sr:1.0.0
 ```
 And run as a regular Spring Boot application.
-> Using this approach, camel-kafka-4.0.0 works, and no dependencies need to be modified.
