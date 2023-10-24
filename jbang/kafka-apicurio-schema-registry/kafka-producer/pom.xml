@@ -13,11 +13,17 @@
       <groupId>io.apicurio</groupId>
       <artifactId>apicurio-registry-serdes-avro-serde</artifactId>
       <version>2.4.12.Final</version>
+      <exclusions>
+        <exclusion>
+              <groupId>org.apache.kafka</groupId>
+              <artifactId>kafka-clients</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.kafka</groupId>
       <artifactId>kafka-clients</artifactId>
-      <version>3.4.0</version>
+      <version>3.5.1</version>
     </dependency>
     <dependency>
       <groupId>org.apache.avro</groupId>
