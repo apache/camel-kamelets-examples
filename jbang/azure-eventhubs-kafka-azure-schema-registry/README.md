@@ -63,6 +63,12 @@ You can also use the Kamelet for working with Azure Schema Registry and Azure Ev
 jbang --fresh run camel@apache/camel run kafka-kamelet-log.yaml
 ```
 
+You can also use the Kamelet for producing to Azure Schema Registry and Azure Eventhubs Kafka 
+
+```bash
+jbang --fresh run camel@apache/camel run --local-kamelet-dir=<path_to_your_local_kamelets> azure-kafka-schema-registry-producer.yaml
+```
+
 To run the example without JBang, but e.g. Spring Boot, You can export the route:
 ```bash
 camel export application.properties kafka-log.yaml --runtime=spring-boot --directory=code --gav com.acme.example:azure-sr:1.0.0
