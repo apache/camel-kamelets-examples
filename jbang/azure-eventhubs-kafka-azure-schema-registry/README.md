@@ -60,7 +60,7 @@ camel run kafka-log.yaml
 You can also use the Kamelet for working with Azure Schema Registry and Azure Eventhubs Kafka
 
 ```bash
-jbang --fresh run camel@apache/camel run --local-kamelet-dir=<path_to_your_local_kamelets> --kamelets-version=4.1.0-SNAPSHOT kafka-kamelet-log.yaml
+jbang --fresh run camel@apache/camel run kafka-kamelet-log.yaml
 ```
 
 To run the example without JBang, but e.g. Spring Boot, You can export the route:
