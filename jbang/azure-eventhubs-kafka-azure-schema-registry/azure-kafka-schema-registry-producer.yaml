@@ -18,26 +18,32 @@
 # camel-k: dependency=mvn:com.acme.example:azure-identity:0.1
 
 - beans:
-  - name: defaultAzureCredential
-    type: "com.acme.example.azure.DefaultAzureCredentialWrapper"
   - name: order
     type: "com.acme.example.eventhubs.models.Order"
+    properties:
+      orderId: 1
+      itemId: "123"
+      userId: "oscerd"
+      quantity: 3
+  - name: defaultAzureCredential
+    type: "com.acme.example.azure.DefaultAzureCredentialWrapper"
 
 - route:
-    id: "kafka-to-log"
     from:
-      uri: "kamelet:kafka-azure-schema-registry-source"
+      uri: "kamelet:timer-source"
       parameters:
-        topic: "{{topic}}"
-        bootstrapServers: "{{bootstrap.servers}}"
-        consumerGroup: 'azure-consumer-group'
-        password: "RAW({{connectionstring}})"
-        azureRegistryUrl: '{{schema.registry.url}}'
-        specificAvroValueType: 'com.acme.example.eventhubs.models.Order'
+        message: '{"id":"1","message":"Camel Rocks"}'
+        contentType: "application/json"
+        repeatCount: 1
       steps:
-        - to:
-            uri: "kamelet:log-sink"
-            parameters:
-              showStreams: true
-              showHeaders: true
-              multiline: true
+      - set-body:
+          simple: "${ref:order}"
+      - to: 
+          uri: "kamelet:kafka-azure-schema-registry-sink"
+          parameters:
+            topic: "{{topic}}"
+            bootstrapServers: "{{bootstrap.servers}}"
+            consumerGroup: 'azure-consumer-group'
+            password: "RAW({{connectionstring}})"
+            azureRegistryUrl: '{{schema.registry.url}}'
+            specificAvroValueType: 'com.acme.example.eventhubs.models.Order'
