@@ -1,0 +1,23 @@
+apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+  name: kafka-s3-binding
+spec:
+  source:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: kafka-not-secured-source
+    properties:
+      bootstrapServers: "<cluster>:9092"
+      topic: "my-topic"
+  sink:
+    ref:
+      kind: Kamelet
+      apiVersion: camel.apache.org/v1alpha1
+      name: aws-s3-sink
+    properties:
+      bucketNameOrArn: "<bucket_name>"
+      accessKey: "<access_key>"
+      secretKey: "<secret_key>"
+      region: "<region>"
