@@ -46,6 +46,8 @@ Or run with JBang using the longer command line (without installing camel as app
 $ jbang camel@apache/camel run *
 ----
 
+TIP: You can enable metrics for any Camel integration by using the `--metrics` option, such as `camel run * --metrics`
+
 === Run directly from github
 
 The example can also be run directly by referring to the github URL as shown:
