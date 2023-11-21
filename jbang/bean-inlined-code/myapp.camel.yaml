@@ -1,7 +1,7 @@
 - beans:
     - name: myCustomer
       type: com.mycompany.Customer
-      scriptLanguage: joor
+      scriptLanguage: java
       script: |
         var b = new com.mycompany.CustomerBuilder();
         b.name('Acme').street('Somestreet 42').zip(90210).gold(true);
