@@ -1,6 +1,8 @@
 == YAML with inlined Java code
 
-An example, of using YAML DSL with inlined Java code create a bean.
+An example, of using YAML DSL with inlined Java code creating and configuring a bean,
+to be used in the Camel route.
+
 This shows the full flexibility by allowing to write a little bit of Java code
 directly inlined in YAML DSL to make it possible to create and configure the bean
 anyay you need, with the power of low-code prgramming.
