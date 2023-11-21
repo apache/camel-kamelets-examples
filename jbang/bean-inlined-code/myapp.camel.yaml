@@ -1,0 +1,17 @@
+- beans:
+    - name: myCustomer
+      type: com.mycompany.Customer
+      scriptLanguage: joor
+      script: |
+        var b = new com.mycompany.CustomerBuilder();
+        b.name('Acme').street('Somestreet 42').zip(90210).gold(true);
+        return b.build();
+- from:
+    uri: "timer:yaml"
+    parameters:
+      period: "5000"
+    steps:
+      - bean:
+          ref: myCustomer
+          method: summary
+      - log: "${body}"
