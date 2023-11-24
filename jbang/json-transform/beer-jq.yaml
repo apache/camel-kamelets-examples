@@ -1,0 +1,20 @@
+- route:
+    nodePrefixId: route-c38
+    id: route-66b0
+    from:
+      uri: kamelet:beer-source
+      id: from-3996
+      steps:
+        - setBody:
+            expression:
+              simple:
+                expression: >-
+                  {
+                    "kind": "${jq(.brand)}",
+                    "beer": "${jq(.name)}"
+                  }
+                id: simple-b320
+            id: setBody-fa01
+        - log:
+            message: ${body}
+            id: log-0c79
