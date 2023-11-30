@@ -28,7 +28,7 @@ public final class CustomerBuilder {
 	}	
 
 	public Customer build() {
-        return new Customer(name, street, zip, gold);
+        	return new Customer(name, street, zip, gold);
 	}	
 
 }
