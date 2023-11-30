@@ -1,0 +1,18 @@
+- beans:
+    - name: myCustomer
+      type: com.mycompany.Customer
+      builderClass: com.mycompany.CustomerBuilder
+      properties:
+         name: "Acme"
+         street: "Somestreet 42"
+         zip: 90210
+         gold: true
+- from:
+    uri: "timer:yaml"
+    parameters:
+      period: "5000"
+    steps:
+      - bean:
+          ref: myCustomer
+          method: summary
+      - log: "${body}"
