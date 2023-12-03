@@ -40,6 +40,18 @@ Or run with JBang using the longer command line (without installing camel as app
 $ jbang camel@apache/camel run beer-jq.yaml
 ----
 
+=== Live updates of message transformation
+
+You can do live changes to the template in the beer-jo.yaml file and see the output in real-time with Camel JBang by running:
+
+[source,bash]
+----
+$ camel transform message --body=file:sample.json --source=beer-jq.yaml --pretty --watch
+----
+
+You can then edit the source file `beer-jq.yaml` file, and save the file, and watch the terminal for updated result.
+
+
 
 === Help and contributions
 
