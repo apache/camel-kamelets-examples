@@ -40,6 +40,18 @@ Or run with JBang using the longer command line (without installing camel as app
 $ jbang camel@apache/camel run *
 ----
 
+=== Live updates of message transformation
+
+You can do live changes to the stylesheet and see the output in real-time with Camel JBang by running:
+
+[source,bash]
+----
+$ camel transform message --body=file:sample.xml --component=xslt --template=file:mystyle.xsl --pretty --watch
+----
+
+You can then edit the `mystyle.xsl` file, and save the file, and watch the terminal for updated result.
+
+
 
 === Help and contributions
 
