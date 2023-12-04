@@ -9,10 +9,10 @@
         period: '5000'
       steps:
         - to:
-            uri: https
+            uri: http
             id: to-57d1
             parameters:
-              httpUri: random-data-api.com/api/v2/banks?response_type=xml
+              httpUri: https://random-data-api.com/api/v2/banks?response_type=xml
         - to:
             uri: xslt
             id: to-8688
