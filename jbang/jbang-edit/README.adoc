@@ -53,6 +53,13 @@ $ jbang edit -b foo.java
 
 JBang will then prepare for the project and ask you which IDE to use.
 
+You can let Camel help keep the dependeices updated by running:
+
+[source,sh]
+----
+$ camel dependency update --source=foo.java
+----
+
 
 === Help and contributions
 
