@@ -4,7 +4,7 @@ This example shows how to use JBang to edit the source code by using the jbang C
 to download dependencies and setup project for being ready to load into an IDE of choice,
 such as IDEA, VSCode, or Eclipse.
 
- === Install JBang
+=== Install JBang
 
 First install JBang according to https://www.jbang.dev
 
