@@ -33,13 +33,6 @@ Then you can run this example using:
 $ camel run beer-jq.yaml
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run beer-jq.yaml
-----
-
 === Live updates of message transformation
 
 You can do live changes to the template in the beer-jo.yaml file and see the output in real-time with Camel JBang by running:

@@ -209,16 +209,9 @@ Or run it even shorter:
 $ camel run *
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run postgresql-log.yaml
-----
-
 This will give the following log:
 
-[source,sh]
+[source,bash]
 ----
 2023-07-06 13:51:47.793  INFO 24893 --- [           main] org.apache.camel.main.MainSupport   : Apache Camel (JBang) 3.21.0 is starting
 2023-07-06 13:51:48.024  INFO 24893 --- [           main] org.apache.camel.main.MainSupport   : Using Java 11.0.16.1 with PID 24893. Started by oscerd in /home/oscerd/workspace/apache-camel/camel-kamelets-examples/jbang/postgresql-gcp-secret-refresh

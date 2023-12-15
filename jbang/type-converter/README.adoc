@@ -33,14 +33,6 @@ Then you can run this example using:
 $ camel run *
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run *
-----
-
-
 === Live reload
 
 You can run the example in dev mode which allows you to edit the example,

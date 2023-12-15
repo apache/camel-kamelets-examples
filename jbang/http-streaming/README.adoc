@@ -43,13 +43,6 @@ Then you can run this example using:
 $ camel run my-stream.yaml
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run mystream.yaml
-----
-
 === Help and contributions
 
 If you hit any problem using Camel or have some feedback, then please

@@ -43,16 +43,10 @@ Then you can run this example using:
 $ camel run timer-gcp-sec-finnhub.yaml
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run timer-gcp-sec-finnhub.yaml
-----
-
 You should see
 
-```
+[source,bash]
+----
 [jbang] Resolving dependencies...
 [jbang] Artifacts used for dependency management:
          org.apache.camel:camel-bom:pom:3.16.0
@@ -99,8 +93,7 @@ A new lock file was created, delete the file to stop running:
 2022-04-15 15:06:28.522  INFO 12364 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started log-sink-2 (kamelet://source)
 2022-04-15 15:06:28.523  INFO 12364 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 3.16.0 (CamelJBang) started in 2s280ms (build:102ms init:1s990ms start:188ms)
 2022-04-15 15:06:30.137  INFO 12364 --- [ - timer://tick] info                                     : Exchange[ExchangePattern: InOnly, BodyType: org.apache.camel.converter.stream.CachedOutputStream.WrappedInputStream, Body: {"c":165.29,"d":-5.11,"dp":-2.9988,"h":171.27,"l":165.05,"o":170.62,"pc":170.4,"t":1649966404}]
-
-```
+----
 
 === Developer Web Console
 

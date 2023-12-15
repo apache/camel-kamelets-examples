@@ -33,20 +33,13 @@ Then you can run this example using:
 $ camel run metrics.yaml
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run metrics.yaml
-----
-
 === Run directly from github
 
 The example can also be run directly by referring to the github URL as shown:
 
 [source,sh]
 ----
-$ jbang camel@apache/camel run https://github.com/apache/camel-kamelets-examples/tree/main/jbang/metrics
+$ camel runhttps://github.com/apache/camel-kamelets-examples/tree/main/jbang/metrics
 ----
 
 === Developer Web Console

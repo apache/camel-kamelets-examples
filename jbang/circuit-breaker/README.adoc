@@ -33,13 +33,6 @@ Then you can run this example using:
 $ camel run *
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run *
-----
-
 While the Camel integration is running, then from another terminal type:
 
 [source,sh]

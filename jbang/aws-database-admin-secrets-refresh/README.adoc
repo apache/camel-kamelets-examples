@@ -81,13 +81,6 @@ Or run it even shorter:
 $ camel run *
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run sql-query.yaml
-----
-
 The application will run and consume immediately, then it will wait 120 seconds to query the database again.
 
 [source,sh]

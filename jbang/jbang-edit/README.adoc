@@ -35,13 +35,6 @@ Then you can run this example using:
 $ camel run foo.java
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run foo.java
-----
-
 === Editing source via jbang
 
 To make it easy to load the project into a Java editor such as IDEA or VSCode, then we can use jbang CLI for this.

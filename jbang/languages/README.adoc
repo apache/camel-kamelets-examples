@@ -35,18 +35,11 @@ Then you can run this example using:
 $ camel run *
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run *
-----
-
 You can also filter to only run the yaml DSL by:
 
 [source,sh]
 ----
-$ jbang camel@apache/camel run *.yaml
+$ camel run*.yaml
 ----
 
 === Live reload
@@ -65,7 +58,7 @@ The example can also be run directly by referring to the github URL as shown:
 
 [source,sh]
 ----
-$ jbang camel@apache/camel run https://github.com/apache/camel-kamelets-examples/tree/main/jbang/languages
+$ camel runhttps://github.com/apache/camel-kamelets-examples/tree/main/jbang/languages
 ----
 
 === Developer Web Console

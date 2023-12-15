@@ -39,13 +39,6 @@ Then you can run this example using:
 $ camel run *
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run *
-----
-
 TIP: You can enable metrics for any Camel integration by using the `--metrics` option, such as `camel run * --metrics`
 
 === Run directly from github
@@ -54,7 +47,7 @@ The example can also be run directly by referring to the github URL as shown:
 
 [source,sh]
 ----
-$ jbang camel@apache/camel run https://github.com/apache/camel-kamelets-examples/tree/main/jbang/prometheus
+$ camel runhttps://github.com/apache/camel-kamelets-examples/tree/main/jbang/prometheus
 ----
 
 === Micrometer

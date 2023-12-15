@@ -41,14 +41,6 @@ Or run with wildcard:
 $ camel run *
 ----
 
-
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run foo.java commons-lang3-3.12.0.jar
-----
-
 === Exporting to Spring Boot or Quarkus
 
 You can export the example to a vanilla Camel Spring Boot / Camel Quarkus project, and the local JARs

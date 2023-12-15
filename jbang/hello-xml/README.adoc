@@ -33,13 +33,6 @@ Then you can run this example using:
 $ camel run hi.xml
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run hi.xml
-----
-
 === Live reload
 
 You can run the example in dev mode which allows you to edit the example,
@@ -56,7 +49,7 @@ The example can also be run directly by referring to the github URL as shown:
 
 [source,sh]
 ----
-$ jbang camel@apache/camel run https://github.com/apache/camel-kamelets-examples/tree/main/jbang/hello-xml
+$ camel runhttps://github.com/apache/camel-kamelets-examples/tree/main/jbang/hello-xml
 ----
 
 === Developer Web Console

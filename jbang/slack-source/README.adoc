@@ -50,16 +50,10 @@ Then you can run this example using:
 $ camel run --properties=slack-integration.properties slack-source.yaml
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run --properties=slack-integration.properties slack-source.yaml
-----
-
 You should see
 
-```
+[source,bash]
+----
 Starting CamelJBang
 2022-03-10 14:44:36.588  INFO 10188 --- [           main] e.camel.impl.engine.AbstractCamelContext : Detected: camel-debug JAR (enabling Camel Debugging)
 2022-03-10 14:44:36.746  INFO 10188 --- [           main] org.apache.camel.main.BaseMainSupport    : Auto-configuration summary
@@ -88,7 +82,7 @@ Starting CamelJBang
 2022-03-10 14:44:47.285  INFO 10188 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Stopped route1 (kamelet://slack-source)
 2022-03-10 14:44:47.286  INFO 10188 --- [           main] ache.camel.impl.debugger.BacklogDebugger : Disabling debugger
 2022-03-10 14:44:47.288  INFO 10188 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 3.15.0 (CamelJBang) shutdown in 12ms (uptime:9s659ms)
-```
+----
 
 === Run directly from github
 
@@ -96,7 +90,7 @@ The example can also be run directly by referring to the github URL as shown:
 
 [source,sh]
 ----
-$ jbang camel@apache/camel run https://github.com/apache/camel-kamelets-examples/tree/main/jbang/slack-source
+$ camel runhttps://github.com/apache/camel-kamelets-examples/tree/main/jbang/slack-source
 ----
 
 === Developer Web Console

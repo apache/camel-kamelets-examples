@@ -36,13 +36,6 @@ Then you can run this example using:
 $ camel run app.xml
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run app.xml
-----
-
 === Live reload
 
 You can run the example in dev mode which allows you to edit the example,
@@ -59,7 +52,7 @@ The example can also be run directly by referring to the github URL as shown:
 
 [source,sh]
 ----
-$ jbang camel@apache/camel run https://github.com/apache/camel-kamelets-examples/tree/main/jbang/app-routes
+$ camel run https://github.com/apache/camel-kamelets-examples/tree/main/jbang/app-routes
 ----
 
 === Developer Web Console

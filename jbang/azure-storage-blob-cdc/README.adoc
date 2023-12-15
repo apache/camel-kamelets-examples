@@ -68,15 +68,6 @@ $ camel run --local-kamelet-dir=<local-kamelets-dir> azure-storage-blob-cdc.yaml
 
 Replace the local kamelet dir with your local directory.
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang run camel@apache/camel run --local-kamelet-dir=<local-kamelets-dir> azure-storage-blob-cdc.yaml
-----
-
-Replace the local kamelet dir with your local directory.
-
 === Developer Web Console
 
 You can enable the developer console via `--console` flag as show:

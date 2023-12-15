@@ -77,13 +77,6 @@ Or run it even shorter:
 $ camel run *
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run timer-azure-key-vault-reloading.yaml
-----
-
 === Modify the secret
 
 You can list the secrets in use from the Azure security vault:

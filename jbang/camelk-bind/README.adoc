@@ -34,20 +34,13 @@ Then you can run this example using:
 $ camel run my-bind.yaml
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run my-bind.yaml
-----
-
 === Run directly from github
 
 The example can also be run directly by referring to the github URL as shown:
 
 [source,sh]
 ----
-$ jbang camel@apache/camel run https://github.com/apache/camel-kamelets-examples/tree/main/jbang/camelk-bind
+$ camel runhttps://github.com/apache/camel-kamelets-examples/tree/main/jbang/camelk-bind
 ----
 
 === Live reload

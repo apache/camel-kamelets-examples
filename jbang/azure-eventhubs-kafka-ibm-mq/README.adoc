@@ -92,13 +92,6 @@ Then you can run this example using:
 $ camel run --local-kamelet-dir=<your-local-kamelets-path> kafka-mq.yaml
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run --local-kamelet-dir=<your-local-kamelets-path> kafka-mq.yaml
-----
-
 === MQ to log
 
 Then you can run this example using:
@@ -108,13 +101,6 @@ Then you can run this example using:
 $ camel run mq-log.yaml
 ----
 
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run mq-log.yaml
-----
-
 === Send data to Kafka on Eventhubs
 
 You can run the timer to kafka route.
@@ -122,13 +108,6 @@ You can run the timer to kafka route.
 [source,sh]
 ----
 $ camel run --local-kamelet-dir=<your-local-kamelets-path> timer-kafka.yaml
-----
-
-Or run with JBang using the longer command line (without installing camel as app in JBang):
-
-[source,sh]
-----
-$ jbang camel@apache/camel run --local-kamelet-dir=<your-local-kamelets-path> timer-kafka.yaml
 ----
 
 === Help and contributions
