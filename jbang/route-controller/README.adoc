@@ -1,0 +1,93 @@
+== Supervising Route Controller
+
+An example, of using the supervised route controller, which takes care of restarting Camel routes
+on startup that has trouble starting. In contrast to the standard route controller that fail fast
+and causes the application to fail.
+
+The route controller is enabled in the `application.properties` configuration file.
+We recommend you to take a look at this file to see how to do that.
+
+
+=== Install JBang
+
+First install JBang according to https://www.jbang.dev
+
+When JBang is installed then you should be able to run from a shell:
+
+[source,sh]
+----
+$ jbang --version
+----
+
+This will output the version of JBang.
+
+To run this example you can either install Camel on JBang via:
+
+[source,sh]
+----
+$ jbang app install camel@apache/camel
+----
+
+Which allows to run CamelJBang with `camel` as shown below.
+
+=== How to run
+
+Then you can run this example:
+
+[source,sh]
+----
+$ camel run *
+----
+
+=== Inspecting what happens
+
+When the application is starting up, then the bar route will keep failing on startup,
+and the route controller will attempt to restart the route for up till 10 times.
+
+You can see activtiy in the console log, and as well from web console and CLI:
+
+- http://localhost:8080/q/health
+- http://localhost:8080/q/dev/route-controller
+
+And from CLI
+
+[source,sh]
+----
+$ camel get health
+$ camel get route-controller
+----
+
+You can also see verbose details from health check:
+
+- http://localhost:8080/q/health?exposureLevel=full&data=true&stacktrace=true
+
+For example with `camel get health` you can see the states of each health-check and why the fail.
+
+[source,text]
+----
+camel get health
+  PID   NAME         AGE  ID                      RL  STATE   RATE     SINCE   MESSAGE
+ 44528  MyCoolCamel  13s  camel/context            R   UP    19/17/-  0s/8s/-
+ 44528  MyCoolCamel  13s  camel/route-controller   R  DOWN   10/-/10  0s/-/9s  Failed restarting route: bar attempt: 5 due:
+                                                                               java.lang.IllegalArgumentException: URL to the Kafka brokers must be
+                                                                               configured with the brokers option.
+ 44528  MyCoolCamel  13s  camel/context            L   UP    20/18/-  0s/8s/-
+----
+
+If you use `camel get route-controller` you will see more detailed information such as the stacktrace of the exception causing the route to not start.
+
+You can also see the health check stats from web via, and you can turn on more details by full exposure level:
+
+- http://localhost:8080/q/health
+- http://localhost:8080/q/health?exposureLevel=full
+
+
+=== Help and contributions
+
+If you hit any problem using Camel or have some feedback, then please
+https://camel.apache.org/community/support/[let us know].
+
+We also love contributors, so
+https://camel.apache.org/community/contributing/[get involved] :-)
+
+The Camel riders!
