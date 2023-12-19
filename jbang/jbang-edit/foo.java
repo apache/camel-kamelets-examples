@@ -1,4 +1,4 @@
-//DEPS org.apache.camel:camel-bom:4.3.0-SNAPSHOT@pom
+//DEPS org.apache.camel:camel-bom:4.4.0-SNAPSHOT@pom
 //DEPS org.apache.camel:camel-endpointdsl
 //DEPS org.apache.camel:camel-netty-http
 //DEPS org.apache.camel:camel-stream
