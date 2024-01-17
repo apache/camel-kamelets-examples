@@ -44,7 +44,7 @@ This can also be done explicit from CLI, by executing:
 
 [source,sh]
 ----
-$ camel transform * --format=yaml --output=my-dump
+$ camel transform route * --format=yaml --output=my-dump
 ----
 
 This will transform the XML DSL into YAML DSL and store the output in the my-dump directory.
@@ -53,14 +53,14 @@ If you want to print the dump to console, you can do:
 
 [source,sh]
 ----
-$ camel transform * --format=yaml
+$ camel transform route * --format=yaml
 ----
 
 And since yaml is default format, it can be shorter:
 
 [source,sh]
 ----
-$ camel transform *
+$ camel transform route *
 ----
 
 
