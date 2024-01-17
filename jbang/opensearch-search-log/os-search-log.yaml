@@ -23,12 +23,12 @@
         clusterName: "opensearch-cluster"
         indexName: "test_index"
         query: '{
-    "query": {
-      "match": {
-        "id": "1"
-      }
-    }
-  }'
+          "query": {
+            "match": {
+              "id": "1"
+            }
+          }
+         }'
       steps:
       - to: 
           uri: "kamelet:log-sink"
