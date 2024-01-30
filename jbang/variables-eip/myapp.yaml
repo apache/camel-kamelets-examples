@@ -1,0 +1,43 @@
+# camel-k: language=yaml
+
+# Write your routes here, for example:
+- from:
+    uri: "timer:beers"
+    parameters:
+      period: "5000"
+    steps:
+      - to:
+          uri: "https://random-data-api.com/api/v2/beers"
+          variableReceive: beer1
+      - to:
+          uri: "https://random-data-api.com/api/v2/beers"
+          variableReceive: beer2
+      - setVariable:
+          name: alc1
+          expression:
+            jq:
+              expression: .alcohol | rtrimstr("%")
+              variableName: beer1
+              resultType: float
+      - setVariable:
+          name: alc2
+          expression:
+            jq:
+              expression: .alcohol | rtrimstr("%")
+              variableName: beer2
+              resultType: float
+#      - choice:
+#          when:
+#            - id: choice
+#              expression:
+#                simple:
+#                  expression: ${variable.alc1} > ${variable.alc2}
+#              steps:
+#                - log:
+#                    message: ${variable.beer1.name} (${variable.beer1.alcohol}) is stronger
+#          otherwise:
+#            steps:
+#              - log:
+#                  message: ${variable.beer2.name} (${variable.beer2.alcohol}) is stronger
+      - log: "Beer1: ${variable.beer1} with alc ${variable.alc1}"
+      - log: "Beer2: ${variable.beer2} with alc ${variable.alc2}"
