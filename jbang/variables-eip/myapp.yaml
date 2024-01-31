@@ -26,18 +26,16 @@
               expression: .alcohol | rtrimstr("%")
               variableName: beer2
               resultType: float
-#      - choice:
-#          when:
-#            - id: choice
-#              expression:
-#                simple:
-#                  expression: ${variable.alc1} > ${variable.alc2}
-#              steps:
-#                - log:
-#                    message: ${variable.beer1.name} (${variable.beer1.alcohol}) is stronger
-#          otherwise:
-#            steps:
-#              - log:
-#                  message: ${variable.beer2.name} (${variable.beer2.alcohol}) is stronger
-      - log: "Beer1: ${variable.beer1} with alc ${variable.alc1}"
-      - log: "Beer2: ${variable.beer2} with alc ${variable.alc2}"
+      - choice:
+          when:
+            - id: choice
+              expression:
+                simple:
+                  expression: ${variable.alc1} > ${variable.alc2}
+              steps:
+                - log:
+                    message: Beer1 ${pretty(${variable.beer1})} is stronger
+          otherwise:
+            steps:
+              - log:
+                  message: Beer2 ${pretty(${variable.beer2})} is stronger
