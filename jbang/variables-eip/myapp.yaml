@@ -34,8 +34,8 @@
                   expression: ${variable.alc1} > ${variable.alc2}
               steps:
                 - log:
-                    message: Beer1 ${pretty(${variable.beer1})} is stronger
+                    message: 'Beer battle: ${jq(variable:beer1,.name)} (${variable.alc1}%) is stronger than ${jq(variable:beer2,.name)} (${variable.alc2}%)'
           otherwise:
             steps:
               - log:
-                  message: Beer2 ${pretty(${variable.beer2})} is stronger
+                  message: 'Beer battle: ${jq(variable:beer1,.name)} (${variable.alc1}%) is weaker than ${jq(variable:beer2,.name)} (${variable.alc2}%)'
