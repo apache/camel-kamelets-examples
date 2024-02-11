@@ -40,6 +40,16 @@ Or run with wildcard:
 $ camel run *
 ----
 
+You can also debug this application from camel-jbang with:
+
+[source,sh]
+----
+$ camel debug * --show-exchange-variables
+----
+
+This runs the application in debug mode with a basic CLI debugger directly from the terminal.
+To see the variables on the exchanges, then you can turn this on via `--show-exchange-variables`.
+
 
 === Help and contributions
 
