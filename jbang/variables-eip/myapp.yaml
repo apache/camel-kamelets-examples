@@ -17,14 +17,14 @@
           expression:
             jq:
               expression: .alcohol | rtrimstr("%")
-              variableName: beer1
+              source: beer1
               resultType: float
       - setVariable:
           name: alc2
           expression:
             jq:
               expression: .alcohol | rtrimstr("%")
-              variableName: beer2
+              source: beer2
               resultType: float
       - choice:
           when:
