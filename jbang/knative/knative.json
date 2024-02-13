@@ -1,0 +1,35 @@
+{
+  "services": [
+    {
+      "type": "event",
+      "name": "default",
+      "url": "http://localhost:8080/events/org.apache.camel.event.messages",
+      "endpointKind": "sink",
+      "objectApiVersion": "eventing.knative.dev/v1",
+      "objectKind": "Broker",
+      "objectName": "default",
+      "metadata": {
+        "camel.endpoint.kind": "sink",
+        "knative.apiVersion": "eventing.knative.dev/v1",
+        "knative.kind": "Broker",
+        "knative.name": "example-broker"
+      }
+    },
+    {
+      "type": "event",
+      "name": "org.apache.camel.event.messages",
+      "endpointKind": "source",
+      "path": "/events/org.apache.camel.event.messages",
+      "objectApiVersion": "eventing.knative.dev/v1",
+      "objectKind": "Broker",
+      "objectName": "default",
+      "metadata": {
+        "camel.endpoint.kind": "source",
+        "knative.apiVersion": "eventing.knative.dev/v1",
+        "knative.kind": "Broker",
+        "knative.name": "default",
+        "knative.reply": "false"
+      }
+    }
+  ]
+}
