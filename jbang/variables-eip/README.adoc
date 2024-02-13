@@ -1,6 +1,6 @@
 == Variables with EIPs
 
-This example shows how you can variables with EIPs with Camel routes.
+This example shows how you can use variables with EIPs with Camel routes.
 
 === Install JBang
 
