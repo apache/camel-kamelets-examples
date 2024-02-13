@@ -1,0 +1,83 @@
+== Knative
+
+This example connects to Knative eventing message broker using Apache Camel Kamelets as event sources and sinks.
+
+=== Install JBang
+
+First install JBang according to https://www.jbang.dev
+
+When JBang is installed then you should be able to run from a shell:
+
+[source,sh]
+----
+$ jbang --version
+----
+
+This will output the version of JBang.
+
+To run this example you can either install Camel on JBang via:
+
+[source,sh]
+----
+$ jbang app install camel@apache/camel
+----
+
+Which allows to run CamelJBang with `camel` as shown below.
+
+=== How to run
+
+The sample provides multiple routes that interact with each other.
+The timer-source route produces events periodically and the log-sink route is there to consume events printing its data to the log output.
+
+The `knative.json` configuration provides the Knative broker endpoint URL for both routes.
+In a local JBang environment we will not use a Knative broker but connect the routes directly where the source sends its events to the Http endpoint provided by the sink.
+
+Then you can run this example using:
+
+[source,sh]
+----
+$ camel run log-sink.yaml
+$ camel run timer-source.yaml
+----
+
+Pleas make sure to run the routes in separate terminals so you can see the individual log output with the events being exchanged.
+
+=== Live reload
+
+You can run the example in dev mode which allows you to edit the example,
+and hot-reload when the file is saved.
+
+[source,sh]
+----
+$ camel run log-sink.yaml --dev
+----
+
+=== Run directly from github
+
+The example can also be run directly by referring to the github URL as shown:
+
+[source,sh]
+----
+$ camel runhttps://github.com/apache/camel-kamelets-examples/tree/main/jbang/knative
+----
+
+=== Developer Web Console
+
+You can enable the developer console via `--console` flag as show:
+
+[source,sh]
+----
+$ camel run log-sink.yaml --console
+----
+
+Then you can browse: http://localhost:8080/q/dev to introspect the running Camel application.
+
+=== Help and contributions
+
+If you hit any problem using Camel or have some feedback, then please
+https://camel.apache.org/community/support/[let us know].
+
+We also love contributors, so
+https://camel.apache.org/community/contributing/[get involved] :-)
+
+The Camel riders!
