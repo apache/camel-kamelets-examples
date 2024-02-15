@@ -17,6 +17,10 @@
 
 # camel-k: dependency=camel:kafka
 
+- beans:
+  - name: batchLog
+    type: "#class:camel.example.BatchLog"
+
 - route:
     id: "kafka-to-log"
     from:
@@ -31,11 +35,7 @@
         autoCommitEnable: false
         allowManualCommit: true
       steps:
-        - to:
-            uri: "kamelet:log-sink"
-            parameters:
-              showStreams: true
-              showHeaders: true
-              multiline: true
+        - bean:
+            ref: batchLog
         - to:
             uri: "kamelet:kafka-batch-manual-commit-action"

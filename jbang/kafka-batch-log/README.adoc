@@ -57,7 +57,7 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ jbang -Dcamel.jbang.version=4.4.0-SNAPSHOT camel@apache/camel run --local-kamelet-dir=<path_to_kamelets_repository> kafka-batch-log.yaml
+$ jbang -Dcamel.jbang.version=4.4.0-SNAPSHOT camel@apache/camel run --local-kamelet-dir=<path_to_kamelets_repository> BatchLog.java kafka-batch-log.yaml
 ----
 
 === Consumer running
@@ -105,12 +105,8 @@ In the consumer log, once the pollTimeout of 40 s completes, you should see an o
 
 [source,sh]
 ----
-2024-02-05 09:42:07.908  INFO 21666 --- [mer[test-topic]] log-sink                            : Exchange[
-  ExchangePattern: InOnly
-  Headers: {}
-  BodyType: java.util.ArrayList
-  Body: [Exchange[], Exchange[]]
-]
+2024-02-05 09:42:07.908  INFO 21666 --- [mer[test-topic]] camel.example.BatchLog              : Processing exchange with body hello there
+2024-02-05 09:42:07.909  INFO 21666 --- [mer[test-topic]] camel.example.BatchLog              : Processing exchange with body hello there
 ----
 
 If you check the situation for the consumer group 'my-group' you could see that the commit happened manually by using the kafka-batch-manual-commit-action.
@@ -134,39 +130,25 @@ And you should immediately see the output in group of 10 records
 
 [source,sh]
 ----
-2024-02-05 09:50:33.947  INFO 24182 --- [mer[test-topic]] log-sink                            : Exchange[
-  ExchangePattern: InOnly
-  Headers: {}
-  BodyType: java.util.ArrayList
-  Body: [Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[]]
-]
-2024-02-05 09:50:44.137  INFO 24182 --- [mer[test-topic]] log-sink                            : Exchange[
-  ExchangePattern: InOnly
-  Headers: {}
-  BodyType: java.util.ArrayList
-  Body: [Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[]]
-]
-2024-02-05 09:50:54.324  INFO 24182 --- [mer[test-topic]] log-sink                            : Exchange[
-  ExchangePattern: InOnly
-  Headers: {}
-  BodyType: java.util.ArrayList
-  Body: [Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[]]
-]
-2024-02-05 09:51:04.535  INFO 24182 --- [mer[test-topic]] log-sink                            : Exchange[
-  ExchangePattern: InOnly
-  Headers: {}
-  BodyType: java.util.ArrayList
-  Body: [Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[]]
-]
-2024-02-05 09:51:14.747  INFO 24182 --- [mer[test-topic]] log-sink                            : Exchange[
-  ExchangePattern: InOnly
-  Headers: {}
-  BodyType: java.util.ArrayList
-  Body: [Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[], Exchange[]]
-]
+.
+.
+.
+.
+2024-02-05 09:42:40.908  INFO 21666 --- [mer[test-topic]] camel.example.BatchLog              : Processing exchange with body hello there
+2024-02-05 09:42:40.909  INFO 21666 --- [mer[test-topic]] camel.example.BatchLog              : Processing exchange with body hello there
+2024-02-05 09:42:40.913  INFO 21666 --- [mer[test-topic]] camel.example.BatchLog              : Processing exchange with body hello there
+2024-02-05 09:42:40.914  INFO 21666 --- [mer[test-topic]] camel.example.BatchLog              : Processing exchange with body hello there
+2024-02-05 09:42:40.920  INFO 21666 --- [mer[test-topic]] camel.example.BatchLog              : Processing exchange with body hello there
+2024-02-05 09:42:40.928  INFO 21666 --- [mer[test-topic]] camel.example.BatchLog              : Processing exchange with body hello there
+2024-02-05 09:42:40.930  INFO 21666 --- [mer[test-topic]] camel.example.BatchLog              : Processing exchange with body hello there
+2024-02-05 09:42:40.940  INFO 21666 --- [mer[test-topic]] camel.example.BatchLog              : Processing exchange with body hello there
+2024-02-05 09:42:40.950  INFO 21666 --- [mer[test-topic]] camel.example.BatchLog              : Processing exchange with body hello there
+2024-02-05 09:42:40.955  INFO 21666 --- [mer[test-topic]] camel.example.BatchLog              : Processing exchange with body hello there
+.
+.
+.
+.
 ----
-
-For the aim of this example the payload of the records is not important.
 
 If you check again the offset for the consumers of my-group group you'll notice we are at offset 52 now.
 
