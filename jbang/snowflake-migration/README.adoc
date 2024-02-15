@@ -1,0 +1,122 @@
+== Snowflake migration
+
+In this sample you'll use a Snowflake instance from trial account.
+
+We are moving data between two tables, by using snowflake source and snowflake sink Kamelets.
+
+=== Install JBang
+
+First install JBang according to https://www.jbang.dev
+
+When JBang is installed then you should be able to run from a shell:
+
+[source,sh]
+----
+$ jbang --version
+----
+
+This will output the version of JBang.
+
+To run this example you can either install Camel on JBang via:
+
+[source,sh]
+----
+$ jbang app install camel@apache/camel
+----
+
+Which allows to run CamelJBang with `camel` as shown below.
+
+=== Setup Snowflake
+
+First of all you'll need a trial account for Snowflake.
+
+You can have one by looking at https://signup.snowflake.com/
+
+The username and password will be the same for connecting to your database.
+
+=== Create your database
+
+Access to your Snowflake instance by using the link sent to you by email.
+
+Once logged-in, follow Data -> Database
+
+Click on Create Database and choose a name. I choose "Migration".
+
+Now we can create a table.
+
+Select the Public Schema and then click on Create. Select Table and standard.
+
+In the dialog box copy the following SQL code.
+
+[source,sh]
+----
+create or replace TABLE MIGRATION.PUBLIC.ACTIVE_SUPPLIERS (
+	ID NUMBER(38,0) autoincrement start 1 increment 1 order,
+	PHONE VARCHAR(100) NOT NULL,
+	NAME VARCHAR(100) NOT NULL,
+	ACTIVE BOOLEAN DEFAULT TRUE
+);
+----
+
+In the example we are going to copy some columns of the first 100 tuples of the table "SUPPLIER" in the SNOWFLAKE_SAMPLE_DATA database from the schema TPCH_SF1000.  
+
+The SNOWFLAKE_SAMPLE_DATA contains some samples to be used and it is provided by default.
+
+Don't forget to place the correct username, password and instance url in the application.properties file before running.
+
+=== How to run
+
+Then you can run this example using:
+
+[source,sh]
+----
+$ jbang -R=--add-opens -R=java.base/java.nio=ALL-UNNAMED -Dcamel.jbang.version=4.4.0-SNAPSHOT camel@apache/camel run --local-kamelet-dir=<path_to_local_kamelet_dir> snowflake-log.yaml
+----
+
+In the log you should see:
+
+[source,sh]
+----
+2024-02-15 10:46:35.437  INFO 21381 --- [           main] el.impl.engine.AbstractCamelContext : Apache Camel 4.4.0-SNAPSHOT (snowflake-log) is starting
+2024-02-15 10:46:35.707  INFO 21381 --- [           main] g.apache.camel.main.BaseMainSupport : Property-placeholders summary
+2024-02-15 10:46:35.707  INFO 21381 --- [           main] g.apache.camel.main.BaseMainSupport :     [snowflake-sink.kamelet.yaml]  query=INSERT INTO IDENTIFIER('"MIGRATION"."PUBLIC"."ACTIVE_SUPPLIERS"') (name, phone) VALUES (:#S_NAME, :#S_PHONE);
+2024-02-15 10:46:35.708  INFO 21381 --- [           main] g.apache.camel.main.BaseMainSupport :     [application.properties]       insert_query=INSERT INTO IDENTIFIER('"MIGRATION"."PUBLIC"."ACTIVE_SUPPLIERS"') (name, phone) VALUES (:#S_NAME, :#S_PHONE);
+2024-02-15 10:46:35.708  INFO 21381 --- [           main] g.apache.camel.main.BaseMainSupport :     [snowflake-sink.kamelet.yaml]  dsBean=dsBean-2
+2024-02-15 10:46:35.708  INFO 21381 --- [           main] g.apache.camel.main.BaseMainSupport :     [nowflake-source.kamelet.yaml] delay=90000
+2024-02-15 10:46:35.708  INFO 21381 --- [           main] g.apache.camel.main.BaseMainSupport :     [nowflake-source.kamelet.yaml] databaseName="SNOWFLAKE_SAMPLE_DATA"."TPCH_SF1000"
+2024-02-15 10:46:35.708  INFO 21381 --- [           main] g.apache.camel.main.BaseMainSupport :     [snowflake-sink.kamelet.yaml]  password=xxxxxx
+2024-02-15 10:46:35.708  INFO 21381 --- [           main] g.apache.camel.main.BaseMainSupport :     [snowflake-sink.kamelet.yaml]  instanceUrl=XXXXX.snowflakecomputing.com
+2024-02-15 10:46:35.708  INFO 21381 --- [           main] g.apache.camel.main.BaseMainSupport :     [snowflake-sink.kamelet.yaml]  username=xxxxxx
+2024-02-15 10:46:35.709  INFO 21381 --- [           main] g.apache.camel.main.BaseMainSupport :     [log-sink.kamelet.yaml]        showHeaders=true
+2024-02-15 10:46:35.709  INFO 21381 --- [           main] g.apache.camel.main.BaseMainSupport :     [log-sink.kamelet.yaml]        showStreams=true
+2024-02-15 10:46:35.734  INFO 21381 --- [           main] el.impl.engine.AbstractCamelContext : Routes startup (started:4)
+2024-02-15 10:46:35.734  INFO 21381 --- [           main] el.impl.engine.AbstractCamelContext :     Started route1 (kamelet://snowflake-source)
+2024-02-15 10:46:35.734  INFO 21381 --- [           main] el.impl.engine.AbstractCamelContext :     Started snowflake-source-1 (sql://select%20*%20from%20IDENTIFIER('%22SNOWFLAKE_SAMPLE_DATA%22.%22TPCH_SF1000%22.%22SUPPLIER%22')%20limit%20100;)
+2024-02-15 10:46:35.734  INFO 21381 --- [           main] el.impl.engine.AbstractCamelContext :     Started log-sink-2 (kamelet://source)
+2024-02-15 10:46:35.734  INFO 21381 --- [           main] el.impl.engine.AbstractCamelContext :     Started snowflake-sink-3 (kamelet://source)
+2024-02-15 10:46:35.735  INFO 21381 --- [           main] el.impl.engine.AbstractCamelContext : Apache Camel 4.4.0-SNAPSHOT (snowflake-log) started in 296ms (build:0ms init:0ms start:296ms)
+2024-02-15 10:46:42.220  INFO 21381 --- [%20limit%20100;] log-sink                            : Exchange[ExchangePattern: InOnly, Headers: {Content-Type=application/json}, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"S_SUPPKEY":3346333,"S_NAME":"Supplier#003346333","S_ADDRESS":"5tGk2xdvv42rkYDES3ZZTI8FrA26nmQEbOaS","S_NATIONKEY":12,"S_PHONE":"22-217-761-8482","S_ACCTBAL":8458.14,"S_COMMENT":"carefully silent deposits. final asymptotes wake final, ironic theodolites. fluffily final acc"}]
+2024-02-15 10:46:43.326  INFO 21381 --- [%20limit%20100;] log-sink                            : Exchange[ExchangePattern: InOnly, Headers: {Content-Type=application/json}, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"S_SUPPKEY":3346334,"S_NAME":"Supplier#003346334","S_ADDRESS":"PtgU5b81j,h,8drTYsOnGFWW8Xd,MN","S_NATIONKEY":18,"S_PHONE":"28-588-844-2420","S_ACCTBAL":1017.57,"S_COMMENT":"unts haggle carefully blithely even pinto beans. furiously regular braids atop the pack"}]
+2024-02-15 10:46:45.470  INFO 21381 --- [%20limit%20100;] log-sink                            : Exchange[ExchangePattern: InOnly, Headers: {Content-Type=application/json}, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"S_SUPPKEY":3346335,"S_NAME":"Supplier#003346335","S_ADDRESS":"kgiufEgTbq7JmzAIRzzCiMMsGx0","S_NATIONKEY":19,"S_PHONE":"29-120-761-7935","S_ACCTBAL":6263.93,"S_COMMENT":"al deposits unwind quickly along the slyly ironic deposits. fluffily unusual dependenc"}]
+2024-02-15 10:46:47.165  INFO 21381 --- [%20limit%20100;] log-sink                            : Exchange[ExchangePattern: InOnly, Headers: {Content-Type=application/json}, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"S_SUPPKEY":3346336,"S_NAME":"Supplier#003346336","S_ADDRESS":"9Zkmw H9t7D","S_NATIONKEY":6,"S_PHONE":"16-285-179-3972","S_ACCTBAL":5878.02,"S_COMMENT":"ly regular deposits. platelets nag slyly. furiously silent dependencies "}]
+2024-02-15 10:46:48.399  INFO 21381 --- [%20limit%20100;] log-sink                            : Exchange[ExchangePattern: InOnly, Headers: {Content-Type=application/json}, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"S_SUPPKEY":3346337,"S_NAME":"Supplier#003346337","S_ADDRESS":"Esdxc4BoiAEINTZq IdPn","S_NATIONKEY":4,"S_PHONE":"14-284-655-6472","S_ACCTBAL":9914.23,"S_COMMENT":"instructions. blithely express depo"}]
+2024-02-15 10:46:49.813  INFO 21381 --- [%20limit%20100;] log-sink                            : Exchange[ExchangePattern: InOnly, Headers: {Content-Type=application/json}, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"S_SUPPKEY":3346338,"S_NAME":"Supplier#003346338","S_ADDRESS":"n3rKtK6eEgv,8STgnnqoyppIOxm,DmYrJkBwWIJ","S_NATIONKEY":19,"S_PHONE":"29-175-701-9013","S_ACCTBAL":9466.25,"S_COMMENT":"ns about the regular, unusual requests boost slyly carefully even req"}]
+2024-02-15 10:46:51.642  INFO 21381 --- [%20limit%20100;] log-sink                            : Exchange[ExchangePattern: InOnly, Headers: {Content-Type=application/json}, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"S_SUPPKEY":3346339,"S_NAME":"Supplier#003346339","S_ADDRESS":"dR1WqS30y3u OYlLDFMpy3LO18mIgYh9dPJPDUCf","S_NATIONKEY":12,"S_PHONE":"22-757-690-4310","S_ACCTBAL":4274.54,"S_COMMENT":"te slyly along the regular, even deposits. special, ironic packages cajole quickly. ironic deposits "}]
+2024-02-15 10:46:53.135  INFO 21381 --- [%20limit%20100;] log-sink                            : Exchange[ExchangePattern: InOnly, Headers: {Content-Type=application/json}, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"S_SUPPKEY":3346340,"S_NAME":"Supplier#003346340","S_ADDRESS":"h5YSREwM9wFIMDBhU9nu3nqCiJS","S_NATIONKEY":11,"S_PHONE":"21-622-273-2615","S_ACCTBAL":-817.56,"S_COMMENT":"ss courts haggle carefully. blithely even instructions cajole slyly throughout the exp"}]
+2024-02-15 10:46:54.651  INFO 21381 --- [%20limit%20100;] log-sink                            : Exchange[ExchangePattern: InOnly, Headers: {Content-Type=application/json}, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"S_SUPPKEY":3346341,"S_NAME":"Supplier#003346341","S_ADDRESS":"v5rHjHMUXRg7CDOpxwSIK3uYbT","S_NATIONKEY":12,"S_PHONE":"22-398-290-8394","S_ACCTBAL":7203.36,"S_COMMENT":"ly. slyly special deposits sleep against the furiousl"}]
+2024-02-15 10:46:56.015  INFO 21381 --- [%20limit%20100;] log-sink                            : Exchange[ExchangePattern: InOnly, Headers: {Content-Type=application/json}, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"S_SUPPKEY":3346342,"S_NAME":"Supplier#003346342","S_ADDRESS":"yI7G4124RnWZEsRn alv0hhaKaM4XMYo68n1","S_NATIONKEY":6,"S_PHONE":"16-296-751-2242","S_ACCTBAL":9831.26,"S_COMMENT":"gular, ironic courts. carefully ironic theodolites across the slyly pendin"}]
+2024-02-15 10:46:57.195  INFO 21381 --- [%20limit%20100;] log-sink                            : Exchange[ExchangePattern: InOnly, Headers: {Content-Type=application/json}, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"S_SUPPKEY":3346343,"S_NAME":"Supplier#003346343","S_ADDRESS":"nk7x5KDK8Wn1LlQaEPQy","S_NATIONKEY":2,"S_PHONE":"12-258-920-6096","S_ACCTBAL":1078.09,"S_COMMENT":"ter the bold, final platelets. unusual, ironic accounts cajole busily. qui"}]
+2024-02-15 10:46:58.246  INFO 21381 --- [%20limit%20100;] log-sink                            : Exchange[ExchangePattern: InOnly, Headers: {Content-Type=application/json}, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"S_SUPPKEY":3346344,"S_NAME":"Supplier#003346344","S_ADDRESS":"IzNNeupXVWWc4bPpZqX58wPf","S_NATIONKEY":11,"S_PHONE":"21-713-532-9184","S_ACCTBAL":424.13,"S_COMMENT":"ole slyly among the furiously idle platelets. even, f"}]
+2024-02-15 10:47:00.694  INFO 21381 --- [%20limit%20100;] log-sink                            : Exchange[ExchangePattern: InOnly, Headers: {Content-Type=application/json}, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"S_SUPPKEY":3346345,"S_NAME":"Supplier#003346345","S_ADDRESS":"bLje1WndAkAF1rS","S_NATIONKEY":10,"S_PHONE":"20-944-748-7807","S_ACCTBAL":9245.06,"S_COMMENT":"s, ironic packages: quiet, regular depths wake carefully. silent dolphins are furious"}]
+2024-02-15 10:47:01.484  INFO 21381 --- [%20limit%20100;] log-sink                            : Exchange[ExchangePattern: InOnly, Headers: {Content-Type=application/json}, BodyType: org.apache.camel.converter.stream.InputStreamCache, Body: {"S_SUPPKEY":3346346,"S_NAME":"Supplier#003346346","S_ADDRESS":"OJeOpq1wxs4a","S_NATIONKEY":21,"S_PHONE":"31-611-938-6218","S_ACCTBAL":4741.06,"S_COMMENT":"y express excuses across the quickly final ideas use furiously unusual t"}]
+----
+
+=== Help and contributions
+
+If you hit any problem using Camel or have some feedback, then please
+https://camel.apache.org/community/support/[let us know].
+
+We also love contributors, so
+https://camel.apache.org/community/contributing/[get involved] :-)
+
+The Camel riders!
