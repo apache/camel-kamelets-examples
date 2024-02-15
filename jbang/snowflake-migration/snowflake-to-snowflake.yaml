@@ -20,7 +20,6 @@
       uri: "kamelet:snowflake-source"
       parameters:
         instanceUrl: "{{sf_instance_url}}"
-        databaseName: '"SNOWFLAKE_SAMPLE_DATA"."TPCH_SF1000"'
         query: "{{query}}"
         username: "{{sf_username}}"
         password: "{{sf_password}}"
