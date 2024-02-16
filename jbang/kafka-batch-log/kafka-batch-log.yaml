@@ -17,10 +17,6 @@
 
 # camel-k: dependency=camel:kafka
 
-- beans:
-  - name: batchLog
-    type: "#class:camel.example.BatchLog"
-
 - route:
     id: "kafka-to-log"
     from:
@@ -34,8 +30,25 @@
         maxPollIntervalMs: 60000
         autoCommitEnable: false
         allowManualCommit: true
+        deserializeHeaders: true
       steps:
-        - bean:
-            ref: batchLog
+        - split:
+            simple: "${body}"
+            steps:
+              - setHeaders:
+                  headers:
+                    - name: "kafka.TOPIC"
+                      simple: "${body.getMessage().getHeader('kafka.TOPIC')}"
+              - setHeader:
+                  name: "file"
+                  simple: "${headers[kafka.TOPIC]}-${date:now:yyyyMMddHHmmssSSS}.txt"
+              - setBody:
+                  simple: "${body.getMessage().getBody()}"
+              - to:
+                  uri: "kamelet:aws-s3-sink"
+                  parameters:
+                    useDefaultCredentialsProvider: true
+                    region: "eu-west-1"
+                    bucketNameOrArn: kamelets-demo             
         - to:
             uri: "kamelet:kafka-batch-manual-commit-action"
