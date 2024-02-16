@@ -35,13 +35,9 @@
         - split:
             simple: "${body}"
             steps:
-              - setHeaders:
-                  headers:
-                    - name: "kafka.TOPIC"
-                      simple: "${body.getMessage().getHeader('kafka.TOPIC')}"
               - setHeader:
                   name: "file"
-                  simple: "${headers[kafka.TOPIC]}-${date:now:yyyyMMddHHmmssSSS}.txt"
+                  simple: "${body.getMessage().getHeader('kafka.TOPIC')}-${date:now:yyyyMMddHHmmssSSS}.txt"
               - setBody:
                   simple: "${body.getMessage().getBody()}"
               - to:
