@@ -79,7 +79,7 @@ You should see:
 2024-02-16 10:19:47.357  INFO 17500 --- [           main] el.impl.engine.AbstractCamelContext :     Started kafka-batch-not-secured-source-1 (kafka://test-topic)
 2024-02-16 10:19:47.358  INFO 17500 --- [           main] el.impl.engine.AbstractCamelContext :     Started aws-s3-sink-2 (kamelet://source)
 2024-02-16 10:19:47.358  INFO 17500 --- [           main] el.impl.engine.AbstractCamelContext :     Started kafka-batch-manual-commit-action-3 (kamelet://source)
-2024-02-16 10:19:47.358  INFO 17500 --- [           main] el.impl.engine.AbstractCamelContext : Apache Camel 4.4.0-SNAPSHOT (kafka-batch-log) started in 1s244ms (build:0ms init:0ms start:1s244ms)
+2024-02-16 10:19:47.358  INFO 17500 --- [           main] el.impl.engine.AbstractCamelContext : Apache Camel 4.4.0-SNAPSHOT (kafka-batch-s3) started in 1s244ms (build:0ms init:0ms start:1s244ms)
 2024-02-16 10:19:47.418  INFO 17500 --- [mer[test-topic]] he.kafka.common.utils.AppInfoParser : Kafka version: 3.6.1
 2024-02-16 10:19:47.418  INFO 17500 --- [mer[test-topic]] he.kafka.common.utils.AppInfoParser : Kafka commitId: 5e3c2b738d253ff5
 2024-02-16 10:19:47.419  INFO 17500 --- [mer[test-topic]] he.kafka.common.utils.AppInfoParser : Kafka startTimeMs: 1708075187417
