@@ -28,7 +28,7 @@ spec:
     - "camel:timer"
     - "camel:http"
     - "camel:kamelet"
-    - "mvn:org.apache.camel.examples:custom:4.5.0-SNAPSHOT-SNAPSHOT"
+    - "mvn:org.apache.camel.examples:custom:4.5.0-SNAPSHOT"
   template:
     from:
       uri: "timer:beer"
