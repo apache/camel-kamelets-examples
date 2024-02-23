@@ -1,0 +1,33 @@
+{
+  "doc": "Fact schema of an order",
+  "fields": [
+    {
+      "doc": "Unique id of the order.",
+      "name": "orderId",
+      "type": "int"
+    },
+    {
+      "doc": "Id of the ordered item.",
+      "name": "itemId",
+      "type": "string"
+    },
+    {
+      "doc": "Id of the user who ordered the item.",
+      "name": "userId",
+      "type": "string"
+    },
+    {
+      "doc": "How much was ordered.",
+      "name": "quantity",
+      "type": "double"
+    },
+    {
+      "doc": "Description of item.",
+      "name": "description",
+      "type": "string"
+    }
+  ],
+  "name": "Order",
+  "namespace": "com.acme.example.kafka.models",
+  "type": "record"
+}
