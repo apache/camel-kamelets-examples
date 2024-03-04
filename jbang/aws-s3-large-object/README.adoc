@@ -72,7 +72,7 @@ Uploading object with this command:
 
 [source,sh]
 ----
-$ camel run --property="camel.main.streamCachingEnabled=false" uploadToS3.yaml
+$ camel run --property="camel.main.streamCachingEnabled=false" uploadToS3.camel.yaml
 ----
 
 Sample output
@@ -90,7 +90,7 @@ Sample output
 2023-08-18 19:36:54.387  INFO 19778 --- [           main] el.impl.engine.AbstractCamelContext : Routes startup (started:1)
 2023-08-18 19:36:54.387  INFO 19778 --- [           main] el.impl.engine.AbstractCamelContext :     Started route1 (file://./outbox)
 2023-08-18 19:36:54.387  INFO 19778 --- [           main] el.impl.engine.AbstractCamelContext : Apache Camel 4.0.0 (uploadToS3) started in 1s36ms (build:0ms init:0ms start:1s36ms)
-2023-08-18 19:36:59.661  INFO 19778 --- [file://./outbox] uploadToS3.yaml:20                  : Done
+2023-08-18 19:36:59.661  INFO 19778 --- [file://./outbox] uploadToS3.camel.yaml:20                  : Done
 
 ----
 
@@ -98,14 +98,14 @@ Then, download file with this command:
 
 [source,sh]
 ----
-$ camel run --property="camel.main.streamCachingEnabled=false" downloadFromS3.yaml
+$ camel run --property="camel.main.streamCachingEnabled=false" downloadFromS3.camel.yaml
 ----
 
 Sample output
 
 [source,sh]
 ----
-$ camel run --property="camel.main.streamCachingEnabled=false" downloadFromS3.yaml
+$ camel run --property="camel.main.streamCachingEnabled=false" downloadFromS3.camel.yaml
 2023-08-18 19:25:54.302  INFO 19224 --- [           main] org.apache.camel.main.MainSupport   : Apache Camel (JBang) 4.0.0 is starting
 2023-08-18 19:25:54.494  INFO 19224 --- [           main] org.apache.camel.main.MainSupport   : Using Java 17.0.8 with PID 19224. Started by ezhang in /home/ezhang/app/camel-kamelets-examples/jbang/aws-s3-large-object
 2023-08-18 19:25:55.075  INFO 19224 --- [           main] g.apache.camel.main.BaseMainSupport : Auto-configuration summary
@@ -115,7 +115,7 @@ $ camel run --property="camel.main.streamCachingEnabled=false" downloadFromS3.ya
 2023-08-18 19:25:57.244  INFO 19224 --- [           main] el.impl.engine.AbstractCamelContext : Routes startup (started:1)
 2023-08-18 19:25:57.245  INFO 19224 --- [           main] el.impl.engine.AbstractCamelContext :     Started route1 (aws2-s3://claim-check-74469c67-1da4-404e-bcb1-2a3015c33c3a)
 2023-08-18 19:25:57.245  INFO 19224 --- [           main] el.impl.engine.AbstractCamelContext : Apache Camel 4.0.0 (downloadFromS3) started in 1s166ms (build:0ms init:0ms start:1s166ms)
-2023-08-18 19:26:01.982  INFO 19224 --- [b1-2a3015c33c3a] downloadFromS3.yaml:20              : Done
+2023-08-18 19:26:01.982  INFO 19224 --- [b1-2a3015c33c3a] downloadFromS3.camel.yaml:20              : Done
 ----
 
 === Check with Noobaa (aka MCG) web console
