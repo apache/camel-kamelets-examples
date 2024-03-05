@@ -84,9 +84,9 @@ Starting CamelJBang
 2022-03-10 14:44:47.288  INFO 10188 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 3.15.0 (CamelJBang) shutdown in 12ms (uptime:9s659ms)
 ----
 
-=== Run directly from github
+=== Run directly from GitHub
 
-The example can also be run directly by referring to the github URL as shown:
+The example can also be run directly by referring to the GitHub URL as shown:
 
 [source,sh]
 ----
