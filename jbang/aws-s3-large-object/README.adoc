@@ -124,7 +124,7 @@ Confirm the uploaded objects
 image::./images/noobaa-web-console.png[]
 
 === Tips & Tricks
-- To work with Nooboo (aka MCG) S3 compatible storage, you will need Camel S3 component with a version supporting, parameter 'forcePathStyle: true'. (version 3.21.x or 4.x and up)
+- To work with Noobaa (aka MCG) S3 compatible storage, you will need Camel S3 component with a version supporting, parameter 'forcePathStyle: true'. (version 3.21.x or 4.x and up)
 - To avoid OOTM error when dealing with object size larger than 2GB, must have this property, "camel.main.streamCachingEnabled=false"
 - For downloading large (i.e. >2GB) object, need these two parameters: "includeBody: false, autocloseBody: true"
 

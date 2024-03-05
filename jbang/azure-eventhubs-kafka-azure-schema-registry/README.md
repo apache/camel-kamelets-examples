@@ -1,12 +1,12 @@
-# Example for consuming from Azure EventHubs in Avro format, using Azure Schema Registry
+# Example for consuming from Azure Event Hubs in Avro format, using Azure Schema Registry
 
-This example shows a YAML DSL route for consuming Avro messages from Eventhubs using Azure Schema Registry.
-The exmaple also includes a producer for convenience, as well as a wrapper around [DefaultAzureCredentials](https://learn.microsoft.com/en-us/java/api/com.azure.identity.defaultazurecredential?view=azure-java-stable)
+This example shows a YAML DSL route for consuming Avro messages from Event Hubs using Azure Schema Registry.
+The example also includes a producer for convenience, as well as a wrapper around [DefaultAzureCredentials](https://learn.microsoft.com/en-us/java/api/com.azure.identity.defaultazurecredential?view=azure-java-stable)
 to solve the instantiation problem, as the class uses a builder for instantiating.
 
 ## Build the infrastructure
 
-Choose a globally unique name for the eventhubs namespace and edit it in the terraform [script](main.tf).
+Choose a globally unique name for the Event Hubs namespace and edit it in the terraform [script](main.tf).
 Then, create the services using the script.
 
 For having a working example you will need to add a role assignment of type "Schema Registry Contributor (Preview)"
@@ -33,19 +33,19 @@ This step is important to fully run the example.
 
 ## Configure the applications
 
-Use [application.properties.template](application.properties.template) to create `application.properties` and define your eventhubs namespace in there.
-After the services have been created, the connection string for the eventhub can be found on the Azure Console,
+Use [application.properties.template](application.properties.template) to create `application.properties` and define your Event Hubs namespace in there.
+After the services have been created, the connection string for the Event Hub can be found on the Azure Console,
 or by running:
 ```bash
 az eventhubs eventhub authorization-rule keys list --resource-group "example-rg" --namespace-name "example-namespace" --eventhub-name "my-topic" --name "rw_policy"
 ```
 Set the `primaryConnectionString` as the `connectionstring` in `application.properties`.
 
-## Produce to Eventhubs.
+## Produce to Event Hubs.
 
 Run [`Produce.java`](./azure-identity/src/main/java/com/acme/example/eventhubs/Produce.java) to produce a message to the Eventhub.
 
-## Consume from Eventhubs.
+## Consume from Event Hubs.
 
 To consume messages using a Camel route, first install the azure identity maven project:
 ```bash
@@ -57,13 +57,13 @@ then run:
 camel run kafka-log.camel.yaml 
 ```
 
-You can also use the Kamelet for working with Azure Schema Registry and Azure Eventhubs Kafka
+You can also use the Kamelet for working with Azure Schema Registry and Azure Event Hubs Kafka
 
 ```bash
 jbang --fresh run camel@apache/camel run kafka-kamelet-log.camel.yaml
 ```
 
-You can also use the Kamelet for producing to Azure Schema Registry and Azure Eventhubs Kafka 
+You can also use the Kamelet for producing to Azure Schema Registry and Azure Event Hubs Kafka 
 
 ```bash
 jbang --fresh run camel@apache/camel run --local-kamelet-dir=<path_to_your_local_kamelets> azure-kafka-schema-registry-producer.camel.yaml

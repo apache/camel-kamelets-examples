@@ -52,7 +52,7 @@ Then you can run the Camel integration using:
 $ camel run mqtt.camel.yaml
 ----
 
-And then from another terminal (or run the integraiton with `--background` option),
+And then from another terminal (or run the integration with `--background` option),
 then send a message to the MQTT broker. This can be done with the help from camel-jbang
 where you can send a message as follows:
 
@@ -63,7 +63,7 @@ $ camel cmd send --body=file:payload.json mqtt
 
 This will send a message where the payload (body) is read from the local file named payload.json.
 The message is sent to an existing running Camel integration (named mqtt). Then Camel will
-then send the message to the MQTT broker. So in other words we use Camel as a proxy to send the
+send the message to the MQTT broker. So in other words we use Camel as a proxy to send the
 message to the actual MQTT broker.
 
 The Camel integration will then consume the payload and output in the console.

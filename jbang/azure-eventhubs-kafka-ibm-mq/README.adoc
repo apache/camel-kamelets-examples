@@ -101,7 +101,7 @@ Then you can run this example using:
 $ camel run mq-log.yaml
 ----
 
-=== Send data to Kafka on Eventhubs
+=== Send data to Kafka on Event Hubs
 
 You can run the timer to kafka route.
 

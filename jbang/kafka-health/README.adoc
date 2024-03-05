@@ -74,7 +74,7 @@ And you can also run the example by using wildcards, instead of typing every fil
 $ camel run * --health
 ----
 
-You can also run consumer and producer in two seperate integrations:
+You can also run consumer and producer in two separate integrations:
 
 [source,sh]
 ----

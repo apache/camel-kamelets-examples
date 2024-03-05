@@ -2,7 +2,7 @@
 
 In this sample you'll use a Snowflake instance from trial account.
 
-We are moving data between two tables, by using snowflake source and snowflake sink Kamelets.
+We are moving data between two tables, by using Snowflake source and Snowflake sink Kamelets.
 
 === Install JBang
 
