@@ -45,9 +45,9 @@ $ camel run user.java --local-kamelet-dir=https://github.com/apache/camel-kamele
 ----
 
 
-=== Run directly from github
+=== Run directly from GitHub
 
-The example can also be run directly by referring to the github URL as shown:
+The example can also be run directly by referring to the GitHub URL as shown:
 
 [source,sh]
 ----

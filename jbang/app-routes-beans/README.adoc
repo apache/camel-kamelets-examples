@@ -45,9 +45,9 @@ and hot-reload when the file is saved.
 $ camel run StandaloneGreeter.java beans.yaml app.xml --dev
 ----
 
-=== Run directly from github
+=== Run directly from GitHub
 
-The example can also be run directly by referring to the github URL as shown:
+The example can also be run directly by referring to the GitHub URL as shown:
 
 [source,sh]
 ----

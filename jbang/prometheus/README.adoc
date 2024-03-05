@@ -41,9 +41,9 @@ $ camel run *
 
 TIP: You can enable metrics for any Camel integration by using the `--metrics` option, such as `camel run * --metrics`
 
-=== Run directly from github
+=== Run directly from GitHub
 
-The example can also be run directly by referring to the github URL as shown:
+The example can also be run directly by referring to the GitHub URL as shown:
 
 [source,sh]
 ----

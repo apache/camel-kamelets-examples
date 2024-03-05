@@ -33,9 +33,9 @@ Then you can run this example using:
 $ camel run hello.camel.yaml
 ----
 
-=== Run directly from github
+=== Run directly from GitHub
 
-The example can also be run directly by referring to the github URL as shown:
+The example can also be run directly by referring to the GitHub URL as shown:
 
 [source,sh]
 ----
