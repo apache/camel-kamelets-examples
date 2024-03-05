@@ -2,7 +2,7 @@
 
 This example is using a custom Kamelet that fetches random user data.
 
-The custom kamelets can be located locally or shared on github.
+The custom kamelets can be located locally or shared on GitHub.
 This example demonstrates how to run this in both situations.
 
 
@@ -37,7 +37,7 @@ Then you can run this example using:
 $ camel run user.java --local-kamelet-dir=../../custom-kamelets
 ----
 
-And to refer to the custom kamelets with link to github:
+And to refer to the custom kamelets with link to GitHub:
 
 [source,sh]
 ----

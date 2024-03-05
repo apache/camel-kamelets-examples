@@ -28,7 +28,7 @@ Which allows to run CamelJBang with `camel` as shown below.
 
 You'll need to have a key vault as first step.
 
-Then you'll need to create an event grid subscription to Eventhubs with a Blob Account and container for storing the checkpoint.
+Then you'll need to create an event grid subscription to Event Hubs with a Blob Account and container for storing the checkpoint.
 
 It's not totally easy to do through the az cli, but everything could be done through the Azure UI. We're planning to improve this example by having all the instructions exposed as Azure CLI commands.
 

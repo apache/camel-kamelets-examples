@@ -5,7 +5,7 @@ to be used in the Camel route.
 
 This shows the full flexibility by allowing to write a little bit of Java code
 directly inlined in YAML DSL to make it possible to create and configure the bean
-anyay you need, with the power of low-code prgramming.
+anyway you need, with the power of low-code programming.
 
 
 === Install JBang

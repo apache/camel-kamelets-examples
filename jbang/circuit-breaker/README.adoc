@@ -1,6 +1,6 @@
 == Circuit Breaker
 
-This example shows how Camel JBang can use ciruit breaker EIP.
+This example shows how Camel JBang can use circuit breaker EIP.
 
 === Install JBang
 

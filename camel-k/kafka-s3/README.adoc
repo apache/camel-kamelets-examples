@@ -1,8 +1,8 @@
 == Kafka to S3 KameletBinding example
 
-In this sample you'll use Strimzi Operator and Camel K Operator on Openshift Cloud.
+In this sample you'll use Strimzi Operator and Camel K Operator on OpenShift Cloud.
 
-So this example expects you have an Openshift instance running on Cloud.
+So this example expects you have an OpenShift instance running on Cloud.
 
 === Setup the Strimzi Operator
 

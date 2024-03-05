@@ -1,6 +1,6 @@
 == Slack Source Example
 
-In this sample you'll use the Slack Source Kamelet throught camel-kamelet-main
+In this sample you'll use the Slack Source Kamelet through camel-kamelet-main
 
 === Setup the Slack Bot App
 

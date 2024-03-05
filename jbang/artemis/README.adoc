@@ -5,7 +5,7 @@ messaging broker.
 
 === Apache ActiveMQ Artemis
 
-You first need to have an ActiveMQ Artimis broker up and running.
+You first need to have an ActiveMQ Artemis broker up and running.
 See more at: https://activemq.apache.org/components/artemis/
 
 

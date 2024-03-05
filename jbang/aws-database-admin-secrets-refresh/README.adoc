@@ -48,7 +48,7 @@ aws_access_key_id = accessKey
 aws_secret_access_key = secretKey
 ----
 
-=== Setup and populate the Postgresql Database
+=== Setup and populate the PostgreSQL Database
 
 We create a PostgreSQL instance in a docker container
 

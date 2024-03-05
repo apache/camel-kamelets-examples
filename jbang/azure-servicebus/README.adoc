@@ -1,6 +1,6 @@
-== Sending message to Servicebus and consume them
+== Sending message to Azure Service Bus and consume them
 
-In this sample you'll use the Azure Servicebus source and sink Kamelet based on camel-azure-servicebus component.
+In this sample you'll use the Azure Service Bus source and sink Kamelet based on camel-azure-servicebus component.
 
 === Install JBang
 

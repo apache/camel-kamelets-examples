@@ -2,7 +2,7 @@
 
 In this sample you'll use the Azure Storage Blob CDC Source Kamelet.
 
-Through the usage of Event Grid and Servicebus Services you'll be able to consume events from specific containers.
+Through the usage of Event Grid and Service Bus Services you'll be able to consume events from specific containers.
 
 === Install JBang
 
@@ -26,9 +26,9 @@ $ jbang app install camel@apache/camel
 
 Which allows to run CamelJBang with `camel` as shown below.
 
-=== Setup the Servicebus, Azure Storage Blob and Eventgrid
+=== Setup the Service Bus, Azure Storage Blob and Event Grid
 
-Running the terraform configuration provided in terraform folder.
+Running the Terraform configuration provided in Terraform folder.
 
 [source,sh]
 ----
@@ -55,7 +55,7 @@ Enter yes and wait for the terraform configuration to end.
 
 In the `application.properties` add the correct accessKey for the Azure Storage Blob account.
 
-In the `azure-storage-blob-cdc.yaml` add the correct connection String for the Servicebus Queue.
+In the `azure-storage-blob-cdc.yaml` add the correct connection String for the Service Bus Queue.
 
 === How to run
 
@@ -158,7 +158,7 @@ You should see at first the content of the uploaded file and in the second messa
 
 ----
 
-=== Cleanup Servicebus, Azure Storage Blob and Eventgrid through Terraform
+=== Cleanup Service Bus, Azure Storage Blob and Event Grid through Terraform
 
 You'll need to cleanup everything from Azure console or CLI.
 
@@ -178,7 +178,7 @@ terraform destroy
 
 You'll need to specify the same var used for terraform apply.
 
-At the end the Azure enviroment on your account will be clean.
+At the end the Azure environment on your account will be clean.
 
 === Help and contributions
 

@@ -44,7 +44,7 @@ $ camel run *
 When the application is starting up, then the bar route will keep failing on startup,
 and the route controller will attempt to restart the route for up till 10 times.
 
-You can see activtiy in the console log, and as well from web console and CLI:
+You can see activity in the console log, and as well from web console and CLI:
 
 - http://localhost:8080/q/health
 - http://localhost:8080/q/dev/route-controller
