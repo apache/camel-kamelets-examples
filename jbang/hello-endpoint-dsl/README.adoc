@@ -39,21 +39,21 @@ The example can also be run directly by referring to the github URL as shown:
 
 [source,sh]
 ----
-$ camel runhttps://github.com/apache/camel-kamelets-examples/tree/main/jbang/hello-endpoint-dsl
+$ camel run https://github.com/apache/camel-kamelets-examples/tree/main/jbang/hello-endpoint-dsl
 ----
 
 You can even try other examples such as the polyglot example from Camel K:
 
 [source,sh]
 ----
-$ camel runhttps://github.com/apache/camel-k/tree/main/examples/polyglot
+$ camel run https://github.com/apache/camel-k/tree/main/examples/polyglot
 ----
 
 Or the Kotlin route(s) (you can use wildcards):
 
 [source,sh]
 ----
-$ camel runhttps://github.com/apache/camel-k/tree/main/examples/languages/*.kts
+$ camel run https://github.com/apache/camel-k/tree/main/examples/languages/*.kts
 ----
 
 === Live reload
