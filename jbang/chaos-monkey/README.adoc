@@ -43,7 +43,7 @@ The example can also be run directly by referring to the github URL as shown:
 
 [source,sh]
 ----
-$ camel runhttps://github.com/apache/camel-kamelets-examples/tree/main/jbang/chaos-monkey --health
+$ camel run https://github.com/apache/camel-kamelets-examples/tree/main/jbang/chaos-monkey --health
 ----
 
 === Health Check Console
