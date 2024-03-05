@@ -47,7 +47,7 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ camel run --properties=slack-integration.properties slack-source.yaml
+$ camel run --properties=slack-integration.properties slack-source.camel.yaml
 ----
 
 You should see
@@ -99,7 +99,7 @@ You can enable the developer console via `--console` flag as show:
 
 [source,sh]
 ----
-$ camel run --properties=slack-integration.properties slack-source.yaml --console
+$ camel run --properties=slack-integration.properties slack-source.camel.yaml --console
 ----
 
 Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.

@@ -25,7 +25,7 @@ has execution permission:
 
 [source,sh]
 ----
-chmod +x upper.yaml
+chmod +x upper.camel.yaml
 chmod +x to_csv.java
 ----
 
@@ -33,7 +33,7 @@ To run this example you can then run the script:
 
 [source,sh]
 ----
-echo "Hello\nWorld" | ./upper.yaml
+echo "Hello\nWorld" | ./upper.camel.yaml
 ----
 
 You can combine this with more pipes and filters scripting.
@@ -44,7 +44,7 @@ and then back into Camel to be converted into CSV.
 
 [source,sh]
 ----
-cat words.txt | ./upper.yaml | sort | ./to_csv.java
+cat words.txt | ./upper.camel.yaml | sort | ./to_csv.java
 ----
 
 === Help and contributions

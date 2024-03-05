@@ -67,7 +67,7 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ camel run timer-azure-key-vault-reloading.yaml
+$ camel run timer-azure-key-vault-reloading.camel.yaml
 ----
 
 Or run it even shorter:
@@ -108,7 +108,7 @@ You can enable the developer console via `--console` flag as show:
 
 [source,sh]
 ----
-$ camel run --properties=azure-sec-integration.properties timer-azure-key-vault-reloading.yaml --console
+$ camel run --properties=azure-sec-integration.properties timer-azure-key-vault-reloading.camel.yaml --console
 ----
 
 Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.

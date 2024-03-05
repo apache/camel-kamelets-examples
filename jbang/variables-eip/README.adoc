@@ -30,7 +30,7 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ camel run myapp.yaml
+$ camel run myapp.camel.yaml
 ----
 
 Or run with wildcard:

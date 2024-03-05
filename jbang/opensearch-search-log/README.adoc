@@ -66,7 +66,7 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ jbang run --fresh camel@apache/camel run --local-kamelet-dir=<path_to_local_kamelet_dir> timer-os-index.yaml
+$ jbang run --fresh camel@apache/camel run --local-kamelet-dir=<path_to_local_kamelet_dir> timer-os-index.camel.yaml
 ----
 
 === Developer Web Console
@@ -75,7 +75,7 @@ You can enable the developer console via `--console` flag as show:
 
 [source,sh]
 ----
-$ jbang run --fresh camel@apache/camel run --local-kamelet-dir=<path_to_local_kamelet_dir> timer-os-index.yaml --console
+$ jbang run --fresh camel@apache/camel run --local-kamelet-dir=<path_to_local_kamelet_dir> timer-os-index.camel.yaml --console
 ----
 
 Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.
@@ -131,7 +131,7 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ jbang run --fresh camel@apache/camel run --local-kamelet-dir=<path_to_local_kamelet_dir> os-search-log.yaml
+$ jbang run --fresh camel@apache/camel run --local-kamelet-dir=<path_to_local_kamelet_dir> os-search-log.camel.yaml
 ----
 
 === Developer Web Console
@@ -140,7 +140,7 @@ You can enable the developer console via `--console` flag as show:
 
 [source,sh]
 ----
-$ jbang run --fresh camel@apache/camel run --local-kamelet-dir=<path_to_local_kamelet_dir> os-search-log.yaml --console
+$ jbang run --fresh camel@apache/camel run --local-kamelet-dir=<path_to_local_kamelet_dir> os-search-log.camel.yaml --console
 ----
 
 === Running source for searching index

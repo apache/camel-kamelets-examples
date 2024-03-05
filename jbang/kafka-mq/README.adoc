@@ -80,12 +80,12 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ camel run kafka-mq.yaml
+$ camel run kafka-mq.camel.yaml
 ----
 
 [source,sh]
 ----
-$ camel run mq-log.yaml
+$ camel run mq-log.camel.yaml
 ----
 
 Replace the local kamelet dir with your local directory.
