@@ -30,7 +30,7 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ camel run metrics.yaml
+$ camel run metrics.camel.yaml
 ----
 
 === Run directly from github

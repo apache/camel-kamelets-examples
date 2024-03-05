@@ -30,7 +30,7 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ camel run hello.yaml
+$ camel run hello.camel.yaml
 ----
 
 === Run directly from github
@@ -49,7 +49,7 @@ and hot-reload when the file is saved.
 
 [source,sh]
 ----
-$ camel run hello.yaml --dev
+$ camel run hello.camel.yaml --dev
 ----
 
 === Developer Web Console

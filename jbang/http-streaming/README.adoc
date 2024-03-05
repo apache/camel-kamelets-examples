@@ -40,7 +40,7 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ camel run my-stream.yaml
+$ camel run my-stream.camel.yaml
 ----
 
 === Help and contributions

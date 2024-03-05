@@ -35,7 +35,7 @@ mvn clean install
 ```
 then run:
 ```bash
-camel run kafka-log.yaml 
+camel run kafka-log.camel.yaml 
 ```
 
 You should see something like
@@ -86,7 +86,7 @@ Follow the same approach but run
 
 then run:
 ```bash
-jbang run camel@apache/camel run --local-kamelet-dir=<local_path_to_camel_kamelets> --kamelets-version=4.1.0-SNAPSHOT kafka-apicurio-producer-kamelet.yaml
+jbang run camel@apache/camel run --local-kamelet-dir=<local_path_to_camel_kamelets> --kamelets-version=4.1.0-SNAPSHOT kafka-apicurio-producer-kamelet.camel.yaml
 ```
 
 ## Consume from Kafka with Kamelets
@@ -97,6 +97,6 @@ Follow the same approach but run
 
 then run:
 ```bash
-jbang run camel@apache/camel run --local-kamelet-dir=<local_path_to_camel_kamelets> --kamelets-version=4.1.0-SNAPSHOT kafka-apicurio-kamelet.yaml
+jbang run camel@apache/camel run --local-kamelet-dir=<local_path_to_camel_kamelets> --kamelets-version=4.1.0-SNAPSHOT kafka-apicurio-kamelet.camel.yaml
 ```
 

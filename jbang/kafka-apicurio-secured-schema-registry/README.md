@@ -45,7 +45,7 @@ mvn clean install
 ```
 then run:
 ```bash
-jbang run camel@apache/camel run --local-kamelet-dir=<local_path_to_camel_kamelets> kafka-apicurio-kamelet.yaml
+jbang run camel@apache/camel run --local-kamelet-dir=<local_path_to_camel_kamelets> kafka-apicurio-kamelet.camel.yaml
 ```
 
 You should see something like
@@ -97,6 +97,6 @@ Follow the same approach but run
 
 then run:
 ```bash
-jbang run camel@apache/camel run --local-kamelet-dir=<local_path_to_camel_kamelets> kafka-apicurio-producer-kamelet.yaml
+jbang run camel@apache/camel run --local-kamelet-dir=<local_path_to_camel_kamelets> kafka-apicurio-producer-kamelet.camel.yaml
 ```
 

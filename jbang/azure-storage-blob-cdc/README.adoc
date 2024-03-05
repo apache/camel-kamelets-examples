@@ -85,7 +85,7 @@ While the integration is running you can run the following commands:
 
 [source,sh]
 ----
-az storage blob upload --account-name kameletsaccount --container-name kamelets --file nominatim-geocode-action.kamelet.yaml --account-key <accountKey>
+az storage blob upload --account-name kameletsaccount --container-name kamelets --file nominatim-geocode-action.kamelet.camel.yaml --account-key <accountKey>
 Finished[#############################################################]  100.0000%
 {
   "client_request_id": "f9f842e6-748a-11ed-9435-f8e43bee8a96",

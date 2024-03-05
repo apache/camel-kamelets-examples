@@ -70,7 +70,7 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ jbang -R=--add-opens -R=java.base/java.nio=ALL-UNNAMED -Dcamel.jbang.version=4.4.0-SNAPSHOT camel@apache/camel run --local-kamelet-dir=<path_to_local_kamelet_dir> snowflake-log.yaml
+$ jbang -R=--add-opens -R=java.base/java.nio=ALL-UNNAMED -Dcamel.jbang.version=4.4.0-SNAPSHOT camel@apache/camel run --local-kamelet-dir=<path_to_local_kamelet_dir> snowflake-log.camel.yaml
 ----
 
 In the log you should see:

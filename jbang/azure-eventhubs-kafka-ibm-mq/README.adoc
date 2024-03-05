@@ -89,7 +89,7 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ camel run --local-kamelet-dir=<your-local-kamelets-path> kafka-mq.yaml
+$ camel run --local-kamelet-dir=<your-local-kamelets-path> kafka-mq.camel.yaml
 ----
 
 === MQ to log
@@ -107,7 +107,7 @@ You can run the timer to kafka route.
 
 [source,sh]
 ----
-$ camel run --local-kamelet-dir=<your-local-kamelets-path> timer-kafka.yaml
+$ camel run --local-kamelet-dir=<your-local-kamelets-path> timer-kafka.camel.yaml
 ----
 
 === Help and contributions

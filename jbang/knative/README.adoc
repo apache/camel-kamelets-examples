@@ -36,8 +36,8 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ camel run log-sink.yaml
-$ camel run timer-source.yaml
+$ camel run log-sink.camel.yaml
+$ camel run timer-source.camel.yaml
 ----
 
 Pleas make sure to run the routes in separate terminals so you can see the individual log output with the events being exchanged.
@@ -49,7 +49,7 @@ and hot-reload when the file is saved.
 
 [source,sh]
 ----
-$ camel run log-sink.yaml --dev
+$ camel run log-sink.camel.yaml --dev
 ----
 
 === Run directly from github
@@ -67,7 +67,7 @@ You can enable the developer console via `--console` flag as show:
 
 [source,sh]
 ----
-$ camel run log-sink.yaml --console
+$ camel run log-sink.camel.yaml --console
 ----
 
 Then you can browse: http://localhost:8080/q/dev to introspect the running Camel application.

@@ -113,7 +113,7 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ camel run --local-kamelet-dir=<local-kamelets-dir> google-storage-cdc.yaml
+$ camel run --local-kamelet-dir=<local-kamelets-dir> google-storage-cdc.camel.yaml
 ----
 
 Replace the local kamelet dir with your local directory.
@@ -124,7 +124,7 @@ You can enable the developer console via `--console` flag as show:
 
 [source,sh]
 ----
-$ camel run --local-kamelet-dir=<local-kamelets-dir> google-storage-cdc.yaml --console
+$ camel run --local-kamelet-dir=<local-kamelets-dir> google-storage-cdc.camel.yaml --console
 ----
 
 Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.
