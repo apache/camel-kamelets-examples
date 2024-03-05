@@ -77,7 +77,7 @@ You can enable the developer console via `--console` flag as show:
 $ camel run --local-kamelet-dir=<local-kamelets-dir> azure-storage-blob-cdc.yaml --console
 ----
 
-Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.
+Then you can browse: http://localhost:8080/q/dev to introspect the running Camel Application.
 
 === Create and delete an object
 

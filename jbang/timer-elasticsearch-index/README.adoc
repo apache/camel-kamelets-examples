@@ -116,7 +116,7 @@ You can enable the developer console via `--console` flag as show:
 $ jbang run --fresh -Dcamel.jbang.version=3.21.0-SNAPSHOT camel@apache/camel run --local-kamelet-dir=<path_to_local_kamelet_dir> timer-es-index.camel.yaml --console
 ----
 
-Then you can browse: http://localhost:8080/q/dev to introspect the running Camel applicaton.
+Then you can browse: http://localhost:8080/q/dev to introspect the running Camel Application.
 
 === Running integration
 
