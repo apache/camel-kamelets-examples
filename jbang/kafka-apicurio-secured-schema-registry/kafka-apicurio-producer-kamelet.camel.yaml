@@ -44,7 +44,6 @@
             bootstrapServers: "{{bootstrap.servers}}"
             groupId: 'my-consumer-group'
             apicurioRegistryUrl: '{{schema.registry.url}}'
-            apicurioRegistryUrl: '{{schema.registry.url}}'
             apicurioAuthServiceUrl: '{{keycloak.service.url}}'
             apicurioAuthRealm: '{{keycloak.realm}}'
             apicurioAuthClientId: '{{keycloak.client.id}}'
