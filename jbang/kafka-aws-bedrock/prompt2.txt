@@ -1,0 +1,1 @@
+{"inputText":"User: Can you please generate five XML record, with id field, product name and price? The output should be in XML format.","textGenerationConfig":{"maxTokenCount":1024,"stopSequences":["User:"],"temperature":0,"topP":1}}
