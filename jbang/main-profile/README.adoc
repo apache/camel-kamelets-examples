@@ -40,7 +40,7 @@ You can run in another profile with:
 
 [source,sh]
 ----
-$ camel run hello.camel.yaml --profile=production
+$ camel run hello.camel.yaml --profile=prod
 ----
 
 And if you want to turn off profile, you can use an empty value (or none)
