@@ -35,7 +35,7 @@
         contentType: "application/json"
         repeatCount: 1
       steps:
-      - set-body:
+      - setBody:
           simple: "${ref:order}"
       - to: 
           uri: "kamelet:kafka-apicurio-registry-not-secured-sink"

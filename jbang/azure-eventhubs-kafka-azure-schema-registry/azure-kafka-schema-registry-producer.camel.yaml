@@ -36,9 +36,9 @@
         contentType: "application/json"
         repeatCount: 1
       steps:
-      - set-body:
+      - setBody:
           simple: "${ref:order}"
-      - to: 
+      - to:
           uri: "kamelet:kafka-azure-schema-registry-sink"
           parameters:
             topic: "{{topic}}"
