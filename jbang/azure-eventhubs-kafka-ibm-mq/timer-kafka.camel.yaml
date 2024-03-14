@@ -23,7 +23,7 @@
         period: "10000"
         repeatCount: 5
       steps:
-      - set-header:
+      - setHeader:
           name: JMSCorrelationID
           simple: test
       - to: 
