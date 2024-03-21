@@ -1,0 +1,66 @@
+== Camel 1.0
+
+This example is to celebrate the awesome Apache Camel project, by showing
+how you can run an example from the Camel 1.0 release (from 2007).
+
+The example is coded in java and provided unchanged in the `MyRouteBuilder.java` source file.
+The route uses the file and activemq component.
+
+=== Install JBang
+
+First install JBang according to https://www.jbang.dev
+
+When JBang is installed then you should be able to run from a shell:
+
+[source,sh]
+----
+$ jbang --version
+----
+
+This will output the version of JBang.
+
+To run this example you can either install Camel on JBang via:
+
+[source,sh]
+----
+$ jbang app install camel@apache/camel
+----
+
+Which allows to run CamelJBang with `camel` as shown below.
+
+=== How to run
+
+Then you can run this example (with ActiveMQ broker embeded) using:
+
+[source,sh]
+----
+$ camel run MyRouteBuilder.java --prop=camel.component.activemq.embedded=true
+----
+
+Or you can run this with an existing running ActiveMQ broker that connects to port 61616.
+For example to run the broker via Docker:
+
+[source,sh]
+----
+$ docker run -p 61616:61616 -p 8161:8161 apache/activemq-classic
+----
+
+And then run Camel:
+
+[source,sh]
+----
+$ camel run MyRouteBuilder.java
+----
+
+You can then access the ActiveMQ web console http://localhost:8161
+
+
+=== Help and contributions
+
+If you hit any problem using Camel or have some feedback, then please
+https://camel.apache.org/community/support/[let us know].
+
+We also love contributors, so
+https://camel.apache.org/community/contributing/[get involved] :-)
+
+The Camel riders!
