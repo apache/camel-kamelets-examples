@@ -1,3 +1,5 @@
+- restConfiguration:
+    clientRequestValidation: true
 - rest:
     openApi:
       specification: petstore-v3.json
