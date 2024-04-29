@@ -1,4 +1,3 @@
-// camel-k: language=groovy
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -16,7 +15,14 @@
  * limitations under the License.
  */
 
-from('direct:greeting-api')
-    .to('log:api?showAll=true&multiline=true') 
-    .setBody()
-        .simple('Hello from ${headers.name}')
+import org.apache.camel.builder.RouteBuilder;
+
+public class Greetings extends RouteBuilder {
+
+    public void configure() throws Exception {
+        from("direct:greeting-api")
+            .to("log:api?showAll=true&multiline=true") 
+            .setBody()
+                .simple("Hello from ${headers.name}");  
+    }    
+}

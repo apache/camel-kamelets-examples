@@ -7,7 +7,7 @@ Find useful examples about how to expose an Open API specification in a Camel in
 Run the examples running
 
 ```
-camel run --open-api greetings-api.json greetings.groovy
+camel run --open-api greetings-api.json Greetings.java
 ```
 
 Then you can test by calling the hello endpoint, ie:
