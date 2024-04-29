@@ -1,5 +1,6 @@
 target/
 .camel-jbang/
+.camel-jbang-run/
 .vscode/
 .idea/
 camel-runner.jar
