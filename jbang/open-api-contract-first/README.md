@@ -34,6 +34,21 @@ Content-Type: application/json
 }
 ```
 
+If you get a pet with any other ID than 123, such as 444, you will get the response from the example that are inlined in the OpenAPI specification file `petstore-v3.json`.
+
+```
+$ curl -i http://localhost:8080/api/v3/pet/444
+HTTP/1.1 200 OK
+Accept: */*
+User-Agent: curl/8.1.2
+transfer-encoding: chunked
+Content-Type: application/json
+
+{
+  "pet": "Jack the cat"
+}
+```
+
 ## Dummy data
 
 The example will return an empty response if you request non implemented API endpoints.

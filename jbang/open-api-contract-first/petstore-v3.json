@@ -335,6 +335,12 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/Pet"
+								},
+								"examples": {
+									"success": {
+										"summary": "A cat",
+										"value": "{\"pet\": \"jack the cat\"}"
+									}
 								}
 							}
 						}
