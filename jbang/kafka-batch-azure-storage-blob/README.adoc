@@ -59,7 +59,7 @@ Create a container on your personal account.
 
 The Kamelet will use the accessKey for this purpose, so you'll need to copy it.
 
-Modify the kafka-batch-azure-storage-blob.yaml file to add the correct region and the correct bucket name.
+Modify the kafka-batch-azure-storage-blob.yaml file to add the account name, container name and access key.
 
 === How to run
 
