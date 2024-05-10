@@ -15,7 +15,7 @@
  * limitations under the License.
  */
  
-//DEPS org.apache.camel:camel-bom:4.6.0-SNAPSHOT@pom
+//DEPS org.apache.camel:camel-bom:4.7.0-SNAPSHOT@pom
 //DEPS org.apache.camel:camel-aws-bedrock
 //DEPS org.apache.camel:camel-endpointdsl
 //DEPS org.apache.camel:camel-rest
