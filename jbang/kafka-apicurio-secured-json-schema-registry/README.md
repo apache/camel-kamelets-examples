@@ -140,7 +140,7 @@ You should see something like
 2024-05-15 09:36:38.372  INFO 24390 --- [           main] e.camel.impl.engine.AbstractCamelContext : Routes startup (total:1 started:1 kamelets:2)
 2024-05-15 09:36:38.372  INFO 24390 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started kafka-to-apicurio-log (kamelet://kafka-not-secured-apicurio-registry-json-source)
 2024-05-15 09:36:38.373  INFO 24390 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 4.6.0 (kafka-apicurio-kamelet) started in 217ms (build:0ms init:0ms start:217ms)
-2024-05-15 09:36:38.669  INFO 24390 --- [[product-topic]] he.kafka.clients.consumer.ConsumerConfig : These configurations '[retry.backoff.max.ms, apicurio.registry.avroDatumProvider, apicurio.auth.service.url, apicurio.auth.realm, apicurio.auth.password, apicurio.auth.client.id, apicurio.auth.client.secret, apicurio.registry.url, apicurio.auth.username]' were supplied but are not used yet.
+2024-05-15 09:36:38.669  INFO 24390 --- [[product-topic]] he.kafka.clients.consumer.ConsumerConfig : These configurations '[retry.backoff.max.ms, apicurio.auth.service.url, apicurio.auth.realm, apicurio.auth.password, apicurio.auth.client.id, apicurio.auth.client.secret, apicurio.registry.url, apicurio.auth.username]' were supplied but are not used yet.
 2024-05-15 09:36:38.670  INFO 24390 --- [[product-topic]] .apache.kafka.common.utils.AppInfoParser : Kafka version: 3.5.1
 2024-05-15 09:36:38.670  INFO 24390 --- [[product-topic]] .apache.kafka.common.utils.AppInfoParser : Kafka commitId: 2c6fb6c54472e90a
 2024-05-15 09:36:38.670  INFO 24390 --- [[product-topic]] .apache.kafka.common.utils.AppInfoParser : Kafka startTimeMs: 1715758598669
