@@ -106,11 +106,6 @@ spec:
         x-descriptors:
         - urn:keda:metadata:bootstrapServers
         - urn:keda:required
-      avroDatumProvider:
-        title: Avro Datum Provider
-        description: How to read data with Avro
-        type: string
-        default: "io.apicurio.registry.serde.avro.ReflectAvroDatumProvider"
       apicurioAuthServiceUrl:
         title: Apicurio Registry Auth Service URL
         description: The URL for Keycloak instance securing the Apicurio Registry
@@ -175,7 +170,6 @@ spec:
         valueDeserializer: "{{valueDeserializer}}"
         topicIsPattern: "{{topicIsPattern}}"
         additionalProperties.apicurio.registry.url: "{{apicurioRegistryUrl}}"
-        additionalProperties.apicurio.registry.avro-datum-provider: "{{avroDatumProvider}}"
         additionalProperties.apicurio.auth.service.url: "{{apicurioAuthServiceUrl}}"
         additionalProperties.apicurio.auth.realm: "{{apicurioAuthRealm}}"
         additionalProperties.apicurio.auth.client.id: "{{apicurioAuthClientId}}"
