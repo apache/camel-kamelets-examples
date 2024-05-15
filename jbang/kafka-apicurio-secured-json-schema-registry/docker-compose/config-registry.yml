@@ -1,0 +1,56 @@
+version: '2.2'
+
+volumes:
+  postgres_data:
+    driver: local
+
+services:
+  keycloak-server:
+    container_name: keycloak-apicurio
+    image: quay.io/keycloak/keycloak:23.0.7
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HOSTNAME: "localhost"
+      KC_HOSTNAME_PORT: "8080"
+      KC_HOSTNAME_STRICT_BACKCHANNEL: "false"
+    command:
+      - start-dev
+      - --import-realm
+    ports:
+      - 8080:8080
+    volumes:
+      - ./config/keycloak/apicurio-realm.json:/opt/keycloak/data/import/realm.json
+
+  postgres:
+    container_name: database-apicurio
+    image: postgres
+    environment:
+      POSTGRES_USER: apicurio-registry
+      POSTGRES_PASSWORD: password
+  app:
+    image: quay.io/apicurio/apicurio-registry-sql:2.4.12.Final
+    environment:
+      REGISTRY_DATASOURCE_URL: 'jdbc:postgresql://database-apicurio:5432/apicurio-registry'
+      REGISTRY_DATASOURCE_USERNAME: apicurio-registry
+      REGISTRY_DATASOURCE_PASSWORD: password
+      REGISTRY_STORAGE_KIND: "sql"
+      REGISTRY_STORAGE_DB_KIND: "postgresql"
+      AUTH_ENABLED: "true"
+      KEYCLOAK_REALM: registry
+      QUARKUS_HTTP_PORT: 8081
+      KEYCLOAK_URL: "http://localhost:8080"
+      LOG_LEVEL: "DEBUG"
+      REGISTRY_UI_CONFIG_AUTH_KEYCLOAK_URL: "http://localhost:8080"
+      QUARKUS_OIDC_AUTH_SERVER_URL: "http://keycloak-server:8080/realms/registry"
+      TOKEN_ENDPOINT: "http://keycloak-server:8080/realms/registry/protocol/openid-connect/token"
+      KEYCLOAK_API_CLIENT_ID: registry-api
+      REGISTRY_UI_AUTH_OIDC_CLIENTID: apicurio-registry
+      QUARKUS_OIDC_TLS_VERIFICATION: "none"
+      CORS_ALLOWED_ORIGINS: '*'
+      QUARKUS_PROFILE: "prod"
+    ports:
+      - 8081:8081
+    depends_on:
+      - postgres
+      - keycloak-server
