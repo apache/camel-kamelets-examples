@@ -1,0 +1,124 @@
+== ActiveMQ Artemis example with Pooled connection
+
+In this sample you'll use the JMS Artemis Kamelets with pooled connection
+
+=== Install JBang
+
+First install JBang according to https://www.jbang.dev
+
+When JBang is installed then you should be able to run from a shell:
+
+[source,sh]
+----
+$ jbang --version
+----
+
+This will output the version of JBang.
+
+To run this example you can either install Camel on JBang via:
+
+[source,sh]
+----
+$ jbang app install camel@apache/camel
+----
+
+Which allows to run CamelJBang with `camel` as shown below.
+
+=== Setup Artemis
+
+We are going to use the official Docker image for OpenSearch.
+
+We can run the following:
+
+[source,sh]
+----
+docker run --detach --name mycontainer -p 61616:61616 -p 8161:8161 --rm apache/activemq-artemis:latest-alpine
+----
+
+=== Running consumer integration
+
+Run the following command
+
+[source,sh]
+----
+$ jbang run --fresh camel@apache/camel run --local-kamelet-dir=<path_to_local_kamelet_dir> artemis-log.camel.yaml
+----
+
+The consumer should be up and we'll have to consume messages from
+
+[source,sh]
+----
+2024-05-16 14:14:14.032  INFO 51551 --- [           main] org.apache.camel.main.ProfileConfigurer  : The application is starting with profile: dev
+2024-05-16 14:14:14.670  INFO 51551 --- [           main] he.camel.cli.connector.LocalCliConnector : Camel JBang CLI enabled
+2024-05-16 14:14:15.514  INFO 51551 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 4.6.0 (artemis-log) is starting
+2024-05-16 14:14:15.872  INFO 51551 --- [           main] org.apache.camel.main.BaseMainSupport    : Property-placeholders summary
+2024-05-16 14:14:15.873  INFO 51551 --- [           main] org.apache.camel.main.BaseMainSupport    :     [-artemis-source.kamelet.yaml] destinationName=queue-test
+2024-05-16 14:14:15.873  INFO 51551 --- [           main] org.apache.camel.main.BaseMainSupport    :     [-artemis-source.kamelet.yaml] pooledFactoryBean=pooledFactoryBean-2
+2024-05-16 14:14:15.873  INFO 51551 --- [           main] org.apache.camel.main.BaseMainSupport    :     [-artemis-source.kamelet.yaml] connectionFactoryBean=connectionFactoryBean-1
+2024-05-16 14:14:15.873  INFO 51551 --- [           main] org.apache.camel.main.BaseMainSupport    :     [-artemis-source.kamelet.yaml] brokerURL=tcp://localhost:61616
+2024-05-16 14:14:15.873  INFO 51551 --- [           main] org.apache.camel.main.BaseMainSupport    :     [-artemis-source.kamelet.yaml] password=xxxxxx
+2024-05-16 14:14:15.873  INFO 51551 --- [           main] org.apache.camel.main.BaseMainSupport    :     [-artemis-source.kamelet.yaml] username=xxxxxx
+2024-05-16 14:14:15.873  INFO 51551 --- [           main] org.apache.camel.main.BaseMainSupport    :     [log-sink.kamelet.yaml]        showHeaders=true
+2024-05-16 14:14:15.921  INFO 51551 --- [           main] e.camel.impl.engine.AbstractCamelContext : Routes startup (total:1 started:1 kamelets:2)
+2024-05-16 14:14:15.921  INFO 51551 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started route1 (kamelet://jms-pooled-apache-artemis-source)
+2024-05-16 14:14:15.921  INFO 51551 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 4.6.0 (artemis-log) started in 407ms (build:0ms init:0ms start:407ms)
+----
+
+=== Running Producer integration
+
+In a different terminal run the following command
+
+[source,sh]
+----
+$ jbang run --fresh camel@apache/camel run --local-kamelet-dir=<path_to_local_kamelet_dir> timer-artemis.camel.yaml
+----
+
+The producer should send 10 messages to the Artemis broker to the queue 'queue-test'
+
+[source,sh]
+----
+2024-05-16 14:15:30.996  INFO 51678 --- [           main] org.apache.camel.main.ProfileConfigurer  : The application is starting with profile: dev
+2024-05-16 14:15:31.664  INFO 51678 --- [           main] he.camel.cli.connector.LocalCliConnector : Camel JBang CLI enabled
+2024-05-16 14:15:32.981  INFO 51678 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 4.6.0 (timer-artemis) is starting
+2024-05-16 14:15:33.115  INFO 51678 --- [           main] org.apache.camel.main.BaseMainSupport    : Property-placeholders summary
+2024-05-16 14:15:33.115  INFO 51678 --- [           main] org.apache.camel.main.BaseMainSupport    :     [timer-source.kamelet.yaml]    repeatCount=10
+2024-05-16 14:15:33.115  INFO 51678 --- [           main] org.apache.camel.main.BaseMainSupport    :     [timer-source.kamelet.yaml]    message={"id":"1","message":"Camel Rocks"}
+2024-05-16 14:15:33.115  INFO 51678 --- [           main] org.apache.camel.main.BaseMainSupport    :     [timer-source.kamelet.yaml]    contentType=application/json
+2024-05-16 14:15:33.115  INFO 51678 --- [           main] org.apache.camel.main.BaseMainSupport    :     [he-artemis-sink.kamelet.yaml] destinationName=queue-test
+2024-05-16 14:15:33.116  INFO 51678 --- [           main] org.apache.camel.main.BaseMainSupport    :     [he-artemis-sink.kamelet.yaml] pooledFactoryBean=pooledFactoryBean-2
+2024-05-16 14:15:33.116  INFO 51678 --- [           main] org.apache.camel.main.BaseMainSupport    :     [he-artemis-sink.kamelet.yaml] connectionFactoryBean=connectionFactoryBean-1
+2024-05-16 14:15:33.116  INFO 51678 --- [           main] org.apache.camel.main.BaseMainSupport    :     [he-artemis-sink.kamelet.yaml] brokerURL=tcp://localhost:61616
+2024-05-16 14:15:33.116  INFO 51678 --- [           main] org.apache.camel.main.BaseMainSupport    :     [he-artemis-sink.kamelet.yaml] password=xxxxxx
+2024-05-16 14:15:33.116  INFO 51678 --- [           main] org.apache.camel.main.BaseMainSupport    :     [he-artemis-sink.kamelet.yaml] username=xxxxxx
+2024-05-16 14:15:33.148  INFO 51678 --- [           main] e.camel.impl.engine.AbstractCamelContext : Routes startup (total:1 started:1 kamelets:2)
+2024-05-16 14:15:33.149  INFO 51678 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started route1 (kamelet://timer-source)
+2024-05-16 14:15:33.149  INFO 51678 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 4.6.0 (timer-artemis) started in 167ms (build:0ms init:0ms start:167ms)
+----
+
+=== Verify everything works
+
+Go back to the consumer terminal, you should see something like:
+
+[source,sh]
+----
+2024-05-16 14:15:34.384  INFO 51551 --- [mer[queue-test]] log-sink                                 : Exchange[ExchangePattern: InOnly, Headers: {CamelMessageTimestamp=1715861734348, Content-Type=application/json, JMSCorrelationID=null, JMSCorrelationIDAsBytes=null, JMSDeliveryMode=2, JMSDestination=ActiveMQQueue[queue-test], JMSExpiration=0, JMSMessageID=ID:ff1a2d75-137d-11ef-8288-0242e5b520b0, JMSPriority=4, JMSRedelivered=false, JMSReplyTo=null, JMSTimestamp=1715861734348, JMSType=null, JMSXDeliveryCount=1, JMSXGroupID=null, JMSXUserID=null}, BodyType: String, Body: {"id":"1","message":"Camel Rocks"}]
+2024-05-16 14:15:35.137  INFO 51551 --- [mer[queue-test]] log-sink                                 : Exchange[ExchangePattern: InOnly, Headers: {CamelMessageTimestamp=1715861735122, Content-Type=application/json, JMSCorrelationID=null, JMSCorrelationIDAsBytes=null, JMSDeliveryMode=2, JMSDestination=ActiveMQQueue[queue-test], JMSExpiration=0, JMSMessageID=ID:ff906ee6-137d-11ef-8288-0242e5b520b0, JMSPriority=4, JMSRedelivered=false, JMSReplyTo=null, JMSTimestamp=1715861735122, JMSType=null, JMSXDeliveryCount=1, JMSXGroupID=null, JMSXUserID=null}, BodyType: String, Body: {"id":"1","message":"Camel Rocks"}]
+2024-05-16 14:15:36.127  INFO 51551 --- [mer[queue-test]] log-sink                                 : Exchange[ExchangePattern: InOnly, Headers: {CamelMessageTimestamp=1715861736118, Content-Type=application/json, JMSCorrelationID=null, JMSCorrelationIDAsBytes=null, JMSDeliveryMode=2, JMSDestination=ActiveMQQueue[queue-test], JMSExpiration=0, JMSMessageID=ID:0027f3f7-137e-11ef-8288-0242e5b520b0, JMSPriority=4, JMSRedelivered=false, JMSReplyTo=null, JMSTimestamp=1715861736118, JMSType=null, JMSXDeliveryCount=1, JMSXGroupID=null, JMSXUserID=null}, BodyType: String, Body: {"id":"1","message":"Camel Rocks"}]
+2024-05-16 14:15:37.136  INFO 51551 --- [mer[queue-test]] log-sink                                 : Exchange[ExchangePattern: InOnly, Headers: {CamelMessageTimestamp=1715861737121, Content-Type=application/json, JMSCorrelationID=null, JMSCorrelationIDAsBytes=null, JMSDeliveryMode=2, JMSDestination=ActiveMQQueue[queue-test], JMSExpiration=0, JMSMessageID=ID:00c174d8-137e-11ef-8288-0242e5b520b0, JMSPriority=4, JMSRedelivered=false, JMSReplyTo=null, JMSTimestamp=1715861737121, JMSType=null, JMSXDeliveryCount=1, JMSXGroupID=null, JMSXUserID=null}, BodyType: String, Body: {"id":"1","message":"Camel Rocks"}]
+2024-05-16 14:15:38.137  INFO 51551 --- [mer[queue-test]] log-sink                                 : Exchange[ExchangePattern: InOnly, Headers: {CamelMessageTimestamp=1715861738122, Content-Type=application/json, JMSCorrelationID=null, JMSCorrelationIDAsBytes=null, JMSDeliveryMode=2, JMSDestination=ActiveMQQueue[queue-test], JMSExpiration=0, JMSMessageID=ID:015a0b59-137e-11ef-8288-0242e5b520b0, JMSPriority=4, JMSRedelivered=false, JMSReplyTo=null, JMSTimestamp=1715861738122, JMSType=null, JMSXDeliveryCount=1, JMSXGroupID=null, JMSXUserID=null}, BodyType: String, Body: {"id":"1","message":"Camel Rocks"}]
+2024-05-16 14:15:39.123  INFO 51551 --- [mer[queue-test]] log-sink                                 : Exchange[ExchangePattern: InOnly, Headers: {CamelMessageTimestamp=1715861739117, Content-Type=application/json, JMSCorrelationID=null, JMSCorrelationIDAsBytes=null, JMSDeliveryMode=2, JMSDestination=ActiveMQQueue[queue-test], JMSExpiration=0, JMSMessageID=ID:01f1906a-137e-11ef-8288-0242e5b520b0, JMSPriority=4, JMSRedelivered=false, JMSReplyTo=null, JMSTimestamp=1715861739117, JMSType=null, JMSXDeliveryCount=1, JMSXGroupID=null, JMSXUserID=null}, BodyType: String, Body: {"id":"1","message":"Camel Rocks"}]
+2024-05-16 14:15:40.126  INFO 51551 --- [mer[queue-test]] log-sink                                 : Exchange[ExchangePattern: InOnly, Headers: {CamelMessageTimestamp=1715861740119, Content-Type=application/json, JMSCorrelationID=null, JMSCorrelationIDAsBytes=null, JMSDeliveryMode=2, JMSDestination=ActiveMQQueue[queue-test], JMSExpiration=0, JMSMessageID=ID:028a750b-137e-11ef-8288-0242e5b520b0, JMSPriority=4, JMSRedelivered=false, JMSReplyTo=null, JMSTimestamp=1715861740119, JMSType=null, JMSXDeliveryCount=1, JMSXGroupID=null, JMSXUserID=null}, BodyType: String, Body: {"id":"1","message":"Camel Rocks"}]
+2024-05-16 14:15:41.125  INFO 51551 --- [mer[queue-test]] log-sink                                 : Exchange[ExchangePattern: InOnly, Headers: {CamelMessageTimestamp=1715861741117, Content-Type=application/json, JMSCorrelationID=null, JMSCorrelationIDAsBytes=null, JMSDeliveryMode=2, JMSDestination=ActiveMQQueue[queue-test], JMSExpiration=0, JMSMessageID=ID:0322bd6c-137e-11ef-8288-0242e5b520b0, JMSPriority=4, JMSRedelivered=false, JMSReplyTo=null, JMSTimestamp=1715861741117, JMSType=null, JMSXDeliveryCount=1, JMSXGroupID=null, JMSXUserID=null}, BodyType: String, Body: {"id":"1","message":"Camel Rocks"}]
+2024-05-16 14:15:42.136  INFO 51551 --- [mer[queue-test]] log-sink                                 : Exchange[ExchangePattern: InOnly, Headers: {CamelMessageTimestamp=1715861742123, Content-Type=application/json, JMSCorrelationID=null, JMSCorrelationIDAsBytes=null, JMSDeliveryMode=2, JMSDestination=ActiveMQQueue[queue-test], JMSExpiration=0, JMSMessageID=ID:03bc8c6d-137e-11ef-8288-0242e5b520b0, JMSPriority=4, JMSRedelivered=false, JMSReplyTo=null, JMSTimestamp=1715861742123, JMSType=null, JMSXDeliveryCount=1, JMSXGroupID=null, JMSXUserID=null}, BodyType: String, Body: {"id":"1","message":"Camel Rocks"}]
+2024-05-16 14:15:43.133  INFO 51551 --- [mer[queue-test]] log-sink                                 : Exchange[ExchangePattern: InOnly, Headers: {CamelMessageTimestamp=1715861743120, Content-Type=application/json, JMSCorrelationID=null, JMSCorrelationIDAsBytes=null, JMSDeliveryMode=2, JMSDestination=ActiveMQQueue[queue-test], JMSExpiration=0, JMSMessageID=ID:0454adbe-137e-11ef-8288-0242e5b520b0, JMSPriority=4, JMSRedelivered=false, JMSReplyTo=null, JMSTimestamp=1715861743120, JMSType=null, JMSXDeliveryCount=1, JMSXGroupID=null, JMSXUserID=null}, BodyType: String, Body: {"id":"1","message":"Camel Rocks"}]
+----
+
+=== Help and contributions
+
+If you hit any problem using Camel or have some feedback, then please
+https://camel.apache.org/community/support/[let us know].
+
+We also love contributors, so
+https://camel.apache.org/community/contributing/[get involved] :-)
+
+The Camel riders!
