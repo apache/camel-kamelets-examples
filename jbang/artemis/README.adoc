@@ -8,6 +8,16 @@ messaging broker.
 You first need to have an ActiveMQ Artemis broker up and running.
 See more at: https://activemq.apache.org/components/artemis/
 
+You can run Artemis using Docker via
+
+[source,sh]
+----
+$ docker run --detach --name mycontainer -p 61616:61616 -p 8161:8161 --rm apache/activemq-artemis:latest-alpine
+----
+
+This will run the broker locally. To login you need to use `artemis` as username and password,
+in the `application.properties` file.
+
 
 === Install JBang
 
