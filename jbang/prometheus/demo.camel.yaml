@@ -15,11 +15,6 @@
                 expression: Hello World
                 id: simple-3fc3
             id: setBody-b8e4
-        - to:
-            uri: direct
-            id: to-280f
-            parameters:
-              name: direct1
 - route:
     nodePrefixId: route-6ce
     id: route-a9b6
