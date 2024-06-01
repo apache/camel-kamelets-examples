@@ -30,7 +30,7 @@ Which allows to run CamelJBang with `camel` as shown below.
 
 === How to run
 
-Then you can run this example (with ActiveMQ broker embeded) using:
+Then you can run this example (with ActiveMQ broker embedded) using:
 
 [source,sh]
 ----
