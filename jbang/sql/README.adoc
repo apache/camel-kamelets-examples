@@ -71,6 +71,20 @@ And you should see the 3rd user being logged by Camel.
 NOTE: To use `camel cmd send` then this requires to have `application.properties` included
 if you run the kamelet example.
 
+You can also execute SQL queries and show the result (via `--reply`) in the terminal as shown:
+
+[source,sh]
+----
+$ camel cmd send --endpoint='sql:select count(*) from users' --body=empty --reply
+
+2024-06-01 11:08:06.638  74641 ---   sql://select%20count(*)%20from%20users : Reply received (success) (8ms)
+ Endpoint  sql://select%20count(*)%20from%20users
+ Exchange  (DefaultExchange)  InOut   6951487A32B32F3-00000000000001A1
+ Message   (DefaultMessage)
+ Header    (Integer)             CamelSqlRowCount  1
+ Body      (ArrayList) (size: 1 bytes: 11)
+ [{count=3}]
+----
 
 === Help and contributions
 
