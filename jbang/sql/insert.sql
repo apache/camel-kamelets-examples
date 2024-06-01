@@ -1,0 +1,1 @@
+INSERT INTO users VALUES (3, 'user3', 2000);

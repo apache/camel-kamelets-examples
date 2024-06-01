@@ -1,0 +1,83 @@
+== SQL
+
+This example shows how to use a SQL database with Camel.
+
+The example comes with a `docker-compose` file for running a local Postgres database.
+The database is initialized with a `users` table with some sample data.
+
+There are two examples;
+
+- `UsingSql.java` - Java DSL using the SQL component
+- `using-kamelet.camel.yaml` - Yaml DSL using a Postgres Kamelet
+
+There is also a `application.properties` configuration file that setup
+a JDBC `DataSource` for connecting to the database. This configuration file
+is only needed for the `UsingSql.java` example as the Kamelet comes with JDBC driver included.
+
+=== Install JBang
+
+First install JBang according to https://www.jbang.dev
+
+When JBang is installed then you should be able to run from a shell:
+
+[source,sh]
+----
+$ jbang --version
+----
+
+This will output the version of JBang.
+
+To run this example you can either install Camel on JBang via:
+
+[source,sh]
+----
+$ jbang app install camel@apache/camel
+----
+
+Which allows to run CamelJBang with `camel` as shown below.
+
+=== How to run
+
+Then run the Postgres database using Docker:
+
+[source,sh]
+----
+$ docker-compose up
+----
+
+And then run Camel:
+
+[source,sh]
+----
+$ camel run using-kamelet.camel.yaml
+----
+
+Or try the Java DSL by:
+
+[source,sh]
+----
+$ camel run UsingSql.java application.properties
+----
+
+When the Camel integration is running, you can insert a new user, from another terminal:
+
+[source,sh]
+----
+$ camel cmd send --endpoint=sql:file:insert.sql --body=empty
+----
+
+And you should see the 3rd user being logged by Camel.
+
+NOTE: To use `camel cmd send` then this requires to have `application.properties` included
+if you run the kamelet example.
+
+
+=== Help and contributions
+
+If you hit any problem using Camel or have some feedback, then please
+https://camel.apache.org/community/support/[let us know].
+
+We also love contributors, so
+https://camel.apache.org/community/contributing/[get involved] :-)
+
+The Camel riders!

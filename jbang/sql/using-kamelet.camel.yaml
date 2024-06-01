@@ -1,0 +1,18 @@
+- route:
+    id: route-692e
+    nodePrefixId: route-2cf
+    from:
+      id: from-b8a7
+      uri: kamelet:postgresql-source
+      parameters:
+        serverName: localhost
+        serverPort: 5432
+        username: postgres
+        password: postgres
+        query: select * from users
+        databaseName: test
+        delay: 5000
+      steps:
+        - log:
+            id: log-e4e1
+            message: ${body}
