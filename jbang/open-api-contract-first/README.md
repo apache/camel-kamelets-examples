@@ -57,4 +57,11 @@ The petstore has 18 apis, and this example has none implemented.
 The returned response is loaded from disk in the `camel-mock` folder, as you can see it has pet/123.json as a file,
 that will be returned when you call `/api/v3/pet/123`.
 
+## API Contract
+
+The API contract is made public (see source), which can be accessed via:
+
+```
+$ curl -i http://localhost:8080/api-doc
+```
 
