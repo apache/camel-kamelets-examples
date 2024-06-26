@@ -1,0 +1,33 @@
+apiVersion: camel.apache.org/v1
+kind: Kamelet
+metadata:
+  name: wine-source
+  labels:
+    camel.apache.org/kamelet.type: "source"
+spec:
+  definition:
+    title: "Wine Example"
+    description: "Produces periodic events with a wine payload"
+    required:
+      - message
+    properties:
+      period:
+        title: Period
+        description: The time interval between two events
+        type: integer
+        default: 5000
+  types:
+    out:
+      mediaType: text/plain
+  template:
+    from:
+      uri: timer:tick
+      parameters:
+        period: "{{period}}"
+      steps:
+        - setBody:
+            constant: "2021 Amarone della Valpolicella Castel del Lago"
+        - setHeader:
+            name: "Content-Type"
+            constant: "text/plain"
+        - to: "kamelet:sink"

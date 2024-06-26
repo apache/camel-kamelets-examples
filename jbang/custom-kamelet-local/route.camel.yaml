@@ -1,0 +1,11 @@
+# camel-k: language=yaml
+
+# Write your routes here, for example:
+- from:
+    uri: "kamelet:wine-source"
+    parameters:
+      period: "3000"
+    steps:
+      - setBody:
+          simple: "Is this wine '${body}' good?"
+      - log: "${body}"
