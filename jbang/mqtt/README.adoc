@@ -42,7 +42,7 @@ Or use
 
 [source,sh]
 ----
-$ docker-compose up
+$ docker compose up
 ----
 
 Then you can run the Camel integration using:
@@ -79,7 +79,7 @@ To stop Docker, you can run
 
 [source,sh]
 ----
-$ docker-compose down
+$ docker compose down
 ----
 
 And you can stop Camel with

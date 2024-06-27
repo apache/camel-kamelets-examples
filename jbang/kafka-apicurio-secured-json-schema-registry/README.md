@@ -11,7 +11,7 @@ You could use a plain Kafka archive or use an Ansible role
 In the `docker-compose` folder run
 
 ```bash
-docker-compose -f config-registry.yml up
+docker compose -f config-registry.yml up
 ```
 
 This will bring up the required bits for making an Apicurio Registry secured with Keycloak up and running.

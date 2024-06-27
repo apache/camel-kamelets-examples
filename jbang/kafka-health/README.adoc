@@ -10,7 +10,7 @@ You need Docker to run the local Kafka broker which can run via docker compose.
 
 [source,sh]
 ----
-$ docker-compose up -d
+$ docker compose up -d
 ----
 
 And then you can stop and start the broker to make Camel health check report
@@ -18,21 +18,21 @@ as either UP or DOWN.
 
 [source,sh]
 ----
-$ docker-compose stop
+$ docker compose stop
 ----
 
 and to start it again
 
 [source,sh]
 ----
-$ docker-compose start
+$ docker compose start
 ----
 
 And to shutdown when you no longer need the broker.
 
 [source,sh]
 ----
-$ docker-compose down
+$ docker compose down
 ----
 
 
