@@ -9,7 +9,7 @@ The `petstore-v3.json` is the OpenAPI contract which we want to implement with C
 Run the examples running
 
 ```
-camel run petstore-v3.json pet.camel.yaml
+camel run petstore-v3.json petstore.camel.yaml
 ```
 
 Or run via:
