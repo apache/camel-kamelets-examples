@@ -2,7 +2,7 @@
 
 This example shows how to use a SQL database with Camel.
 
-The example comes with a `docker-compose` file for running a local Postgres database.
+The example comes with a `docker compose` file for running a local Postgres database.
 The database is initialized with a `users` table with some sample data.
 
 There are two examples;
@@ -42,7 +42,7 @@ Then run the Postgres database using Docker:
 
 [source,sh]
 ----
-$ docker-compose up
+$ docker compose up
 ----
 
 And then run Camel:
