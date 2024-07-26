@@ -17,18 +17,15 @@
 
 - route:
     from:
-      uri: "kamelet:timer-source"
+      uri: "kamelet:aws-kinesis-source"
       parameters:
-        message: '{"id":"1","message":"Camel Rocks"}'
-        contentType: "application/json"
-        repeatCount: 10
+        stream: "kinesis-kamelets"
+        useDefaultCredentialsProvider: true
+        region: "eu-west-1"
+        asyncClient: true
+        useKclConsumers: true
       steps:
       - to: 
-          uri: "kamelet:jms-pooled-apache-artemis-sink"
+          uri: "kamelet:log-sink"
           parameters:
-            brokerURL: "tcp://localhost:61616"
-            destinationName: "queue-test"
-            destinationType: "queue"
-            username: "artemis"
-            password: "artemis"
-            maxSessionsPerConnection: 1000
+            showHeaders: true
