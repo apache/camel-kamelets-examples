@@ -63,7 +63,7 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ jbang -Dcamel.jbang.version=4.7.0-SNAPSHOT camel@apache/camel run --local-kamelet-dir=<local_path_to_kamelets> kafka-aws-bedrock.camel.yaml
+$ jbang -Dcamel.jbang.version=4.8.0-SNAPSHOT camel@apache/camel run --local-kamelet-dir=<local_path_to_kamelets> kafka-aws-bedrock.camel.yaml
 ----
 
 
@@ -75,7 +75,7 @@ In the log you should see the consumer:
 ----
 2024-03-07 06:50:53.517  INFO 11498 --- [           main] el.impl.engine.AbstractCamelContext : Routes startup (total:1 started:1 kamelets:2)
 2024-03-07 06:50:53.517  INFO 11498 --- [           main] el.impl.engine.AbstractCamelContext :     Started route1 (kamelet://kafka-not-secured-source)
-2024-03-07 06:50:53.517  INFO 11498 --- [           main] el.impl.engine.AbstractCamelContext : Apache Camel 4.7.0-SNAPSHOT (kafka-aws-bedrock) started in 817ms (build:0ms init:0ms start:817ms)
+2024-03-07 06:50:53.517  INFO 11498 --- [           main] el.impl.engine.AbstractCamelContext : Apache Camel 4.8.0-SNAPSHOT (kafka-aws-bedrock) started in 817ms (build:0ms init:0ms start:817ms)
 2024-03-07 06:50:53.621  INFO 11498 --- [[bedrock-topic]] he.kafka.common.utils.AppInfoParser : Kafka version: 3.6.1
 2024-03-07 06:50:53.622  INFO 11498 --- [[bedrock-topic]] he.kafka.common.utils.AppInfoParser : Kafka commitId: 5e3c2b738d253ff5
 2024-03-07 06:50:53.622  INFO 11498 --- [[bedrock-topic]] he.kafka.common.utils.AppInfoParser : Kafka startTimeMs: 1709790653615

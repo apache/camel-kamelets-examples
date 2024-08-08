@@ -36,7 +36,7 @@ Then you can run this example using:
 
 [source,sh]
 ----
-$ jbang -Dcamel.jbang.version=4.7.0-SNAPSHOT camel@apache/camel run --local-kamelet-dir=/home/oscerd/workspace/apache-camel/camel-kamelets/kamelets aws-kinesis-kcl-log.yaml
+$ jbang -Dcamel.jbang.version=4.8.0-SNAPSHOT camel@apache/camel run --local-kamelet-dir=/home/oscerd/workspace/apache-camel/camel-kamelets/kamelets aws-kinesis-kcl-log.yaml
 ----
 
 This will start the KCL consumer:
@@ -45,7 +45,7 @@ This will start the KCL consumer:
 ----
 2024-06-27 09:19:47.063  INFO 14007 --- [           main] e.camel.impl.engine.AbstractCamelContext : Routes startup (total:1 started:1 kamelets:2)
 2024-06-27 09:19:47.064  INFO 14007 --- [           main] e.camel.impl.engine.AbstractCamelContext :     Started route1 (kamelet://aws-kinesis-source)
-2024-06-27 09:19:47.064  INFO 14007 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 4.7.0-SNAPSHOT (aws-kinesis-kcl-log) started in 1s425ms (build:0ms init:0ms start:1s425ms)
+2024-06-27 09:19:47.064  INFO 14007 --- [           main] e.camel.impl.engine.AbstractCamelContext : Apache Camel 4.8.0-SNAPSHOT (aws-kinesis-kcl-log) started in 1s425ms (build:0ms init:0ms start:1s425ms)
 2024-06-27 09:19:47.080  INFO 14007 --- [nesis-kamelets]] are.amazon.kinesis.coordinator.Scheduler : Initial state: [StreamConfig(streamIdentifier=kinesis-kamelets, initialPositionInStreamExtended=InitialPositionInStreamExtended(position=LATEST, timestamp=null), consumerArn=null)]
 2024-06-27 09:19:47.118  INFO 14007 --- [nesis-kamelets]] leases.dynamodb.DynamoDBLeaseCoordinator : With failover time 10000 ms and epsilon 25 ms, LeaseCoordinator will renew leases every 3308 ms, takeleases every 20050 ms, process maximum of 2147483647 leases and steal 1 lease(s) at a time.
 2024-06-27 09:19:47.127  INFO 14007 --- [nesis-kamelets]] leases.dynamodb.DynamoDBLeaseCoordinator : With failover time 10000 ms and epsilon 25 ms, LeaseCoordinator will renew leases every 3308 ms, takeleases every 20050 ms, process maximum of 2147483647 leases and steal 1 lease(s) at a time.
@@ -106,7 +106,7 @@ In a different terminal run the producer with the following command
 
 [source,sh]
 ----
-$ jbang -Dcamel.jbang.version=4.7.0-SNAPSHOT camel@apache/camel run --local-kamelet-dir=/home/oscerd/workspace/apache-camel/camel-kamelets/kamelets timer-aws-kinesis.camel.yaml
+$ jbang -Dcamel.jbang.version=4.8.0-SNAPSHOT camel@apache/camel run --local-kamelet-dir=/home/oscerd/workspace/apache-camel/camel-kamelets/kamelets timer-aws-kinesis.camel.yaml
 ----
 
 This will send 10 records to kinesis-kamelets stream
