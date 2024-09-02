@@ -1,0 +1,81 @@
+<!--index.html file-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Camel Chat Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="logo">Camel Chat Test</h1>
+        <div class="messageArea" id="messageArea"></div>
+        <form class="form" id="form">
+            <div class="input-container">
+                <input class="input" type="text" placeholder="Message" id="message">
+                <button class="button">Send Message</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+
+        let idcounter = 0;
+
+        let form = document.getElementById('form');
+        let message = document.getElementById('message');
+        let messageArea = document.getElementById('messageArea');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            if (message.value) {
+                let name = document.createElement('p');
+                name.classList.add('message');
+                name.innerHTML = `<p><span class="username">You: </span>${message.value}</p>
+                        <div id="response${idcounter}">
+                            <div style="margin-left:20px" class="dot-pulse"></div>
+                        </div>`;
+                messageArea.appendChild(name);
+                messageArea.scrollTop = messageArea.scrollHeight;
+
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", window.origin+"/camel/chat");
+                // const body = JSON.stringify({
+                //   userId: 1,
+                //   title: "Fix my bugs",
+                //   completed: false
+                // });
+                xhr.onload = () => {
+                  if (xhr.readyState == 4 && xhr.status == 200) {
+                    console.log(xhr.responseText);
+                    name = document.getElementById('response'+idcounter);
+                    name.classList.add('message');
+                    name.innerHTML = `<p><span class="username">Camel: </span>${xhr.responseText}</>`;
+                    messageArea.appendChild(name);
+                    idcounter++;
+
+                    messageArea.scrollTop = messageArea.scrollHeight;
+
+                  } else {
+                    console.log(`Error: ${xhr.status}`);
+
+                    name = document.getElementById('response'+idcounter);
+                    name.classList.add('message');
+                    name.innerHTML = `<p><span class="username">Camel: </span>Ups, something went wrong. Please try again.</>`;
+                    messageArea.appendChild(name);
+                    idcounter++;
+                  }
+                };
+                xhr.send(message.value);
+                message.value = '';
+            }
+        });
+
+    </script>
+</body>
+
+</html>

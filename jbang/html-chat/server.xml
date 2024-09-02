@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<camel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://camel.apache.org/schema/spring"
+        xsi:schemaLocation="
+            http://camel.apache.org/schema/spring
+            https://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <!-- Main Camel Route as Server -->
+    <route>
+        <from uri="platform-http:/camel/chat"/>
+        <log message="Input: ${body}"/>
+        <delay>
+            <simple>${random(500,6000)}</simple>
+        </delay>
+        <setBody>
+            <simple>Hello ${body} I am Camel</simple>
+        </setBody>
+    </route>
+
+</camel>
