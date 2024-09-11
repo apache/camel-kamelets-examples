@@ -42,20 +42,6 @@ The example can also be run directly by referring to the GitHub URL as shown:
 $ camel run https://github.com/apache/camel-kamelets-examples/tree/main/jbang/hello-endpoint-dsl
 ----
 
-You can even try other examples such as the polyglot example from Camel K:
-
-[source,sh]
-----
-$ camel run https://github.com/apache/camel-k/tree/main/examples/polyglot
-----
-
-Or the Kotlin route(s) (you can use wildcards):
-
-[source,sh]
-----
-$ camel run https://github.com/apache/camel-k/tree/main/examples/languages/*.kts
-----
-
 === Live reload
 
 You can run the example in dev mode which allows you to edit the example,

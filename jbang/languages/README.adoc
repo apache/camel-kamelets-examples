@@ -2,7 +2,7 @@
 
 This example is demonstrating all the different DSLs supported by Apache Camel.
 
-Each DSL is a single hello world route in Java, YAML, XML, Groovy, Kotlin, JavaScript and so on.
+Each DSL is a single hello world route in Java, YAML, and XML.
 
 === Install JBang
 
