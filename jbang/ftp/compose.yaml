@@ -1,0 +1,25 @@
+services:
+
+  artemis:
+    container_name: my-artemis
+    image: apache/activemq-artemis:2.37.0
+    ports:
+      - "8161:8161"
+      - "61616:61616"
+      - "5672:5672"
+    environment:
+      ARTEMIS_USER: artemis
+      ARTEMIS_PASSWORD: artemis
+      ANONYMOUS_LOGIN: false
+
+  ftp-server:
+    container_name: my-ftp-server
+    environment:
+      - FTP_PASS=mypassword
+      - FTP_USER=myuser
+    image: garethflowers/ftp-server
+    ports:
+      - '20-21:20-21/tcp'
+      - '40000-40009:40000-40009/tcp' # Only needed for passive mode
+#    volumes:
+#      - '/data:/home/user'

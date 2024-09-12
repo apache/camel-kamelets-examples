@@ -1,0 +1,12 @@
+- from:
+    uri: "jms:cheese"
+    steps:
+      - log: "Incoming: ${body}"
+      - to:
+          uri: ftp
+          parameters:
+            host: localhost
+            port: 21
+            username: myuser
+            password: mypassword
+            passiveMode: true
