@@ -1,7 +1,7 @@
 # camel-k: language=yaml
 
-- error-handler:
-    dead-letter-channel:
+- errorHandler:
+    deadLetterChannel:
       deadLetterUri: "log:dead"
       redeliveryPolicy: 
         maximumRedeliveries: 5
