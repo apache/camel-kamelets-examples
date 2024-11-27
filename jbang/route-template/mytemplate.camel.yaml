@@ -16,18 +16,24 @@
 #
 
 - routeTemplate:
-    id: "myTemplate"  
+    id: myTemplate
     parameters:
       - name: "drink"
         defaultValue: "Bloody Mary"
       - name: "period"
         defaultValue: 5000
-    from: 
-      uri: "timer:tick"
-      parameters:
-        period: "{{period}}"
-      steps:
-        - setBody: 
-            constant: "You ordered a {{drink}}"
-        - log:
-            message: "${body}"    
+    route:
+      id: route-9e7f
+      nodePrefixId: route-e9d
+      from:
+        id: from-2cc0
+        uri: "timer:tick"
+        parameters:
+          period: "{{period}}"
+        steps:
+          - setBody:
+              id: setBody-e9c1
+              constant: "You ordered a {{drink}}"
+          - log:
+              id: log-2f4a
+              message: "${body}"
