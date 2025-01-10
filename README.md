@@ -5,7 +5,9 @@ Enterprise Integration Patterns with powerful bean integration.
 
 ### Introduction
 
-This project provides examples for Apache Camel Kamelets on multiple runtimes:
-- Camel K
-- Camel-JBang
-- Camel-Kamelet-Main
+This project provides various small prototypes for Apache Camel for low-code integration using JBang and Kamelets.
+
+We suggest to look at [Camel JBang Examples](https://github.com/apache/camel-jbang-examples) first as these
+examples are aimed to be better documented and generally better quality.
+
+This repo is a place for experiments, prototypes and ad-hoc tasks.
