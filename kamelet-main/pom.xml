@@ -23,19 +23,19 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>4.8.0-SNAPSHOT</version>
+        <version>4.10.0-SNAPSHOT</version>
     </parent>
 
     <groupId>org.apache.camel.examples</groupId>
     <artifactId>camel-kamelet-main-examples</artifactId>
-    <version>4.8.0-SNAPSHOT</version>
+    <version>4.10.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Kamelet Main Examples</name>
     <description>Kamelet Main Examples</description>
 
     <properties>
-       <camel.version>4.8.0-SNAPSHOT</camel.version>
+       <camel.version>4.10.0-SNAPSHOT</camel.version>
     </properties>
 
     <modules>
