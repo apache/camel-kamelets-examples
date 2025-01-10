@@ -21,8 +21,8 @@ github:
   labels:
     - camel
     - integration
+    - low-code
     - java
-    - kamelets
   enabled_merge_buttons:
     merge: false
     rebase: true
