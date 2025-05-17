@@ -15,8 +15,6 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-# camel-k: dependency=camel:kafka
-
 - route:
     id: "kafka-to-log"
     from:

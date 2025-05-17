@@ -15,8 +15,8 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-# camel-k: dependency=mvn:com.acme.example:kafka-apicurio-producer:0.1
-# camel-k: dependency=mvn:io.apicurio:apicurio-registry-serdes-avro-serde:2.4.12.Final
+#//DEPS com.acme.example:kafka-apicurio-producer:0.1
+#//DEPS io.apicurio:apicurio-registry-serdes-avro-serde:2.4.12.Final
 
 - beans:
   - name: order

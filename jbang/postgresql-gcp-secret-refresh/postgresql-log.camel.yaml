@@ -15,8 +15,6 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-# camel-k: dependency=camel:google-secret-manager
-
 - route:
     from:
       uri: "kamelet:postgresql-source"

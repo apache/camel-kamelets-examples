@@ -1,5 +1,3 @@
-# camel-k: language=yaml
-
 - from:
     uri: "stream:http"
     parameters:

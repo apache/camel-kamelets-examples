@@ -15,8 +15,8 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-# camel-k: dependency=mvn:com.ibm.mq:com.ibm.mq.allclient:9.2.5.0
-# camel-k: dependency=mvn:org.apache.camel.kamelets:camel-kamelets-utils:3.20.1.1
+#//DEPS com.ibm.mq:com.ibm.mq.allclient:9.2.5.0
+#//DEPS org.apache.camel.kamelets:camel-kamelets-utils:3.20.1.1
 
 - route:
     from:

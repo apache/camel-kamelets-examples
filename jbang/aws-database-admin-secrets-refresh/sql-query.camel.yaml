@@ -15,7 +15,7 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-# camel-k: dependency=camel:aws-secrets-manager
+#//DEPS camel:aws-secrets-manager
 
 - route:
     from:

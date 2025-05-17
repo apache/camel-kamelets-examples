@@ -15,10 +15,10 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-# camel-k: dependency=mvn:com.acme.example:azure-identity:0.1
-# camel-k: dependency=mvn:com.microsoft.azure:azure-schemaregistry-kafka-avro:1.1.1
-# camel-k: dependency=mvn:com.azure:azure-data-schemaregistry-apacheavro:1.1.4
-# camel-k: dependency=mvn:com.azure:azure-identity:1.9.0
+#//DEPS com.acme.example:azure-identity:0.1
+#//DEPS com.microsoft.azure:azure-schemaregistry-kafka-avro:1.1.1
+#//DEPS com.azure:azure-data-schemaregistry-apacheavro:1.1.4
+#//DEPS com.azure:azure-identity:1.9.0
 
 - beans:
   - name: defaultAzureCredential

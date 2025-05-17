@@ -15,7 +15,7 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-# camel-k: dependency=mvn:com.acme.example:azure-identity:0.1
+#//DEPS com.acme.example:azure-identity:0.1
 
 - beans:
   - name: defaultAzureCredential

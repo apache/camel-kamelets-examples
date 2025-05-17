@@ -1,5 +1,3 @@
-# camel-k: language=yaml
-
 - from:
     uri: "aws2-s3://{{env:BUCKET_NAME}}"
     parameters:

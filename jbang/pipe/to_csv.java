@@ -1,5 +1,4 @@
 ///usr/bin/env jbang --quiet camel@apache/camel pipe "$0" "$@" ; exit $?
-// camel-k: language=java
 
 import org.apache.camel.builder.AggregationStrategies;
 import org.apache.camel.builder.RouteBuilder;

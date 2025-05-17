@@ -1,5 +1,3 @@
-# camel-k: language=yaml
-
 - errorHandler:
     deadLetterChannel:
       deadLetterUri: "log:dead"
