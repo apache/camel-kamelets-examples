@@ -4,7 +4,7 @@ This example shows how to do _contrat first_ with Camel and OpenAPI.
 
 The `petstore-v3.json` is the OpenAPI contract which we want to implement with Camel.
 
-## Petstore example
+## Pet-store example
 
 Run the examples running
 
@@ -30,7 +30,10 @@ transfer-encoding: chunked
 Content-Type: application/json
 
 {
-  "pet": "donald the dock"
+  "name": "Donald the duck",
+  "photoUrls": [
+    "image.png"
+  ]
 }
 ```
 
@@ -45,14 +48,17 @@ transfer-encoding: chunked
 Content-Type: application/json
 
 {
-  "pet": "Jack the cat"
+  "name": "Jack the cat",
+  "photoUrls": [
+    "cat.jpg"
+  ]
 }
 ```
 
 ## Dummy data
 
-The example will return an empty response if you request non implemented API endpoints.
-The petstore has 18 apis, and this example has none implemented.
+The example will return an empty response if you request non-implemented API endpoints.
+The Pet-store has 18 apis, and this example has none implemented.
 
 The returned response is loaded from disk in the `camel-mock` folder, as you can see it has pet/123.json as a file,
 that will be returned when you call `/myapi/pet/123`.
