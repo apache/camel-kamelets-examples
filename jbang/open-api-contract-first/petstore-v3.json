@@ -339,7 +339,7 @@
 								"examples": {
 									"success": {
 										"summary": "A cat",
-										"value": "{\"pet\": \"jack the cat\"}"
+										"value": "{\"name\": \"Jack the cat\", \"photoUrls\": [\"cat.jpg\"] }"
 									}
 								}
 							}
