@@ -13,9 +13,7 @@
             name: level
             expression:
               groovy:
-                expression: |-
-                  gold = OrderService.isGold(body)
-                  return gold ? "Gold" : "Silver"
+                expression: resource:Gold.groovy
         - script:
             expression:
               groovy:
