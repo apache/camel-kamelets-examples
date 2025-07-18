@@ -1,0 +1,68 @@
+== Camel Example Groovy
+
+This example shows how to run Camel JBang (YAML routes) with Groovy scripts
+for small functions and DTO classes.
+
+The Groovy source are compiled on startup.
+
+This allows Camel routes to use the Groovy classes (as if they were Java classes).
+The route will then transform a JSon file into a DTO class using Jackson, and then
+enrich the DTO based on some business logic that are inlined Groovy script in the Camel route.
+
+=== Run
+
+You run this example with
+
+[source,sh]
+----
+$ camel run *
+----
+
+From another terminal you can see stats of the running Camel integration:
+
+[source,sh]
+----
+$ camel get
+----
+
+And you can see Groovy specific stats:
+
+[source,sh]
+----
+$ camel get groovy
+----
+
+
+Use ctrl+c to stop the application
+
+=== Exporting to Maven project
+
+You can export this to a traditional Maven based project as follows:
+
+[source,sh]
+----
+$ camel export --name=myapp --runtime=main --dir=code
+----
+
+This will create the Maven based project in the code subfolder.
+
+You can enable Camel to pre-compile the groovy sources and let Camel load existing .class
+on startup to avoid the compilation again. To do this enable this during export:
+
+[source,sh]
+----
+$ camel export --name=myapp --runtime=main --dir=code --groovy-pre-compiled
+----
+
+This is only useful if you export the project to camel-main runtime and then desire to package
+and run this application as-is without further development, as the Groovy .class are not re-compiled anymore.
+
+=== Help and contributions
+
+If you hit any problem using Camel or have some feedback, then please
+https://camel.apache.org/community/support/[let us know].
+
+We also love contributors, so
+https://camel.apache.org/community/contributing/[get involved] :-)
+
+The Camel riders!
