@@ -54,7 +54,7 @@ $ camel run https://github.com/apache/camel-kamelets-examples/tree/main/jbang/pr
 
 The statistics from Micrometer can be observed from HTTP at:
 
-    http://localhost:8080/q/metrics
+    http://localhost:8080/observe/metrics
 
 You can also browse the developer console: http://localhost:8080/q/dev to introspect the running Camel application,
 such as browsing the micrometer, where you can see the captured statistics.
