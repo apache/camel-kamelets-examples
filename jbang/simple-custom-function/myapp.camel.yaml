@@ -4,5 +4,5 @@
       period: "5000"
     steps:
       - setBody:
-          simple: ${stock()}
+          simple: ${stock}
       - log: "The stock price is: ${body}"
