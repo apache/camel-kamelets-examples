@@ -1,0 +1,8 @@
+- from:
+    uri: "timer:yaml"
+    parameters:
+      period: "5000"
+    steps:
+      - setBody:
+          simple: ${stock()}
+      - log: "The stock price is: ${body}"
