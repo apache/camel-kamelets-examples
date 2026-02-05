@@ -16,12 +16,13 @@ public class StockFunction implements SimpleFunction {
 
 	@Override
 	public boolean allowNull() {
-		return true;
+		return true; // true = functions that does not accept any input parameter
 	}
 
 	@Override
 	public Object apply(Exchange exchange, Object input) throws Exception {
-		return 200 + new Random().nextInt(1000);
+		String name = input == null ? "SP500" : "" + input;
+		return name + " at $" + (200 + new Random().nextInt(1000));
 	}
 
 }

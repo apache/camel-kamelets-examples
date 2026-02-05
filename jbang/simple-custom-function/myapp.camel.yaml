@@ -1,8 +1,16 @@
 - from:
-    uri: "timer:yaml"
+    uri: "timer:stock"
     parameters:
-      period: "5000"
+      period: 5000
     steps:
-      - setBody:
-          simple: ${stock}
-      - log: "The stock price is: ${body}"
+      - log: |
+
+
+          Stock prices today
+
+          ${stock()}
+          ${stock('AAPL')}
+          ${stock('IBM')}
+
+          Have a nice day
+        
