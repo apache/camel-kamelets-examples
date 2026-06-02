@@ -20,9 +20,20 @@ github:
   homepage: https://camel.apache.org
   labels:
     - camel
-    - integration
+    - examples
+    - kamelet
     - low-code
+    - integration
+    - integration-framework
+    - enterprise-integration-patterns
     - java
+    - yaml
+    - kafka
+    - rest-api
+    - data-transformation
+    - cloud-native
+    - microservices
+    - mcp
   enabled_merge_buttons:
     merge: false
     rebase: true
