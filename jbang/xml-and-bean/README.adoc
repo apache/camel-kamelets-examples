@@ -1,13 +1,13 @@
 == XML and Java Bean
 
-A basic example shows how Camel JBang can invoke Java beans from XML routes.
+A basic example shows how Camel CLI can invoke Java beans from XML routes.
 
 Notice how the Java bean is annotated with `@BindToRegisty` that allows Camel
 to refer to this bean by an id from the XML routes.
 
 The runtime is still plain Camel Main with JBang, and not Spring Boot or Quarkus.
 However the benefit of allowing to use their annotations is that the transition
-from Camel JBang to Spring Boot or Quarkus is easier.
+from Camel CLI to Spring Boot or Quarkus is easier.
 
 
 === Install JBang

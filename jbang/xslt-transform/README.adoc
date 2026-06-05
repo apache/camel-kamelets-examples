@@ -35,7 +35,7 @@ $ camel run *
 
 === Live updates of message transformation
 
-You can do live changes to the stylesheet and see the output in real-time with Camel JBang by running:
+You can do live changes to the stylesheet and see the output in real-time with Camel CLI by running:
 
 [source,bash]
 ----

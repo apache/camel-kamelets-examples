@@ -1,6 +1,6 @@
 == Camel Example Groovy
 
-This example shows how to run Camel JBang (YAML routes) with Groovy scripts
+This example shows how to run Camel CLI (YAML routes) with Groovy scripts
 for small functions and DTO classes.
 
 The Groovy source are compiled on startup.
