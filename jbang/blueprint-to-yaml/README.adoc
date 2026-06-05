@@ -2,7 +2,7 @@
 
 This example shows legacy OSGi Blueprint XML file with <blueprint> and <camelContext> with embedded <route>.
 
-The XML can be migrated to YAML DSL using Camel JBang.
+The XML can be migrated to YAML DSL using Camel CLI.
 
 === Install JBang
 
