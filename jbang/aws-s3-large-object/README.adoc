@@ -4,7 +4,7 @@ This example provides some tips and tricks for dealing with large objects, i.e. 
 
 === Prerequisites
 - Camel 3.21.x or Camel 4.x and up
-- Camel JBang
+- Camel CLI
 - S3 compatible storage (i.e. noobaa)
 
 === Install JBang

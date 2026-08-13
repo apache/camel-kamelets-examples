@@ -1,6 +1,6 @@
 == Metrics
 
-This example shows using Micrometer metrics with Camel JBang.
+This example shows using Micrometer metrics with Camel CLI.
 
 === Install JBang
 

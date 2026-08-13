@@ -1,11 +1,11 @@
 == Dependency Injection
 
-This example shows how Camel JBang can use dependency injection annotations
+This example shows how Camel CLI can use dependency injection annotations
 from Spring Boot or Quarkus, to wire up Java beans.
 
 The runtime is still plain Camel Main with JBang, and not Spring Boot or Quarkus.
 However the benefit of allowing to use their annotations is that the transition
-from Camel JBang to Spring Boot or Quarkus is easier.
+from Camel CLI to Spring Boot or Quarkus is easier.
 
 
 === Install JBang
