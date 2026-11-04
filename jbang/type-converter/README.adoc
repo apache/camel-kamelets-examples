@@ -1,6 +1,6 @@
 == Type Converter
 
-This example shows how Camel JBang can use custom type converters.
+This example shows how Camel CLI can use custom type converters.
 
 === Install JBang
 

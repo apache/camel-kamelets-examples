@@ -1,6 +1,6 @@
 == Chaos Monkey
 
-This example shows a chaos monkey with Camel JBang.
+This example shows a chaos monkey with Camel CLI.
 
 When everything is okay then Camel reports UP in the health check.
 But the chaos monkey can from time to time cause problems and the health check is then DOWN.

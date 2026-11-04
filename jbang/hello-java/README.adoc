@@ -1,6 +1,6 @@
 == Hello Java
 
-This example is a hello world example to run a Java route with Camel JBang.
+This example is a hello world example to run a Java route with Camel CLI.
 
 === Install JBang
 

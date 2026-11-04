@@ -1,6 +1,6 @@
 == Main Profile
 
-This example shows how you can use Camel JBang with profiles
+This example shows how you can use Camel CLI with profiles
 to run for development, testing or production.
 
 === Install JBang
@@ -34,7 +34,7 @@ Then you can run this example using:
 $ camel run hello.camel.yaml
 ----
 
-This will run in developer mode by deafult (default in Camel JBang)
+This will run in developer mode by deafult (default in Camel CLI)
 
 You can run in another profile with:
 

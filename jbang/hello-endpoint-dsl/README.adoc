@@ -1,6 +1,6 @@
 == Hello Endpoint DSL with Java
 
-This example is a hello world example to run a Java route (type safe with endpoint-dsl) with Camel JBang.
+This example is a hello world example to run a Java route (type safe with endpoint-dsl) with Camel CLI.
 
 === Install JBang
 

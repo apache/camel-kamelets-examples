@@ -1,6 +1,6 @@
 == Micrometer Prometheus
 
-This example shows using Micrometer metrics with Camel JBang 
+This example shows using Micrometer metrics with Camel CLI 
 and with HTTP endpoint for exposing statistics for scraping by Prometheus.
 
 The application is configured in the `application.properties` file.
